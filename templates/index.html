@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    {% load webdesign i18n %}
+	<meta charset="utf-8" />
+	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<title>{% block title %}{% trans "Put link to bank!" %}{% endblock %}</title>
+	<meta name="title" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link rel="stylesheet" href="{{ MEDIA_URL }}css/style.css" type="text/css" media="screen, projection" />
+</head>
+
+<body>
+
+<div id="wrapper">
+
+	<header id="header">
+        {% if user.is_anonymous %}
+            {% blocktrans with sign_in_url="#" sing_up_url="#" %}
+                Please, <a href="{{ sign_in_url }}">Sign In</a> or <a href="{{ sing_up_url }}" >Sign Up</a> first!
+            {% endblocktrans %}
+        {% else %}
+            {% blocktrans %}
+                Add link <input type="text" value="" name="link" /> <input type="submit" value="Add this!" />
+            {% endblocktrans %}
+        {% endif %}
+	</header><!-- #header-->
+
+	<section id="middle">
+
+		<div id="container">
+			<div id="content">
+                {% block content %}
+                    {% lorem 10 p %}
+                {% endblock %}
+			</div><!-- #content-->
+		</div><!-- #container-->
+
+		<aside id="sideLeft">
+            {% block sidebar %}
+                {% lorem 3 p %}
+            {% endblock %}
+		</aside><!-- #sideLeft -->
+
+	</section><!-- #middle-->
+
+</div><!-- #wrapper -->
+
+<footer id="footer">
+	&copy; Трулоло
+</footer><!-- #footer -->
+
+</body>
+</html>

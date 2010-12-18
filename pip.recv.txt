@@ -1,0 +1,6 @@
+svn+http://code.djangoproject.com/svn/django/trunk/
+django-pagination
+South
+PIL
+psycopg2
+ipython
