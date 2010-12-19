@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+
+{% load i18n webdesign pagination_tags %}
+
+{% block title %}{% trans "Your links in bank!" %}{% endblock %}
+
+{% block head-extra %}{% endblock %}
+
+{% block content %}
+    {% autopaginate links %}
+    {% paginate %}
+    <ul>
+    {% for l in links %}
+        <li>
+            <img src="http://favicon.yandex.ru/favicon/{{ l.domain }}">
+            <a href="{{ l.href }}">
+            {{ l.title|default:l.href|slice:":80" }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block sidebar %}
+    <h4>{% trans "Tags" %}</h4>
+    <ul>
+        <li><a href="#">Tagname</a></li>
+        <li><a href="#">Tagname</a></li>
+        <li><a href="#">Tagname</a></li>
+        <li><a href="#">Tagname</a></li>
+        <li><a href="#">Tagname</a></li>
+        <li><a href="#">Tagname</a></li>
+        <li><a href="#">Tagname</a></li>
+        <li><a href="#">Tagname</a></li>
+    </ul>
+{% endblock %}

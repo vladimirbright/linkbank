@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.utils.translation import ungettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 
 
 from bank.models import LinkAddForm, Link, UserCreationFormWithCaptcha
@@ -38,7 +38,7 @@ def link_list(request):
     c = {}
     c["form"] = LinkAddForm(request.GET or None)
     c["links"] = links
-    return render_to_response("links/list.html", c,
+    return render_to_response("bank/list.html", c,
                               context_instance=RequestContext(request))
 
 
@@ -61,6 +61,9 @@ def link_create(request):
         return HttpResponseRedirect(reverse('bank.views.link_list'))
     c = {}
     c["form"] = form
-    return render_to_response("error.html", c,
+    if form.errors:
+        messages.error(request,
+                       _("FUUUUUUUU, insert correct url with http://"))
+    return render_to_response("bank/error.html", c,
                               context_instance=RequestContext(request))
 

@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
+import re
+
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import models
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
 
 from captcha.fields import CaptchaField
 
@@ -27,6 +29,8 @@ class UserCreationFormWithCaptcha(UserCreationForm):
         raise ValidationError(_er)
 
 
+DOMAIN_PATTERN = re.compile(r'http://([^/]+)')
+
 class Link(models.Model):
     href = models.URLField(_("Url"), verify_exists=False, max_length=255)
     owner = models.ForeignKey(User, verbose_name=_("Owner"))
@@ -36,6 +40,13 @@ class Link(models.Model):
                                       blank=True,
                                       null=True,
                                       default=None)
+    def domain(self):
+        if not self.href:
+            return u""
+        res = DOMAIN_PATTERN.match(self.href)
+        if not res:
+            return u""
+        return res.groups()[0]
 
 
 class LinkAddForm(forms.ModelForm):
