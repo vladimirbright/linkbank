@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-18 15:55+0300\n"
+"POT-Creation-Date: 2010-12-19 17:23+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,50 +19,73 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: bank/models.py:8
+#: bank/models.py:14
+msgid "Email"
+msgstr "Электронная почта"
+
+#: bank/models.py:16
+msgid "Wrong symbols"
+msgstr "Неверные символы"
+
+#: bank/models.py:18
+msgid "Type simbols"
+msgstr "Напечатайте символы с изображения"
+
+#: bank/models.py:26
+msgid "User with this email already exist"
+msgstr "Пользователь с таким email уже зарегитрирован"
+
+#: bank/models.py:31
 msgid "Url"
 msgstr "Ссылка"
 
-#: bank/models.py:9
+#: bank/models.py:32
 msgid "Owner"
 msgstr "Добавивший"
 
-#: bank/models.py:10
+#: bank/models.py:33
 msgid "Added"
 msgstr "Добавлено"
 
-#: bank/models.py:11
+#: bank/models.py:34
 msgid "Tag title content"
 msgstr "Содержание тега title"
 
-#: bank/models.py:12
+#: bank/models.py:35
 msgid "Last check"
 msgstr "Последняя проверка"
+
+#: templates/error.html:6
+msgid "FUUUUUUUU, insert correct url with http://"
+msgstr "FUUUUUUUU, введите корректный url с http://"
 
 #: templates/index.html:7
 msgid "Put link to bank!"
 msgstr "Положить ссылку в банк!"
 
-#: templates/index.html:20
+#: templates/index.html:23
 #, python-format
 msgid ""
 "\n"
-"                Please, <a href=\"%(sign_in_url)s\">Sign In</a> or <a href="
-"\"%(sing_up_url)s\" >Sign Up</a> first!\n"
-"            "
-msgstr "\n"
-"                Пожалуйста, <a href=\"%(sign_in_url)s\">войдите</a> или <a href="
-"\"%(sing_up_url)s\" >зарегестрируйтесь</a> сначала!\n"
-"            "
-
-#: templates/index.html:24
-msgid ""
-"\n"
-"                Add link <input type=\"text\" value=\"\" name=\"link\" /> "
-"<input type=\"submit\" value=\"Add this!\" />\n"
+"                Please, <a href=\"%(sign_in_url)s\">Sign In</a> first!\n"
 "            "
 msgstr ""
 "\n"
-"                Добавить ссылку <input type=\"text\" value=\"\" name=\"link\" /> "
-"<input type=\"submit\" value=\"Add this!\" />\n"
+"                Пожалуйста, <a href=\"%(sign_in_url)s\">войдите</a> "
+"сначала!\n"
 "            "
+
+#: templates/index.html:28
+msgid "Add link"
+msgstr "Положить ссылку"
+
+#: templates/registration/form.html:5
+msgid "Hello, dear!"
+msgstr "Привет, дорогуша!"
+
+#: templates/registration/form.html:12
+msgid "Yap, register first."
+msgstr "Да, для начала зарегистрируйтесь."
+
+#~ msgid "Link in bank!"
+#~ msgstr "Ссылка в банке!"

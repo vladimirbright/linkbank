@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+
+{% load i18n webdesign helpers_tags %}
+
+{% block title %}{% trans "Hello, dear!" %}{% endblock %}
+
+{% block head-extra %}
+    {{ registration_form.media }}
+{% endblock %}
+
+{% block content %}
+<form action="{% url bank.views.user_create %}" method="POST">
+    {% csrf_token %}
+    {% render_form registration_form %}
+    <input type="submit" value="Go!" />
+</form>
+{% endblock %}
+

@@ -1,0 +1,22 @@
+.messages {
+  margin: 5px;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.messages.success {
+  background-color: green;
+  color: white;
+}
+.messages.info {
+  background-color: blue;
+  color: white;
+}
+.messages.warning {
+  background-color: yellow;
+  color: black;
+}
+.messages.error {
+  background-color: red;
+  color: white;
+}

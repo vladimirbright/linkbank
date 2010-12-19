@@ -80,18 +80,24 @@ LOCALE_DIRS = (
 
 SOUTH_TESTS_MIGRATE = False
 
+# Captcha
+CAPTCHA_FONT_SIZE = 30;
+CAPTCHA_FONT_PATH = self_dir('Ubuntu-R.ttf')
+
 INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
+    'bank',
+    'captcha',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.messages',
+    'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.webdesign',
-    'south',
     'pagination',
-    'bank',
+    'south',
+    'helpers',
 )
 
 

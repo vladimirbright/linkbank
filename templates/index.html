@@ -9,6 +9,9 @@
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<link rel="stylesheet" href="{{ MEDIA_URL }}css/style.css" type="text/css" media="screen, projection" />
+	<link rel="stylesheet" href="{{ MEDIA_URL }}css/messages.css" type="text/css" media="screen, projection" />
+	<link rel="stylesheet" href="{{ MEDIA_URL }}css/forms.css" type="text/css" media="screen, projection" />
+    {% block head-extra %}{% endblock %}
 </head>
 
 <body>
@@ -16,21 +19,31 @@
 <div id="wrapper">
 
 	<header id="header">
+    {% block header %}
         {% if user.is_anonymous %}
-            {% blocktrans with sign_in_url="#" sing_up_url="#" %}
-                Please, <a href="{{ sign_in_url }}">Sign In</a> or <a href="{{ sing_up_url }}" >Sign Up</a> first!
+            {% url login as sign_in %}
+            {% blocktrans with sign_in_url=sign_in %}
+                Please, <a href="{{ sign_in_url }}">Sign In</a> first!
             {% endblocktrans %}
         {% else %}
-            {% blocktrans %}
-                Add link <input type="text" value="" name="link" /> <input type="submit" value="Add this!" />
-            {% endblocktrans %}
+            <form action="{% url bank.views.link_create %}">
+                <label>{% trans "Add link" %} {{ form.href }}</label><input type="submit" value="Add this!" />
+            </form>
         {% endif %}
+    {% endblock %}
 	</header><!-- #header-->
 
 	<section id="middle">
 
 		<div id="container">
 			<div id="content">
+                {% block messages %}
+                    {% for message in messages %}                                   
+                    <div class="messages {{ message.tags }}">                        
+                        {{ message }}                                       
+                    </div>                                                          
+                    {% endfor %}                                                    
+                {% endblock %}
                 {% block content %}
                     {% lorem 10 p %}
                 {% endblock %}
@@ -39,7 +52,7 @@
 
 		<aside id="sideLeft">
             {% block sidebar %}
-                {% lorem 3 p %}
+                {% include "_about_small.html" %}
             {% endblock %}
 		</aside><!-- #sideLeft -->
 
