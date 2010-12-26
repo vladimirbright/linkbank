@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-19 17:23+0300\n"
+"POT-Creation-Date: 2010-12-26 19:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,43 +19,43 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: bank/models.py:14
+#: bank/models.py:16
 msgid "Email"
 msgstr "Электронная почта"
 
-#: bank/models.py:16
+#: bank/models.py:18
 msgid "Wrong symbols"
 msgstr "Неверные символы"
 
-#: bank/models.py:18
+#: bank/models.py:20
 msgid "Type simbols"
 msgstr "Напечатайте символы с изображения"
 
-#: bank/models.py:26
+#: bank/models.py:28
 msgid "User with this email already exist"
 msgstr "Пользователь с таким email уже зарегитрирован"
 
-#: bank/models.py:31
+#: bank/models.py:35
 msgid "Url"
 msgstr "Ссылка"
 
-#: bank/models.py:32
+#: bank/models.py:36
 msgid "Owner"
 msgstr "Добавивший"
 
-#: bank/models.py:33
+#: bank/models.py:37
 msgid "Added"
 msgstr "Добавлено"
 
-#: bank/models.py:34
+#: bank/models.py:38
 msgid "Tag title content"
 msgstr "Содержание тега title"
 
-#: bank/models.py:35
+#: bank/models.py:39
 msgid "Last check"
 msgstr "Последняя проверка"
 
-#: templates/error.html:6
+#: bank/views.py:69
 msgid "FUUUUUUUU, insert correct url with http://"
 msgstr "FUUUUUUUU, введите корректный url с http://"
 
@@ -63,7 +63,7 @@ msgstr "FUUUUUUUU, введите корректный url с http://"
 msgid "Put link to bank!"
 msgstr "Положить ссылку в банк!"
 
-#: templates/index.html:23
+#: templates/index.html:25
 #, python-format
 msgid ""
 "\n"
@@ -75,17 +75,33 @@ msgstr ""
 "сначала!\n"
 "            "
 
-#: templates/index.html:28
+#: templates/index.html:30
 msgid "Add link"
 msgstr "Положить ссылку"
 
-#: templates/registration/form.html:5
+#: templates/index.html:65
+msgid "Your links"
+msgstr "Ваши ссылки"
+
+#: templates/index.html:66
+msgid "Bookmarklets"
+msgstr "Букмарклеты"
+
+#: templates/index.html:67
+msgid "About"
+msgstr "О сайте"
+
+#: templates/bank/list.html:5
+msgid "Your links in bank!"
+msgstr "Ваши ссылки в банке"
+
+#: templates/bank/list.html:25
+msgid "Tags"
+msgstr "Теги"
+
+#: templates/registration/form.html:5 templates/registration/login.html:5
 msgid "Hello, dear!"
 msgstr "Привет, дорогуша!"
 
-#: templates/registration/form.html:12
-msgid "Yap, register first."
-msgstr "Да, для начала зарегистрируйтесь."
-
-#~ msgid "Link in bank!"
-#~ msgstr "Ссылка в банке!"
+#~ msgid "Yap, register first."
+#~ msgstr "Да, для начала зарегистрируйтесь."

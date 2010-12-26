@@ -20,12 +20,7 @@
 
 	<header id="header">
     {% block header %}
-        {% if user.is_anonymous %}
-            {% url login as sign_in %}
-            {% blocktrans with sign_in_url=sign_in %}
-                Please, <a href="{{ sign_in_url }}">Sign In</a> first!
-            {% endblocktrans %}
-        {% else %}
+        {% if not user.is_anonymous %}
             <form action="{% url bank.views.link_create %}">
                 <label>{% trans "Add link" %} {{ form.href }}</label><input type="submit" value="Add this!" />
             </form>
@@ -61,7 +56,11 @@
 </div><!-- #wrapper -->
 
 <footer id="footer">
-	&copy; Трулоло
+    <ul class="footer_links">
+	    <li><a href="/">{% trans "Your links" %}</a></li>
+	    <li><a href="/bookmarklets">{% trans "Bookmarklets" %}</a></li>
+	    <li><a href="/about">{% trans "About" %}</a></li>
+    </ul>
 </footer><!-- #footer -->
 
 </body>

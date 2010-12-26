@@ -9,6 +9,8 @@
 {% endblock %}
 
 {% block content %}
+<h2>PLEASE, <a href="{% url login %}">SING IN</a></h2>
+<h2>OR REGISTER FIRST</h2>
 <form action="{% url bank.views.user_create %}" method="POST">
     {% csrf_token %}
     {% render_form registration_form %}

@@ -14,6 +14,7 @@ from bank.models import LinkAddForm, Link, UserCreationFormWithCaptcha
 
 
 def user_create(request):
+    """ Registration handler """
     if request.user.is_anonymous() is False:
         return HttpResponseRedirect('/')
     form = UserCreationFormWithCaptcha(request.POST or None)
@@ -22,11 +23,13 @@ def user_create(request):
         user.email = form.cleaned_data["email"]
         user.is_active = True
         user.save()
+        # TODO send email to user about registration
         return HttpResponseRedirect('/')
     c = {}
     c["registration_form"] = form
     return render_to_response("registration/form.html", c,
                               context_instance=RequestContext(request))
+
 
 def link_list(request):
     if request.user.is_anonymous():

@@ -5,3 +5,4 @@ PIL
 psycopg2
 ipython
 http://django-simple-captcha.googlecode.com/files/django-simple-captcha-0.2.0.tar.gz
+svn+http://django-gravatar.googlecode.com/svn/trunk/

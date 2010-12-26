@@ -70,6 +70,8 @@ THUMBNAIL_MEDIA_URL = '/s/thumbs/'
 
 ROOT_URLCONF = 'urls'
 
+LOGIN_URL = '/signin/'
+
 TEMPLATE_DIRS = (
     self_dir('templates'),
 )
@@ -98,6 +100,7 @@ INSTALLED_APPS = (
     'pagination',
     'south',
     'helpers',
+    'gravatar',
 )
 
 

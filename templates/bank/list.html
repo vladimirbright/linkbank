@@ -1,12 +1,17 @@
 {% extends "index.html" %}
 
-{% load i18n webdesign pagination_tags %}
+{% load i18n webdesign pagination_tags gravatar %}
 
 {% block title %}{% trans "Your links in bank!" %}{% endblock %}
 
 {% block head-extra %}{% endblock %}
 
 {% block content %}
+    <img src="{% gravatar_for_user user %}" />
+    <br>
+    <input type="text" name="q" value="Поиск" />
+    <br>
+    <br>
     {% autopaginate links %}
     {% paginate %}
     <ul>
@@ -22,6 +27,12 @@
 {% endblock %}
 
 {% block sidebar %}
+    <h4><a href="/">All links</a></h4>
+    <h4>{% trans "Selected tags" %}</h4>
+    <ul>
+        <li><a href="#">Tagname</a></li>
+        <li><a href="#">Tagname</a></li>
+    </ul>
     <h4>{% trans "Tags" %}</h4>
     <ul>
         <li><a href="#">Tagname</a></li>

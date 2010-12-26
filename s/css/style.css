@@ -49,10 +49,11 @@ body {
 a {
 	color: blue;
 	outline: none;
-	text-decoration: underline;
+	text-decoration: none;
 }
 a:hover {
-	text-decoration: none;
+	text-decoration: underline;
+  color: #cc0000;
 }
 p {
 	margin: 0 0 18px
@@ -121,6 +122,7 @@ input {
   padding: 15px;
 	margin-left: -100%;
 	position: relative;
+  text-align: right;
 	/*background: #B5E3FF;*/
 }
 
@@ -135,7 +137,20 @@ input {
 	/*background: #BFF08E;*/
   text-align: center;
 }
-
+  #footer ul {
+    margin-left: 286px;
+  }
+  #footer li {
+    float: left;
+    margin-right: 20px;
+    font-size: 15px;
+  }
+  #footer a {
+    color: #CC0000;
+  }
+  #footer a:hover {
+    color: #c01da3;
+  }
 /* --- About left sidebar --- */
 .about_left {
 
