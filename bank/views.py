@@ -59,9 +59,7 @@ def link_create(request):
         if not Link.objects.filter(owner=request.user,
                                    href=link.href).exists():
             link.save()
-            _m = "Link in bank!"
-            messages.success(request, _m)
-        return HttpResponseRedirect(reverse('bank.views.link_list'))
+        return HttpResponseRedirect(link.href)
     c = {}
     c["form"] = form
     if form.errors:

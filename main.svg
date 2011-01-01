@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="960"
+   height="800"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.0 r9654"
+   sodipodi:docname="main.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3815"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3817" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.54"
+     inkscape:cx="245.00109"
+     inkscape:cy="470.76166"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="false"
+     inkscape:guide-bbox="true"
+     inkscape:snap-grids="true"
+     inkscape:snap-to-guides="true"
+     inkscape:window-width="1366"
+     inkscape:window-height="691"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1">
+    <sodipodi:guide
+       orientation="1,0"
+       position="0,593.18182"
+       id="guide2985" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="959.09091,615.90909"
+       id="guide2989" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="-211.36364,800"
+       id="guide2991" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="180,690"
+       id="guide2997" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="-148.27586,50"
+       id="guide2999" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="139.39394,800"
+       id="guide3001" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid3003"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       spacingx="30px"
+       spacingy="30px"
+       dotted="false" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="780,930"
+       id="guide3808" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="180,765.51724"
+       id="guide3812" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="265.4321,459.25926"
+       id="guide4232" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-252.36218)">
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect3007"
+       width="600"
+       height="30"
+       x="180"
+       y="272.36218" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       x="192"
+       y="292.36218"
+       id="text3777"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3779"
+         x="192"
+         y="292.36218">Добавить ссылку</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#00009c;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       x="810.67279"
+       y="294.81824"
+       id="text3783"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3785"
+         x="810.67279"
+         y="294.81824">Add this!</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3806"
+       width="360"
+       height="29.999998"
+       x="420"
+       y="332.36218"
+       ry="0" />
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:none"
+       id="path3837"
+       sodipodi:cx="105"
+       sodipodi:cy="42.241379"
+       sodipodi:rx="75"
+       sodipodi:ry="42.241379"
+       d="m 180,42.241379 a 75,42.241379 0 1 1 -150,0 75,42.241379 0 1 1 150,0 z"
+       transform="translate(0,252.36218)" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="94"
+       y="422.36218"
+       id="text3841"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3843"
+         x="94"
+         y="422.36218">Теги</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 154.85714,430.36218 30,430.36218"
+       id="path3845"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <rect
+       style="fill:#00009c;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect4115"
+       width="104.84665"
+       height="19.570562"
+       x="48.22086"
+       y="582.79163" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;line-height:200%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:end;fill:#00009c;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="150"
+       y="452.36218"
+       id="text3847"
+       sodipodi:linespacing="200%"><tspan
+         sodipodi:role="line"
+         id="tspan4117">python</tspan><tspan
+         sodipodi:role="line"
+         id="tspan4119">программирование</tspan><tspan
+         sodipodi:role="line"
+         id="tspan4121">vim</tspan><tspan
+         sodipodi:role="line"
+         id="tspan4123">хлам</tspan><tspan
+         sodipodi:role="line"
+         id="tspan4125">ntu1</tspan><tspan
+         sodipodi:role="line"
+         id="tspan4127">тег2</tspan><tspan
+         sodipodi:role="line"
+         id="tspan4129"></tspan><tspan
+         sodipodi:role="line"
+         id="tspan4131">тег4</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#00009c;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="80"
+       y="282.36218"
+       id="text3871"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3873"
+         x="80"
+         y="282.36218">bobathecar</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#cc0000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="8"
+       y="266.36218"
+       id="text3879"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3881"
+         x="8"
+         y="266.36218">выйти</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#00009c;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       x="808"
+       y="354.36218"
+       id="text3783-2"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3936"
+         x="808"
+         y="354.36218">Search this!</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       x="428"
+       y="352.36218"
+       id="text3777-9"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3934"
+         x="428"
+         y="352.36218">Введите слово для поиска</tspan></text>
+    <rect
+       style="fill:#c2b7b7;fill-opacity:0.13284134;stroke:none"
+       id="rect3940"
+       width="599.54547"
+       height="306.42633"
+       x="180"
+       y="634.36218"
+       ry="0" />
+    <rect
+       style="fill:#2fb7b7;fill-opacity:1;stroke:none"
+       id="rect3942"
+       width="90"
+       height="90"
+       x="60"
+       y="290.36218" />
+    <image
+       y="306.36218"
+       x="80"
+       id="image3965"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA2CAYAAACWeYpTAAAABHNCSVQICAgIfAhkiAAADrlJREFU
+aIG1mnmQVdWdxz/n3Ld0v14AWboh0DC2BKZVXGgRF0QUXKbGqBEVF3ZNplJxZpIxcWZSmSpjtqoZ
+Z2JVJonO0AsQ12iAjA6OxsQlicENd000IiBEAYHe3nLvOb/54y7vvsfr7tcsP+rWo99599zzvb/l
+fH+/31H/fc9/cazklDPOlO5n3+Ll/QkAxCsAMCqtmZYxnDC2llOnNXHijFYe3fQLdcwWAiSO1cRj
+Wlrlmkf3kdfTEJUn71k88cdMXvNsHtgP8nY/Ux59igXNGVnUNpFFZ7fz4P0PHHXQ+mhPCDB33jz5
+xxc8XBxsrhfjFtDGRZkC4uVRhSxSGEDyA2BcduhxrNvbzLJfuVz8r//DQN0E+dwVl8vRXNMxAfqT
+J7aST42KTBXASnHdSoFGoRSgNBgXKWQRL8+r+dH882tp5v3bkyTHTpIbly0VgJWrVx0R8KMOdOXq
+VfJeD4hxo+9EBCM+WAFimItglQpAe1g3xw7byN/8DpZ9r5MFF14gnWs61JGAHRHQ6264XpavXDHk
+w/L5PD0mgViLsYIVgk9BxAcd/iuREKx2Ii3j5flFfwsLfrSFTHOLdK7pUCtWrTwssMMCXbZiuRQa
+m+VnnzTIwu9v5LxvPcRbuYxcsGiRAAz2YGP9r0XCT2JgS68iWFUEqx2UUuBm2WNruOnJHg4kGqSr
+o/OwwA4J9MrFV8l1dz7Mt/80nhfMZ3hTJvKaaeInu8Zz/g9/R3PrjGEfLICR8m8ExBav8Ls44BCs
+dsAaRCm++VqK3V7qsMAOCvSqqxfLDT/6P17Qx2NzvWg360fNQhbJ9rDH1rB6wwecN/+8QR9oY+uX
+CGB4WbAmuOyh6i0HC2A9vvtuHZ9IrXR1dKrh3GhYoCtWrZR/6nyMt5J/gcn2lo0Gc+d66VUZfrzp
+6eieYZ8WgrEGjBcDGlyldjwIWMMdbyRIjp0k3Z1dVWu2ItAf/HQTj7knYLK9UUCxNvA7G2gCEDfL
+szvz9Pb0RL44rFiDGA8xrh+YlEYioHZIsOhE9P3Xf72Xk2e3S1dHZ1XR+BCg00+aJf+5Yww2n/XX
+JWCt4IlgrUHEgvXAc8Fa8q5HLpcbFqgIRTDGBaU53dnN+akd/nyBL8Y1q1QMrNK+VrUD1iPr1PHV
+e3/LVVcvlmpecgnQG5ctle899QEmUYNYD2MFER+kF2rSuIFW/M/G2hQ1tbVVaDSIvtb4wIDzJqfZ
++K0v0H3RaE7J9IGTiL0VimCjaByCTeC6eV5xJ/DjBx+lGn8tAdqx4QnfL3P9JXugZwSxFjFesL8V
+ycAVM0eRyWTQuootOR6AvDw5zwLQs+tD9eRtn+Pvph0omqn4YwqFxgeJ0v6YkwSlETfLXW8Y2s86
+S4Z7fjR6zZJrZd0fTQmjsVZwrW+yGDcCKcYF7XB67X6WXrYQY0yVQIPIG/NzpRTLViyX++69T7Wm
+cuquM4QU1gcT6EgpUARAlfb3V+U/r0fSdG/+LZ1rOobUarS69Y89zUepidhCDmMFE4GUKIDg5SOQ
+01N93PPFS2lsbCSRSNC5pmPYjEMisKWiVPFWdWC3uutMSCpBtAPBkFaCirOn8DIFHtvmsuDCC4Y3
+3RWrVsqm9/rL+GnIZKzvVzGTbVJ93L38HI4//ni01qzt6h5ZWhVoczBx9+1St7b2oJJp4hNrJZEJ
+R4EJ2M5o7n38OYbabjTAu+++y+veOMTzSrRprBQDkHGjF/HVuROYfeopiAjr164bGcjA94aT25Zd
+zrz0blS6Hq0UOtC6jkXh0HwBNr/fxzVLrhVrK8+vAe577k2cmjokiIahNqPgEWhTOUkWjMtz3WWL
+MMaQTqdHhHEksrarW333r/+SOq8HpR3fYlWQ2mldGpw8lzd6ErzyxtuDxgq9cvUqeXFPYJ4E+2ZA
+vrEm2sxFLGJcls+dxqhRo6r2yyORl7dsUZeP3Y+TSqMBJwRLzHwDrRZS9Tyz9R0G48H6kz172Fao
+jdIq8Em4hCzFemAtSmlm1/dx/tx2jDE4jjOyVYdBKDS3QUysXBbPnoYYLzJff0uNh+NwPsPrHw+w
+dPmyigRCb/9oN32JYjXARrmjFKlZoO2Lpx/HmDFjcBzn8LVZpY+GMue0k5np7EMlfDLhazYEWCQS
+WMufDnj09vZWJC/6nW27sImaCguSaFGh2c5qnQxQtTbDB0ZllGr5cEwevP8BNXdMHieZjvwUYowp
+JnsGPHp6+yrOo/+4tx+gSN5D/wzffKDNBu3RMqkJESnZ98olHPOMQQSfI4sKLMMroY/x3w8lJ0xo
+LPnbid8SM90BSXLg4MHKQA/khzClkIYpzXFpxaiGepRSQ5rtT9etV42OhxGFawXX+PWjcvooYpk0
+OhPMPzTYlvGjUNZDhVEXnxqWy4CBnr5BNOp5xc07KnuU13O0Q0oKZGprh1xQKOc0O3gqiWt8k4/o
+YxC9HfFwTJ45J07HGDMs0IZafxvTJZqs/NsQTnnqpgGfyx5FuWXxIk6021GJlE80vAJ4+SC1M9hE
+LX87q4Y5p81CREYU2Kox9UqiE4lDA0slsyioFPl8vqoH/ezBh9T6FWcyy/nYrw4kUpBIQ6qGtKP4
++zbha8uuxFpLIjF8s6A3mx88aSiL4gmHilE3MTqt0dqJ2gWRhCFcO2Atn+aFA339TBp2Wb786pdP
+qce/dq089dzzPPPeHvr7epk6tp6z206m/bRZaK1JJpN0dXQO++Z27+tB69HE7U6k9DYRS8aBxozv
+XuVWoqePqzvUdIOicpx59Kladu76GK111VXzB+9/QO3d+aFqqxlQZ4xz1ASVVeeeNYdkMkkqlaK7
+s6sqO/zD3v5izSiSWEEtIB8Z5dLQ0FhZozOnTYJX9x6C0/9PqFUNiSSvvL+TSxcqBiPOg8nK1asi
+tqKUYl332qodbcn118lFd27GOmG0loC5xUqm1qCUZnKtoaGhvuI8iZaJTYxmO/t0g1+Zw9+UTdx0
+g7e5+f0+vnzwIHX1lScbTI6EEz//0qvsSDYjhVwANBgI2Fuc1HxmTB0NDQ0V44geP2EC01JZrE6W
+lVXLC1KGlwcaePr5F1nb1X1EfZCRyIZXd0RmGxIaU1YbFuOilOakcWmSyWTFwKW7OjpV+/hDB1Q8
+79MJH2wizd3P/GHIvO9oypxzzpXHDx6HLeSjQl3YrCoyLX8d2sty3qkzB2VuGmDx2W1oN4uNlzTC
+LldYPHaSYD1+3T+e+zY9Tndn14gq5SOVlatXye2bgvZjeZ5sbWnCoR1Obcgxq20G1tqKkVwDnDRz
+BtOTPahkTREkMeIcFo+1Awj/8vsBTp8zR7o7u46ZCf/H+o28oKZFRfSohlWizWIx7+Lpx1FXXz9o
+wqEBujq71JITkkCYi4bZvCrTagoEenQdt6x7jgsWLTrivmUlaZw01S+iByZb0nq0lWtYV11w5pB5
+cuScN15yLuPNp4iTigajTCjQqtIOJFJ+YJLJLP3ho0elSRuXTHOL3LY1iYsTmay1vm+W1LBCbWqH
+z3+2jtbW1iETjgjoIw8/or40A5LJBFYkyiEVgWZ1mb96eV6WyfzV3b+ncdJUOdKyyvU33iDbZJR8
+fWsaFwcv0KZnSjsF5VlQk+pj6YXtw9LJknD7hasu5rPeDlS6uE/6/hpk8zGwykmivALbvTqWP9HD
+i30ZOWf+/MPSanPrDPn8v2+iY18LYj28Qh4r4AV+6RlBTGiuhZIi+k2nHUdbWxta6yGZVgnQ9WvX
+qTsWTkXcLAYdMSyFFBs+Wvs9ksCMlViUk2DtJ+O5+J6XeLEvI82tM2TxNVcPCfqiSy8RGT1R/ndf
+vdz8G2ErU/wTLFH3TnCNH4RsEHz8lK+AuDmUk2R25iA3XeFXJIdLDlSlA1W79Wj5/ocT/OMxqjT1
+8y061rQNebIIOAk/cpsCk2U/J41RTKxTNGX8AJE3wt5+l20DDtsKtRxIjfPvLQxgo2qLX+FwreBZ
+omqEeHlwc4ibB2to0B4PrTiNue2zq6KVFV/DbcsuZ+udD7OZSUiuD/EjUvz9FP8sI9tSyIJS7HDG
+sXMgDQPgBL9J6qKStXIh11/2Av19MtxGxASa9Arg5qJ81hGPb5/fxNz22VUX0SsmeWu7utXdNy9i
+Fh/5GrLxswYxsBF7il1BxqPEQCGHdrNIvg9V6MfL+YeoVCGLeF7kGuHW4VqhYAQT69zFQYZ75m2n
+Z7jhikux1pJKpSpBqA4owIZHfq423rKQWc7HOKl0MR065ICFKrlCvH7z4FA3NUHBzLWlV8EIrrFY
+44HxEM8tMdcQ5FdOTvAPq65FKUUqlao6YRiy17dpw0a18ZaFnJPZh0rVFlsUYmMHLEpPlRQTA1vy
+d7hlWZFIgybYNowNAQY9HjcHbhYKgU8Cjnh8o72Wb9y8BIBUKlVV0l4V0BDsw1+5jC82/7mYtsUP
+WoSgY9qWIIWKAyu9LMYYrAnbkb5ZipsLQOZ8kEFW0qT6WHP5NG5deU2kyWqT9lAqRt3BJNPcIrc/
+t48daoyfH4aZgor5azRzeQCjtL4TtDwkanuEjMdGAAHOH5vlO0vm0TZzRuSTI9FkKCM6Ijfw5+3q
+iVvmsazpU5JiUMm0b7ThKRPj+RoKj9fES52xcfEK/uXmfRN1c+DmI7ajnCQtqRw/mN/IuluX0DZz
+BgDpdPqwQMIINRqXk2e3S+fTb/HzDzx6U2N8zXj5QdoOEra7D+kARM0mrcFzOTEzwJJTxnPl/DOY
+MmVKRAZGaqrlctgHk19/6UXVXg9f/tI82bzlLX759i5+Y5vxrE8cojJHVHg7tCgOgLVMsPu5ZGot
+Z8+YwoVnnkJTUxPG+PeNJLIOJUd0Anvl6lXSuaZDjQY23H6zvPn2O7z+/k7e2f0p7+/p46M+S96z
+9HqahkTxc3ytoqUxwdSx9bRNmcSJ08+lpWUKjuNgjEFESCaTR7X/ekRA4wtJJBK8vGWLAmhNwR3f
+vFkKhQIDAwO4XrHkkU6nSdfUkEgkWNe9Vu3d+SHTFi2IqoQjqRCORA7bR4eTeIkzLvGyZ/h5rDvn
+AP8PtLYwIqf4r1QAAAAASUVORK5CYII=
+"
+       height="54"
+       width="58" />
+    <g
+       id="g4054">
+      <rect
+         transform="translate(0,252.36218)"
+         y="140"
+         x="180"
+         height="30"
+         width="600"
+         id="rect3968"
+         style="fill:#ff0000;fill-opacity:1;stroke:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3970"
+         y="412.36218"
+         x="187.90909"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           id="tspan3998"
+           sodipodi:role="line">Сообщение об ошибке</tspan></text>
+      <rect
+         y="436.36218"
+         x="180.09091"
+         height="30"
+         width="600"
+         id="rect3968-8"
+         style="fill:#ffa700;fill-opacity:1;stroke:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3970-6"
+         y="456.36218"
+         x="188"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           id="tspan4000"
+           sodipodi:role="line">Предупреждение с текстом, много текста</tspan></text>
+      <rect
+         y="482.36218"
+         x="180"
+         height="30"
+         width="600"
+         id="rect3968-8-7"
+         style="fill:#00a700;fill-opacity:1;stroke:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3970-6-1"
+         y="502.36218"
+         x="187.90909"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           id="tspan4026"
+           sodipodi:role="line">Кеп, все ок!</tspan></text>
+      <rect
+         y="526.36218"
+         x="180.09091"
+         height="30"
+         width="600"
+         id="rect3968-8-7-0"
+         style="fill:#b789e2;fill-opacity:1;stroke:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3970-6-1-2"
+         y="546.36218"
+         x="188"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           id="tspan4052"
+           sodipodi:role="line">Кеп если пойдешь направо, то будет хорошо!</tspan></text>
+    </g>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:6,1;stroke-dashoffset:0"
+       id="rect4113"
+       width="120"
+       height="60"
+       x="278"
+       y="336.36218" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#00009c;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="286"
+       y="354.36218"
+       id="text4068"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4103"
+         x="286"
+         y="354.36218">Минимальное</tspan><tspan
+         sodipodi:role="line"
+         id="tspan4105"
+         x="286"
+         y="371.86218">Нормальное</tspan><tspan
+         sodipodi:role="line"
+         id="tspan4107"
+         x="286"
+         y="389.36218">Полное</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="178"
+       y="352.36218"
+       id="text4109"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4111"
+         x="178"
+         y="352.36218">Отображение:</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="51.766872"
+       y="596.37445"
+       id="text4133"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4137"
+         x="51.766872"
+         y="596.37445">Выбранный тег</tspan></text>
+    <path
+       style="fill:none;stroke:#00009c;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 810,362.36218 120,0"
+       id="path4139"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#00009c;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 810,302.36218 90,0"
+       id="path4139-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4163"
+       width="20.269405"
+       height="15.076456"
+       x="278.56912"
+       y="609.85022" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#00009c;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="179.31033"
+       y="622.18976"
+       id="text4159"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4161"
+         x="179.31033"
+         y="622.18976">прев. 1 2 3 ... 9 10 11 след.</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4163-4"
+       width="20.269405"
+       height="15.076456"
+       x="279.25879"
+       y="949.9964" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#00009c;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="180"
+       y="962.33594"
+       id="text4159-9"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4161-5"
+         x="180"
+         y="962.33594">прев. 1 2 3 ... 9 10 11 след.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#00009c;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="179.58621"
+       y="593.09778"
+       id="text4207"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4209"
+         x="179.58621"
+         y="593.09778">Ссылки </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="245.4321"
+       y="593.10291"
+       id="text4207-9"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4209-2"
+         x="245.4321"
+         y="593.10291"> / Выбранный тег / Резултаты поиска: &lt;knbase.info&gt;</tspan></text>
+  </g>
+</svg>
