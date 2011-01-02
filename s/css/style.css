@@ -102,6 +102,13 @@ input {
       color: #00009C;
     }
 
+.abs_wrapper {
+  position: absolute;
+}
+  .abs_wrapper .rel_wrapper {
+    position: relative;
+  }
+
 /* Middle
 -----------------------------------------------------------------------------*/
 #middle {
@@ -172,7 +179,43 @@ input {
         .breadcrumbs span {
           font-weight: bold;
         }
-  
+  /* Pagination */ 
+  .pagination {
+    margin: 0 0 15px 0; 
+    font-size: 14px;
+  }
+    .pagination .prev {
+      margin-right: 15px;
+      font-size: 18px;
+    }
+    .pagination .next {
+      margin-left: 15px;
+      font-size: 18px;
+    }
+    .pagination a.page {
+    }
+    .pagination span.current.page {
+      padding: 3px;
+      border: 1px solid #CC0000; 
+    }
+  /* Контейнер со списком ссылок */
+  .link_wrapper {
+    margin-bottom: 15px;
+  }
+  /* Отображение mini */
+  .link_wrapper.mini {
+  }
+    .link_wrapper.mini ul {
+    }
+      .link_wrapper.mini li {
+        margin: 10px 0;
+      }
+        .link_wrapper.mini .rel_wrapper {
+          right: 20px;
+          top: 1px;
+        }
+        .link_wrapper.mini a {
+        }
 
 /* Sidebar Left
 -----------------------------------------------------------------------------*/

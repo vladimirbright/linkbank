@@ -80,16 +80,22 @@ $(document).ready(function () {
 
     {% autopaginate links %}
     {% paginate %}
-    <ul>
-    {% for l in links %}
-        <li>
-            <img src="http://favicon.yandex.ru/favicon/{{ l.domain }}">
-            <a href="{{ l.href }}">
-            {{ l.title|default:l.href|slice:":80" }}
-            </a>
-        </li>
-    {% endfor %}
-    </ul>
+    <div class="link_wrapper mini">
+      <ul>
+      {% for l in links %}
+          <li>
+            <div class="abs_wrapper"><div class="rel_wrapper">
+              <img class="favicons" src="http://favicon.yandex.ru/favicon/{{ l.domain }}">
+            </div></div>
+            {% with l.title|default:l.href as href_title %}
+              <a href="{{ l.href }}" title="{{ l.href }}">
+              {{ href_title|slice:":50" }}{% if href_title|length > 50 %}...{% endif %}
+              </a>
+            {% endwith %}
+          </li>
+      {% endfor %}
+      </ul>
+    </div>
     {% paginate %}
   </div>
 </div>
