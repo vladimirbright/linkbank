@@ -47,13 +47,16 @@ body {
   background-color: white;
 }
 a {
-	color: blue;
+	color: #00009C;
 	outline: none;
 	text-decoration: none;
 }
 a:hover {
 	text-decoration: underline;
   color: #cc0000;
+}
+a:visited {
+  color: #00009C;
 }
 p {
 	margin: 0 0 18px
@@ -65,7 +68,7 @@ input {
 	vertical-align: middle;
 }
 #wrapper {
-	width: 800px;
+	width: 960px;
 	margin: 0 auto;
 	min-height: 100%;
 	height: auto !important;
@@ -76,18 +79,28 @@ input {
 /* Header
 -----------------------------------------------------------------------------*/
 #header {
-	height: 30px;
-  padding-top: 5px;
+	/*height: 30px;*/
+  /*padding-top: 5px;*/
 	/*background: #FFE680;*/
-  text-align: center;
+  /*text-align: center;*/
 }
-  #header input[type="text"] {
-    width: 360px;
+  /*#header input[type="text"] {*/
+    /*width: 360px;*/
+  /*}*/
+  /*#header input {*/
+    /*margin-left: 5px;*/
+    /*margin-right: 5px;*/
+  /*}*/
+  .logout_div {
+    height: 20px;
+    text-align-right;
   }
-  #header input {
-    margin-left: 5px;
-    margin-right: 5px;
-  }
+    .logout_div a {
+      color: #CC0000;
+    }
+    .logout_div a:hover {
+      color: #00009C;
+    }
 
 /* Middle
 -----------------------------------------------------------------------------*/
@@ -110,27 +123,110 @@ input {
 	overflow: hidden;
 }
 #content {
-	padding: 15px 15px 0 270px;
+	padding: 0 0 0 200px;
 }
-
+  .content_inner {
+    width: 600px;  
+  }
+  /* Форма добавления ссылки */
+  .add_form_wrapper {
+    margin-bottom: 30px;
+  }
+  .form_submit_wrapper {
+    position: absolute;
+  }
+    .form_submit_wrapper_inner {
+      position: relative;
+    }
+  #id_href {
+    width: 100%;
+  }
+  #id_href_submit_wrapper {
+    top: -28px;
+    left: 630px;
+  }
+  /* Форма поиска и выбор отображения */
+  .search_form_wrapper {
+    margin-bottom: 30px;
+    text-align: right;
+  }
+    #view_mode_wrapper {
+      top: 3px;
+      font-size: 14px;
+    }
+  /* breadcrumbs */
+  .breadcrumbs {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+    .breadcrumbs ul {
+    }
+      .breadcrumbs li {
+        display: inline;
+        margin: 0 10px 0 0;
+      }
+        .breadcrumbs a {
+          background: url(/s/img/next.png) 100% 50% no-repeat;
+          padding-right: 16px;
+        }
+        .breadcrumbs span {
+          font-weight: bold;
+        }
+  
 
 /* Sidebar Left
 -----------------------------------------------------------------------------*/
 #sideLeft {
 	float: left;
-	width: 220px;
-  padding: 15px;
+	width: 150px;
+  padding: 0 15px;
 	margin-left: -100%;
 	position: relative;
   text-align: right;
 	/*background: #B5E3FF;*/
 }
+  .sidebar_username {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+  .sidebar_gravatar {
+    margin-bottom: 20px;
+  }
+  .sidebar_tags_title {
+    position: relative;
+    left: 5px;
+    margin: 0 0 15px 30px;
+    padding: 0 5px 5px 0;
+    font-weight: bold;
+    font-size: 24px;
+    border-bottom: 1px solid black;
+  }
+  .sidebar_tags {
+    color: #00009C;
+    line-height: 2;
+  }
+    .sidebar_tags li {
+      cursor: pointer;
+    }
+    .sidebar_tags li:hover {
+      color: #CC0000;
+    }
+    .sidebar_tags .ui-selected {
+      display: inline;
+      position: relative;
+      left: 5px;
+      padding: 5px;
+      color: white;
+      font-weight: bold;
+      background: #00009C;
+    }
 
 
 /* Footer
 -----------------------------------------------------------------------------*/
 #footer {
-	width: 800px;
+	width: 960px;
 	margin: -30px auto 0;
   padding: 5px;
 	height: 30px;

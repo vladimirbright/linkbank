@@ -4,14 +4,80 @@
 
 {% block title %}{% trans "Your links in bank!" %}{% endblock %}
 
-{% block head-extra %}{% endblock %}
+{% block head-extra %}
+<script type="text/javascript">
+$(document).ready(function () {
+
+  $("#id_href").bind("focus", function () {
+    var initial, value;
+    initial = "{{ form.href.field.initial }}";
+    value = $(this).val();
+    if (initial == value) {
+      $(this).val("");
+    }
+  });
+  $("#id_href").bind("blur", function () {
+    var initial, value;
+    initial = "{{ form.href.field.initial }}";
+    value = $(this).val().trim();
+    if (value == "") {
+      $(this).val(initial);
+    }
+  });
+
+});
+</script>
+{% endblock %}
+
+{% block header %}
+  <div class="logout_div">
+    <a title="{% trans "Sign out from site" %}" href="{% url logout %}">выйти</a>
+  </div>
+
+{% endblock %}
 
 {% block content %}
-    <img src="{% gravatar_for_user user %}" />
-    <br>
+<div class="content_inner">
+  <div class="add_form_wrapper">
+    <form action="{% url bank.views.link_create %}">
+      {{ form.href }}
+      <div class="form_submit_wrapper">
+        <div class="form_submit_wrapper_inner" id="id_href_submit_wrapper">
+          <input value="Add this!" type="submit">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="search_form_wrapper">
+    <div class="form_submit_wrapper">
+      <div class="form_submit_wrapper_inner" id="view_mode_wrapper">
+      {% trans "View mode:" %} 
+      <select>
+        <option>{% trans "minimum" %}</option>
+        <option>{% trans "normal" %}</option>
+        <option>{% trans "maxmimum" %}</option>
+      </select>
+      </div>
+    </div>
+
     <input type="text" name="q" value="Поиск" />
-    <br>
-    <br>
+
+    <div class="form_submit_wrapper">
+      <div class="form_submit_wrapper_inner" id="id_href_submit_wrapper">
+        <input value="Search this!" type="submit">
+      </div>
+    </div>
+  </div>
+
+  <div id="main_container">
+
+    <div class="breadcrumbs">
+      <ul>
+        <li><a title="{% trans "All links" %}" href="/">{% trans "Links" %}</a></li>
+        <li><span>Теги: &laquo;Тег1&raquo;, &laquo;тег2&raquo;, &laquo;тег3&raquo;</span></li>
+      </ul>
+    </div>
+
     {% autopaginate links %}
     {% paginate %}
     <ul>
@@ -24,24 +90,24 @@
         </li>
     {% endfor %}
     </ul>
+    {% paginate %}
+  </div>
+</div>
 {% endblock %}
 
 {% block sidebar %}
-    <h4><a href="/">All links</a></h4>
-    <h4>{% trans "Selected tags" %}</h4>
-    <ul>
-        <li><a href="#">Tagname</a></li>
-        <li><a href="#">Tagname</a></li>
-    </ul>
-    <h4>{% trans "Tags" %}</h4>
-    <ul>
-        <li><a href="#">Tagname</a></li>
-        <li><a href="#">Tagname</a></li>
-        <li><a href="#">Tagname</a></li>
-        <li><a href="#">Tagname</a></li>
-        <li><a href="#">Tagname</a></li>
-        <li><a href="#">Tagname</a></li>
-        <li><a href="#">Tagname</a></li>
-        <li><a href="#">Tagname</a></li>
-    </ul>
+  <div class="sidebar_username">
+    <a href="#" title="{% trans "Profile, settings, password change & etc" %}">{{ user.username }}</a>
+  </div>
+  <img class="sidebar_gravatar" title="{% trans "Your gravatar" %}" src="{% gravatar_for_user user 90 %}" />
+  <h4 class="sidebar_tags_title">{% trans "Tags" %}</h4>
+  <ul class="sidebar_tags">
+      <li>Tagname</li>
+      <li>Tagname</li>
+      <li class="ui-selected">Selected tag</li>
+      <li>Tagname</li>
+      <li>Tagname</li>
+      <li>Tagname</li>
+      <li>Tagname</li>
+  </ul>
 {% endblock %}

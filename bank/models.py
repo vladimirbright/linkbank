@@ -50,6 +50,10 @@ class Link(models.Model):
 
 
 class LinkAddForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(LinkAddForm, self).__init__(*args, **kwargs)
+        self.fields["href"].initial = _("Add link")
+
     class Meta:
         model = Link
         fields = ( "href", )

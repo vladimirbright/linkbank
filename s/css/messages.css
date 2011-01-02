@@ -1,22 +1,19 @@
 .messages {
-  margin: 5px;
+  margin: 0  0 10px 0;
   padding: 5px;
   font-size: 14px;
   font-weight: bold;
+  color: white;
 }
 .messages.success {
-  background-color: green;
-  color: white;
+  background-color: #00a700;
 }
 .messages.info {
-  background-color: blue;
-  color: white;
+  background-color: #b789e2;
 }
 .messages.warning {
-  background-color: yellow;
-  color: black;
+  background-color: #ffa700;
 }
 .messages.error {
   background-color: red;
-  color: white;
 }

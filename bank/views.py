@@ -38,6 +38,10 @@ def link_list(request):
         return render_to_response("registration/form.html", c,
                                   context_instance=RequestContext(request))
     links = Link.objects.filter(owner=request.user).order_by('-pk')
+    #messages.error(request, "FUUUUUUUUUU")
+    #messages.warning(request, "Maybe FUUUUUUUUU")
+    #messages.success(request, "Not FUUUUUUUUU")
+    #messages.info(request, "Yap, info")
     c = {}
     c["form"] = LinkAddForm(request.GET or None)
     c["links"] = links
