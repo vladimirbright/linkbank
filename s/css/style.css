@@ -210,11 +210,21 @@ input {
       .link_wrapper.mini li {
         margin: 10px 0;
       }
-        .link_wrapper.mini .rel_wrapper {
+        .link_wrapper.mini .fav_wrapper {
           right: 20px;
           top: 1px;
         }
         .link_wrapper.mini a {
+        }
+        .link_wrapper.mini .work_link_wrapper {
+          right: -320px;
+          top: -18px;
+        }
+        .link_wrapper.mini .work_link_wrapper {
+          display: none;
+        }
+        .link_wrapper.mini li:hover .work_link_wrapper {
+          display: block;
         }
 
 /* Sidebar Left
@@ -303,3 +313,8 @@ input {
     margin-bottom: 20px;
     font-size: 13px;
   }
+
+.ajax_bar_div {
+  height: 100px;
+  background: url(/s/img/loader-bar.gif) 50% 50% no-repeat;
+}

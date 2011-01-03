@@ -51,7 +51,18 @@ def link_list(request):
 
 @login_required
 def link_delete(request, l_id):
-    return HttpResponse('b')
+    # TODO нормальную HTML форму для зашедших по ссылке
+    if request.method != "POST" or request.is_ajax() is False:
+        messages.error(request,
+                       _("Deleting bookmarks by permalinks is disabled"))
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
+    try:
+        link = Link.objects.get(pk=l_id, owner=request.user)
+    except Link.DoesNotExist:
+        messages.error(request, _("Bookmark doesn't exist or not yours"))
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
+    link.delete()
+    return HttpResponse(u"%s" % _("Bookmark deleted"))
 
 
 @login_required

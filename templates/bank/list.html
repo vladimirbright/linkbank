@@ -6,12 +6,13 @@
 
 {% block head-extra %}
 <script type="text/javascript">
+
 $(document).ready(function () {
 
   // Search form placeholder
   $("#id_href").bind("focus", function () {
     var initial, value;
-    initial = "{{ form.href.field.initial }}";
+    initial = "{{ form.href.field.initial|escapejs }}";
     value = $(this).val();
     if (initial == value) {
       $(this).val("");
@@ -19,14 +20,51 @@ $(document).ready(function () {
   });
   $("#id_href").bind("blur", function () {
     var initial, value;
-    initial = "{{ form.href.field.initial }}";
+    initial = "{{ form.href.field.initial|escapejs }}";
     value = $(this).val().trim();
     if (value == "") {
       $(this).val(initial);
     }
   });
-  // Delete bookmark
 
+  // Delete bookmark
+  $(".del_bookmark").click(function () {
+    var pk, dialog_div, ajax_url, clicked_link;
+    clicked_link = $(this);
+    pk = clicked_link.attr('id');
+    ajax_url = clicked_link.attr('href');
+    if (pk === null || ajax_url === null || ajax_url == "") {
+        return false;
+    }
+    pk = pk.replace(/([^\d])+/, '');
+    if (pk == "") {
+        return false;
+    }
+    dialog_div = $('<div></div>');
+    dialog_div.attr("title", $(this).attr("title"));
+    dialog_div.html($(this).attr("rel"));
+    $(dialog_div).dialog({
+        modal: true,
+        buttons: {
+            "Ok": function () {
+                dialog_div.html($("<div class='ajax_bar_div'></div>"));
+                $(this).dialog("option", "buttons", false);
+                $.ajax({
+                  type: 'POST',
+                  url: ajax_url,
+                  success: function (data, status, xhr) {
+                    dialog_div.html(data);
+                  }
+                });
+
+            },
+            "Cancel": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+    return false;
+  });
 
 });
 </script>
@@ -87,13 +125,18 @@ $(document).ready(function () {
       <ul>
       {% for l in links %}
           <li>
-            <div class="abs_wrapper"><div class="rel_wrapper">
+            <div class="abs_wrapper"><div class="rel_wrapper fav_wrapper">
               <img class="favicons" src="http://favicon.yandex.ru/favicon/{{ l.domain }}">
             </div></div>
             {% with l.title|default:l.href as href_title %}
-              <a href="{{ l.href }}" title="{{ l.href }}">
+              <a href="{{ l.href }}" title="{{ l.href }}" id="bookmark_{{ l.pk }}">
               {{ href_title|slice:":50" }}{% if href_title|length > 50 %}...{% endif %}
               </a>
+              <div class="abs_wrapper"><div class="rel_wrapper work_link_wrapper">
+                <a title="{% trans "Delete this link" %}" class="del_bookmark" href="{% url bank.views.link_delete l.pk %}"
+                   rel="{% trans "Really delete " %} &laquo;{{ href_title }}&raquo; {% trans "this?" %}"
+                   id="del_bookmark_{{ l.pk }}"><img src="{{ MEDIA_URL }}img/link_delete.png" /></a>
+            </div></div>
             {% endwith %}
           </li>
       {% endfor %}
