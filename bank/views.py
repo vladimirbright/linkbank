@@ -10,7 +10,9 @@ from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
 
-from bank.models import LinkAddForm, Link, UserCreationFormWithCaptcha
+from bank.models import LinkAddForm, Link, UserCreationFormWithCaptcha, LinkEditForm
+from bank.models import LinkEditForm
+from tags.models import Tag
 
 
 def user_create(request):
@@ -63,6 +65,36 @@ def link_delete(request, l_id):
         return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
     link.delete()
     return HttpResponse(u"%s" % _("Bookmark deleted"))
+
+
+@login_required
+def link_edit(request, l_id):
+    # TODO нормальную HTML форму для зашедших по ссылке
+    if request.is_ajax() is False:
+        messages.error(request, _("Only via ajax"))
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
+    try:
+        link = Link.objects.get(pk=l_id, owner=request.user)
+    except Link.DoesNotExist:
+        messages.error(request, _("Bookmark doesn't exist or not yours"))
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
+    form = LinkEditForm(request.POST or None, instance=link)
+    if form.is_valid():
+        _link = form.save(commit=False)
+        _tags = form.cleaned_data.get("add_tags", "")
+        if _tags.strip():
+            _tags = [ i.strip() for i in _tags.strip().split(",") ]
+            _link.tags.clear()
+            for t in _tags:
+                tag, c = Tag.objects.get_or_create(owner=request.user, title=t)
+                _link.tags.add(tag)
+        _link.save()
+        return HttpResponse(u"%s" % _("Changes saved"))
+    c = {}
+    c["link"] = link
+    c["form"] = form
+    return render_to_response("bank/link_edit.html", c,
+                              context_instance=RequestContext(request))
 
 
 @login_required

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-26 19:26+0300\n"
+"POT-Creation-Date: 2011-01-03 15:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,14 +48,30 @@ msgid "Added"
 msgstr "Добавлено"
 
 #: bank/models.py:38
-msgid "Tag title content"
-msgstr "Содержание тега title"
+msgid "Title"
+msgstr "Заголовок"
 
 #: bank/models.py:39
-msgid "Last check"
-msgstr "Последняя проверка"
+msgid "Description"
+msgstr "Описание"
 
-#: bank/views.py:69
+#: bank/models.py:53 templates/index.html:29
+msgid "Add link"
+msgstr "Положить ссылку"
+
+#: bank/views.py:57
+msgid "Deleting bookmarks by permalinks is disabled"
+msgstr "Удаление закладок по прямой ссылке запрещено"
+
+#: bank/views.py:62
+msgid "Bookmark doesn't exist or not yours"
+msgstr "Закладка не существует или она не ваша"
+
+#: bank/views.py:65
+msgid "Bookmark deleted"
+msgstr "Закладка удалена"
+
+#: bank/views.py:82
 msgid "FUUUUUUUU, insert correct url with http://"
 msgstr "FUUUUUUUU, введите корректный url с http://"
 
@@ -63,27 +79,11 @@ msgstr "FUUUUUUUU, введите корректный url с http://"
 msgid "Put link to bank!"
 msgstr "Положить ссылку в банк!"
 
-#: templates/index.html:25
-#, python-format
-msgid ""
-"\n"
-"                Please, <a href=\"%(sign_in_url)s\">Sign In</a> first!\n"
-"            "
-msgstr ""
-"\n"
-"                Пожалуйста, <a href=\"%(sign_in_url)s\">войдите</a> "
-"сначала!\n"
-"            "
-
-#: templates/index.html:30
-msgid "Add link"
-msgstr "Положить ссылку"
-
 #: templates/index.html:65
 msgid "Your links"
 msgstr "Ваши ссылки"
 
-#: templates/index.html:66
+#: templates/index.html:66 templates/bank/list.html:167
 msgid "Bookmarklets"
 msgstr "Букмарклеты"
 
@@ -95,13 +95,97 @@ msgstr "О сайте"
 msgid "Your links in bank!"
 msgstr "Ваши ссылки в банке"
 
-#: templates/bank/list.html:25
+#: templates/bank/list.html:75
+msgid "Sign out from site"
+msgstr "Выйти"
+
+#: templates/bank/list.html:95
+msgid "View mode:"
+msgstr "Отображение:"
+
+#: templates/bank/list.html:97
+msgid "minimum"
+msgstr "минимальное"
+
+#: templates/bank/list.html:98
+msgid "normal"
+msgstr "нормальное"
+
+#: templates/bank/list.html:99
+msgid "maxmimum"
+msgstr "максимальное"
+
+#: templates/bank/list.html:117
+msgid "All links"
+msgstr "Все ссылки"
+
+#: templates/bank/list.html:117
+msgid "Links"
+msgstr "Ссылки"
+
+#: templates/bank/list.html:135
+msgid "Edit this bookmark"
+msgstr "Редактировать закладку"
+
+#: templates/bank/list.html:137
+msgid "Delete this link"
+msgstr "Удалить эту закладку"
+
+#: templates/bank/list.html:138
+msgid "Really delete "
+msgstr "Правда удалить "
+
+#: templates/bank/list.html:153
+msgid "Profile, settings, password change & etc"
+msgstr "Профиль, настройки, смена пароля и т.д."
+
+#: templates/bank/list.html:155
+msgid "Your gravatar"
+msgstr "Ваш граватар"
+
+#: templates/bank/list.html:156
 msgid "Tags"
 msgstr "Теги"
+
+#: templates/bank/list.html:170
+msgid "Only href"
+msgstr "Только ссылка"
+
+#: templates/bank/list.html:171 templates/bank/list.html.py:178
+msgid "Drag this to your browser toolbar"
+msgstr "Перетащите эту ссылку на панель закладок своего браузера"
+
+#: templates/bank/list.html:173 templates/bank/list.html.py:180
+msgid "To bank"
+msgstr "В банк"
+
+#: templates/bank/list.html:177
+msgid "Href & title"
+msgstr "Ссылка и title"
+
+#: templates/bank/list.html:184 templates/bank/list.html.py:185
+msgid "About bookmarklets"
+msgstr "О букмарклетах"
 
 #: templates/registration/form.html:5 templates/registration/login.html:5
 msgid "Hello, dear!"
 msgstr "Привет, дорогуша!"
+
+#~ msgid "Tag title content"
+#~ msgstr "Содержание тега title"
+
+#~ msgid "Last check"
+#~ msgstr "Последняя проверка"
+
+#~ msgid ""
+#~ "\n"
+#~ "                Please, <a href=\"%(sign_in_url)s\">Sign In</a> first!\n"
+#~ "            "
+#~ msgstr ""
+#~ "\n"
+#~ "                Пожалуйста, <a href=\"%(sign_in_url)s\">войдите</a> "
+#~ "сначала!\n"
+#~ "            "
 
 #~ msgid "Yap, register first."
 #~ msgstr "Да, для начала зарегистрируйтесь."

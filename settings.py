@@ -60,6 +60,8 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.core.context_processors.media",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
+
+    "helpers.context_processors.current_site",
 ]
 
 if DEBUG:
@@ -97,10 +99,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.webdesign',
+    'gravatar',
+    'helpers',
     'pagination',
     'south',
-    'helpers',
-    'gravatar',
+    'tags',
 )
 
 

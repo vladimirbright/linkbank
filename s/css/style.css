@@ -157,6 +157,9 @@ input {
     margin-bottom: 30px;
     text-align: right;
   }
+    .search_form_wrapper input[name="q"] {
+      width: 340px;
+    }
     #view_mode_wrapper {
       top: 3px;
       font-size: 14px;
@@ -256,6 +259,7 @@ input {
     border-bottom: 1px solid black;
   }
   .sidebar_tags {
+    margin-bottom: 20px;
     color: #00009C;
     line-height: 2;
   }
@@ -273,6 +277,22 @@ input {
       color: white;
       font-weight: bold;
       background: #00009C;
+    }
+  .sidebar_bookmarklets_title {
+    position: relative;
+    left: 5px;
+    margin: 0 0 15px 30px;
+    padding: 0 5px 5px 0;
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 1px solid black;
+  }
+  .sidebar_bookmarklets {
+    line-height: 2;
+  }
+    .sidebar_bookmarklets span {
+      padding-right: 5px;
+      font-size: 1.1em;
     }
 
 

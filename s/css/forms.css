@@ -15,7 +15,12 @@ input[type="text"]:focus, input[type="password"]:focus {
   border: 1px solid #cc0000;
 }
 textarea {
-  width:  400px;
+  border: 1px solid #eaeaea;
+  width:  435px;
+  height: 60px;
+}
+textarea:focus {
+  border: 1px solid #cc0000;
 }
 span.helptext {
   color: #7c7c7c;

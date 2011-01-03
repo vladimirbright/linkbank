@@ -11,6 +11,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from captcha.fields import CaptchaField
 
+from tags.models import Tag
+
 
 class UserCreationFormWithCaptcha(UserCreationForm):
     email = forms.EmailField(label=_("Email"))
@@ -29,17 +31,37 @@ class UserCreationFormWithCaptcha(UserCreationForm):
         raise ValidationError(_er)
 
 
-DOMAIN_PATTERN = re.compile(r'http://([^/]+)')
+DOMAIN_PATTERN = re.compile(r'https?://([^/]+)')
 
 class Link(models.Model):
     href = models.URLField(_("Url"), verify_exists=False, max_length=255)
     owner = models.ForeignKey(User, verbose_name=_("Owner"))
     added = models.DateTimeField(_("Added"), auto_now_add=True)
-    title = models.TextField(_("Tag title content"), blank=True, default="")
-    last_check = models.DateTimeField(_("Last check"),
-                                      blank=True,
-                                      null=True,
-                                      default=None)
+    title = models.TextField(_("Title"), blank=True, default="")
+    description = models.TextField(_("Description"), blank=True, default="")
+    tags_cache = models.TextField(_("Tags cache"), blank=True, default="")
+    tags = models.ManyToManyField(Tag,
+                                  verbose_name=_("Tags"),
+                                  blank=True,
+                                  null=True,
+                                  default=None)
+
+    def _check_tags_cache(self):
+        if self.pk is None:
+            return
+        _cache = u""
+        _titles = [ u"%s:%s" %(t.title, t.pk) \
+                                   for t in self.tags.all().order_by('title') ]
+        if _titles:
+            _cache = u",%s," % u",".join(_titles)
+        self.tags_cache = _cache
+
+    @classmethod
+    def get_tag_lookup_token(cls, tag):
+        if not isinstance(tag, Tag):
+            raise ValueError(u"%s" % _("Tag instance required"))
+        return u",%s:%s," %( tag.title, tag.pk )
+
     def domain(self):
         if not self.href:
             return u""
@@ -47,6 +69,10 @@ class Link(models.Model):
         if not res:
             return u""
         return res.groups()[0]
+
+    def save(self, *args, **kwargs):
+        self._check_tags_cache()
+        return super(Link, self).save(*args, **kwargs)
 
 
 class LinkAddForm(forms.ModelForm):
@@ -56,5 +82,18 @@ class LinkAddForm(forms.ModelForm):
 
     class Meta:
         model = Link
-        fields = ( "href", )
+        fields = ( "href", "title", "description" )
 
+
+class LinkEditForm(forms.ModelForm):
+    add_tags = forms.CharField(label=_("Tags"), required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(LinkEditForm, self).__init__(*args, **kwargs)
+        if self.instance:
+            self.fields["add_tags"].initial = u", ".join([ t.title \
+                                           for t in self.instance.tags.all() ])
+
+    class Meta:
+        model = Link
+        fields = ( "href", "title", "description", )

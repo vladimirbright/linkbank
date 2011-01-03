@@ -8,6 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', 'bank.views.link_list'),
     url(r'^(\d+)/delete/$', 'bank.views.link_delete'),
+    url(r'^(\d+)/edit/$', 'bank.views.link_edit'),
     url(r'^add/$', 'bank.views.link_create'),
     url(r'^signup/$', 'bank.views.user_create'),
     url(r'^signin/$', 'django.contrib.auth.views.login', name='login'),

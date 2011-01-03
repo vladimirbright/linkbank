@@ -60,11 +60,13 @@
 </div><!-- #wrapper -->
 
 <footer id="footer">
+{% block footer %}
     <ul class="footer_links">
 	    <li><a href="/">{% trans "Your links" %}</a></li>
 	    <li><a href="/bookmarklets">{% trans "Bookmarklets" %}</a></li>
 	    <li><a href="/about">{% trans "About" %}</a></li>
     </ul>
+{% endblock %}
 </footer><!-- #footer -->
 
 </body>

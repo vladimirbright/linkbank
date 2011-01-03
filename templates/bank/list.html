@@ -41,8 +41,8 @@ $(document).ready(function () {
         return false;
     }
     dialog_div = $('<div></div>');
-    dialog_div.attr("title", $(this).attr("title"));
-    dialog_div.html($(this).attr("rel"));
+    dialog_div.attr("title", clicked_link.attr("title"));
+    dialog_div.html(clicked_link.attr("rel"));
     $(dialog_div).dialog({
         modal: true,
         buttons: {
@@ -66,6 +66,62 @@ $(document).ready(function () {
     return false;
   });
 
+  // Edit bookmark
+  $(".edit_bookmark").click(function () {
+    var pk, dialog_div, ajax_url, clicked_link;
+    clicked_link = $(this);
+    pk = clicked_link.attr('id');
+    ajax_url = clicked_link.attr('href');
+    if (pk === null || ajax_url === null || ajax_url == "") {
+        return false;
+    }
+    pk = pk.replace(/([^\d])+/, '');
+    if (pk == "") {
+        return false;
+    }
+    dialog_div = $('<div></div>');
+    dialog_div.attr("title", clicked_link.attr("title"));
+    dialog_div.html($("<div class='ajax_bar_div'></div>"));
+    $(dialog_div).dialog({
+        modal: true,
+        width: 460,
+        open: function(event, ui) {
+            $.ajax({
+                  type: 'GET',
+                  url: ajax_url,
+                  success: function (data, status, xhr) {
+                    dialog_div.html(data);
+                  }
+                });
+        },
+        buttons: {
+            "Save": function () {
+                $.ajax({
+                  type: 'POST',
+                  cache: false,
+                  url: ajax_url,
+                  data: $("#bookmark_edit_form").serialize(),
+                  beforeSend: function () {
+                    dialog_div.html($("<div class='ajax_bar_div'></div>"));
+                  },
+                  success: function (data, status, xhr) {
+                    if (data.indexOf("<form") === -1) {
+                        $(dialog_div).dialog("option", "buttons", {
+                            "Close": function () { $(dialog_div).dialog("close"); }
+                        });
+                    }
+                    dialog_div.html(data);
+                  }
+                });
+            },
+            "Cancel": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+  
+    return false;
+  });
 });
 </script>
 {% endblock %}
@@ -120,7 +176,6 @@ $(document).ready(function () {
     </div>
 
     {% autopaginate links %}
-    {% paginate %}
     <div class="link_wrapper mini">
       <ul>
       {% for l in links %}
@@ -130,11 +185,13 @@ $(document).ready(function () {
             </div></div>
             {% with l.title|default:l.href as href_title %}
               <a href="{{ l.href }}" title="{{ l.href }}" id="bookmark_{{ l.pk }}">
-              {{ href_title|slice:":50" }}{% if href_title|length > 50 %}...{% endif %}
+              {{ href_title|slice:":45" }}{% if href_title|length > 45 %}...{% endif %}
               </a>
               <div class="abs_wrapper"><div class="rel_wrapper work_link_wrapper">
+                <a title="{% trans "Edit this bookmark" %}" class="edit_bookmark" href="{% url bank.views.link_edit l.pk %}"
+                   id="edit_bookmark_{{ l.pk }}"><img src="{{ MEDIA_URL }}img/link_edit.png" /></a>
                 <a title="{% trans "Delete this link" %}" class="del_bookmark" href="{% url bank.views.link_delete l.pk %}"
-                   rel="{% trans "Really delete " %} &laquo;{{ href_title }}&raquo; {% trans "this?" %}"
+                   rel="{% trans "Really delete " %} &laquo;{{ href_title }}&raquo;?"
                    id="del_bookmark_{{ l.pk }}"><img src="{{ MEDIA_URL }}img/link_delete.png" /></a>
             </div></div>
             {% endwith %}
@@ -154,12 +211,35 @@ $(document).ready(function () {
   <img class="sidebar_gravatar" title="{% trans "Your gravatar" %}" src="{% gravatar_for_user user 90 %}" />
   <h4 class="sidebar_tags_title">{% trans "Tags" %}</h4>
   <ul class="sidebar_tags">
-      <li>Tagname</li>
-      <li>Tagname</li>
-      <li class="ui-selected">Selected tag</li>
-      <li>Tagname</li>
-      <li>Tagname</li>
-      <li>Tagname</li>
-      <li>Tagname</li>
+    {% for t in user.tag_set.all %}
+      <li>{{ t.title }}</li>
+    {% empty %}
+      <li>{% trans "You don't add any tags" %}</li>
+    {% endfor %}
+  </ul>
+      {# <li class="ui-selected">Selected tag</li> #}
+
+  <h4 class="sidebar_bookmarklets_title">{% trans "Bookmarklets" %}</h4>
+  <ul class="sidebar_bookmarklets">
+      <li>
+          <span>{% trans "Only href" %}</span>
+          <a title="{% trans "Drag this to your browser toolbar" %}"
+             href="javascript:var l=location.href;location.href='http://{{ current_site.domain }}{% url bank.views.link_create %}?href='+l">
+              {% trans "To bank" %}
+          </a>
+      </li>
+      <li>
+          <span>{% trans "Href & title" %}</span>
+          <a title="{% trans "Drag this to your browser toolbar" %}"
+             href="javascript:var l=location.href;location.href='http://{{ current_site.domain }}{% url bank.views.link_create %}?href='+l+'&title='+document.title">
+              {% trans "To bank" %}
+          </a>
+      </li>
+      <li>
+          <a title="{% trans "About bookmarklets" %}" href="/bookmarklets">
+            {% trans "About bookmarklets" %}
+          </a>
+      </li>
   </ul>
 {% endblock %}
+
