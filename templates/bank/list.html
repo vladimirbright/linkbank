@@ -8,6 +8,7 @@
 <script type="text/javascript">
 $(document).ready(function () {
 
+  // Search form placeholder
   $("#id_href").bind("focus", function () {
     var initial, value;
     initial = "{{ form.href.field.initial }}";
@@ -24,6 +25,8 @@ $(document).ready(function () {
       $(this).val(initial);
     }
   });
+  // Delete bookmark
+
 
 });
 </script>
