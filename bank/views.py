@@ -5,10 +5,10 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
-
 
 from bank.models import LinkAddForm, Link, UserCreationFormWithCaptcha, LinkEditForm
 from bank.models import LinkEditForm
@@ -54,17 +54,18 @@ def link_list(request):
 @login_required
 def link_delete(request, l_id):
     # TODO нормальную HTML форму для зашедших по ссылке
-    if request.method != "POST" or request.is_ajax() is False:
+    if request.is_ajax() is False:
         messages.error(request,
                        _("Deleting bookmarks by permalinks is disabled"))
         return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
-    try:
-        link = Link.objects.get(pk=l_id, owner=request.user)
-    except Link.DoesNotExist:
-        messages.error(request, _("Bookmark doesn't exist or not yours"))
-        return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
-    link.delete()
-    return HttpResponse(u"%s" % _("Bookmark deleted"))
+    link = get_object_or_404(Link, pk=l_id, owner=request.user)
+    if request.method == "POST" and \
+       u"%s" % request.POST.get("vaaa", 0) == u"%s" % link.pk :
+        link.delete()
+        return HttpResponse(_("Bookmark deleted").format())
+    c = { "link": link }
+    return render_to_response("bank/delete.html", c,
+                              context_instance=RequestContext(request))
 
 
 @login_required
@@ -89,7 +90,7 @@ def link_edit(request, l_id):
                 tag, c = Tag.objects.get_or_create(owner=request.user, title=t)
                 _link.tags.add(tag)
         _link.save()
-        return HttpResponse(u"%s" % _("Changes saved"))
+        return HttpResponse(_("Changes saved").format())
     c = {}
     c["link"] = link
     c["form"] = form

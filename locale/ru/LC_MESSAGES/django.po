@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-03 15:48+0300\n"
+"POT-Creation-Date: 2011-01-10 22:57+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,61 +19,85 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: bank/models.py:16
+#: bank/models.py:18
 msgid "Email"
 msgstr "Электронная почта"
 
-#: bank/models.py:18
+#: bank/models.py:20
 msgid "Wrong symbols"
 msgstr "Неверные символы"
 
-#: bank/models.py:20
+#: bank/models.py:22
 msgid "Type simbols"
 msgstr "Напечатайте символы с изображения"
 
-#: bank/models.py:28
+#: bank/models.py:30
 msgid "User with this email already exist"
 msgstr "Пользователь с таким email уже зарегитрирован"
 
-#: bank/models.py:35
+#: bank/models.py:37
 msgid "Url"
 msgstr "Ссылка"
 
-#: bank/models.py:36
+#: bank/models.py:38 tags/models.py:11
 msgid "Owner"
 msgstr "Добавивший"
 
-#: bank/models.py:37
+#: bank/models.py:39 tags/models.py:12
 msgid "Added"
 msgstr "Добавлено"
 
-#: bank/models.py:38
+#: bank/models.py:40
 msgid "Title"
 msgstr "Заголовок"
 
-#: bank/models.py:39
+#: bank/models.py:41 tags/models.py:10
 msgid "Description"
 msgstr "Описание"
 
-#: bank/models.py:53 templates/index.html:29
+#: bank/models.py:42
+msgid "Tags cache"
+msgstr "Кеш тегов"
+
+#: bank/models.py:44 bank/models.py:89 templates/bank/list.html:103
+msgid "Tags"
+msgstr "Теги"
+
+#: bank/models.py:62
+msgid "Tag instance required"
+msgstr "Объект Tag необходим"
+
+#: bank/models.py:81 templates/index.html:29
 msgid "Add link"
 msgstr "Положить ссылку"
 
-#: bank/views.py:57
+#: bank/views.py:59
 msgid "Deleting bookmarks by permalinks is disabled"
 msgstr "Удаление закладок по прямой ссылке запрещено"
-
-#: bank/views.py:62
-msgid "Bookmark doesn't exist or not yours"
-msgstr "Закладка не существует или она не ваша"
 
 #: bank/views.py:65
 msgid "Bookmark deleted"
 msgstr "Закладка удалена"
 
-#: bank/views.py:82
+#: bank/views.py:75
+msgid "Only via ajax"
+msgstr "Только через ajax"
+
+#: bank/views.py:80
+msgid "Bookmark doesn't exist or not yours"
+msgstr "Закладка не существует или она не ваша"
+
+#: bank/views.py:93
+msgid "Changes saved"
+msgstr "Изменения сохранены"
+
+#: bank/views.py:115
 msgid "FUUUUUUUU, insert correct url with http://"
 msgstr "FUUUUUUUU, введите корректный url с http://"
+
+#: tags/models.py:9
+msgid "Tag"
+msgstr "Тег"
 
 #: templates/index.html:7
 msgid "Put link to bank!"
@@ -83,7 +107,7 @@ msgstr "Положить ссылку в банк!"
 msgid "Your links"
 msgstr "Ваши ссылки"
 
-#: templates/index.html:66 templates/bank/list.html:167
+#: templates/index.html:66 templates/bank/list.html:113
 msgid "Bookmarklets"
 msgstr "Букмарклеты"
 
@@ -91,79 +115,87 @@ msgstr "Букмарклеты"
 msgid "About"
 msgstr "О сайте"
 
+#: templates/ok.html:3
+msgid "All done, dude!"
+msgstr "Все сделано, приятель!"
+
+#: templates/bank/delete.html:3
+msgid "Really delete"
+msgstr "Правда удалить"
+
 #: templates/bank/list.html:5
 msgid "Your links in bank!"
 msgstr "Ваши ссылки в банке"
 
-#: templates/bank/list.html:75
+#: templates/bank/list.html:22
 msgid "Sign out from site"
 msgstr "Выйти"
 
-#: templates/bank/list.html:95
+#: templates/bank/list.html:42
 msgid "View mode:"
 msgstr "Отображение:"
 
-#: templates/bank/list.html:97
+#: templates/bank/list.html:44
 msgid "minimum"
 msgstr "минимальное"
 
-#: templates/bank/list.html:98
+#: templates/bank/list.html:45
 msgid "normal"
 msgstr "нормальное"
 
-#: templates/bank/list.html:99
+#: templates/bank/list.html:46
 msgid "maxmimum"
 msgstr "максимальное"
 
-#: templates/bank/list.html:117
+#: templates/bank/list.html:64
 msgid "All links"
 msgstr "Все ссылки"
 
-#: templates/bank/list.html:117
+#: templates/bank/list.html:64
 msgid "Links"
 msgstr "Ссылки"
 
-#: templates/bank/list.html:135
+#: templates/bank/list.html:82
 msgid "Edit this bookmark"
 msgstr "Редактировать закладку"
 
-#: templates/bank/list.html:137
+#: templates/bank/list.html:84
 msgid "Delete this link"
 msgstr "Удалить эту закладку"
 
-#: templates/bank/list.html:138
+#: templates/bank/list.html:85
 msgid "Really delete "
 msgstr "Правда удалить "
 
-#: templates/bank/list.html:153
+#: templates/bank/list.html:100
 msgid "Profile, settings, password change & etc"
 msgstr "Профиль, настройки, смена пароля и т.д."
 
-#: templates/bank/list.html:155
+#: templates/bank/list.html:102
 msgid "Your gravatar"
 msgstr "Ваш граватар"
 
-#: templates/bank/list.html:156
-msgid "Tags"
-msgstr "Теги"
+#: templates/bank/list.html:108
+msgid "You don't add any tags"
+msgstr "Нет тегов"
 
-#: templates/bank/list.html:170
+#: templates/bank/list.html:116
 msgid "Only href"
 msgstr "Только ссылка"
 
-#: templates/bank/list.html:171 templates/bank/list.html.py:178
+#: templates/bank/list.html:117 templates/bank/list.html.py:124
 msgid "Drag this to your browser toolbar"
 msgstr "Перетащите эту ссылку на панель закладок своего браузера"
 
-#: templates/bank/list.html:173 templates/bank/list.html.py:180
+#: templates/bank/list.html:119 templates/bank/list.html.py:126
 msgid "To bank"
 msgstr "В банк"
 
-#: templates/bank/list.html:177
+#: templates/bank/list.html:123
 msgid "Href & title"
 msgstr "Ссылка и title"
 
-#: templates/bank/list.html:184 templates/bank/list.html.py:185
+#: templates/bank/list.html:130 templates/bank/list.html.py:131
 msgid "About bookmarklets"
 msgstr "О букмарклетах"
 
