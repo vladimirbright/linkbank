@@ -1,6 +1,6 @@
 {# snippet to render tags on bookmarks #}
 {% if tags %}
     {% for t in tags %}
-        <a href="#tag:{{ t.pk }}" class="inline_tag">{{ t.title }}</a>{% if not forloop.last %}, {% endif %}
+        <a href="#tag:{{ t.pk }}" class="inline_tag">{{ t.title }}{% if not forloop.last %},{% endif %}</a>
     {% endfor %}
 {% endif %}
