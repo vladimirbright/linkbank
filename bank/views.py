@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import sphinxapi
+
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -12,6 +15,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from bank.models import LinkAddForm, Link, UserCreationFormWithCaptcha, LinkEditForm
 from bank.models import LinkEditForm
+from bank.forms import SearchForm
 from tags.models import Tag
 
 
@@ -33,6 +37,9 @@ def user_create(request):
                               context_instance=RequestContext(request))
 
 
+PER_PAGE = getattr(settings, "LINKS_PER_PAGE", 20)
+
+
 def link_list(request):
     if request.user.is_anonymous():
         c = {}
@@ -40,14 +47,54 @@ def link_list(request):
         return render_to_response("registration/form.html", c,
                                   context_instance=RequestContext(request))
     links = Link.objects.filter(owner=request.user).order_by('-pk')
-    #messages.error(request, "FUUUUUUUUUU")
-    #messages.warning(request, "Maybe FUUUUUUUUU")
-    #messages.success(request, "Not FUUUUUUUUU")
-    #messages.info(request, "Yap, info")
     c = {}
+    c["PER_PAGE"] = PER_PAGE
     c["form"] = LinkAddForm(request.GET or None)
     c["links"] = links
     return render_to_response("bank/list.html", c,
+                              context_instance=RequestContext(request))
+
+
+
+@login_required
+def link_search(request):
+    f = SearchForm(request.GET or None, user=request.user)
+    f.is_valid()
+    q = f.cleaned_data.get("q", "")
+    s = f.cleaned_data.get("s", None)
+    tags = f.cleaned_data.get("tags", None)
+    _s = Link.search.sphinx
+    _s.SetFilter("owner_id", [ request.user.pk, ])
+    _s.SetMatchMode(sphinxapi.SPH_MATCH_EXTENDED2)
+    if s:
+        _s.SetSortMode(sphinxapi.SPH_SORT_ATTR_DESC, s)
+    _tag_titles = []
+    if tags:
+        _tag_titles = [ u"%sQ%s" %(_s.EscapeString(i.title), i.pk) \
+                                                                for i in tags ]
+    # Take care about pagination
+    try:
+        _page = int(request.GET.get("page", 0))
+    except ValueError:
+        _page = 1
+    if _page <= 0:
+        _page = 1
+    _offset = (_page - 1) * PER_PAGE
+    _limit = _page * PER_PAGE
+    _s.SetLimits(_offset, _limit, _offset + 100)
+    # Take care about search query
+    query = u""
+    if q.strip() != "":
+        query = u"@(href, title, description) %s*" % _s.EscapeString(q.strip())
+    if _tag_titles:
+        query += u"@tags_cache %s" % u" | ".join(_tag_titles)
+    #print query
+    c = {}
+    c["PER_PAGE"] = PER_PAGE
+    c["links"] = Link.search.query(query)
+    c["fake_qs"] = range(Link.search.total_found)
+    c["paginate_fake"] = True
+    return render_to_response("bank/_list_ajax.html", c,
                               context_instance=RequestContext(request))
 
 

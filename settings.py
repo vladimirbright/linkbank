@@ -87,6 +87,10 @@ SOUTH_TESTS_MIGRATE = False
 # Captcha
 CAPTCHA_FONT_SIZE = 30;
 CAPTCHA_FONT_PATH = self_dir('Ubuntu-R.ttf')
+# Sphinx
+SPHINXS = {
+    "default": ( "127.0.0.1", 9312 ),
+}
 
 INSTALLED_APPS = (
     'bank',

@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from captcha.fields import CaptchaField
 
 from tags.models import Tag
+from bank.managers import SearchManager
 
 
 class UserCreationFormWithCaptcha(UserCreationForm):
@@ -46,14 +47,17 @@ class Link(models.Model):
                                   null=True,
                                   default=None)
 
+    objects = models.Manager()
+    search = SearchManager("links")
+
     def _check_tags_cache(self):
         if self.pk is None:
             return
         _cache = u""
-        _titles = [ u"%s:%s" %(t.title, t.pk) \
+        _titles = [ u"%sQ%s" %(t.title, t.pk) \
                                    for t in self.tags.all().order_by('title') ]
         if _titles:
-            _cache = u",%s," % u",".join(_titles)
+            _cache = u"%s" % u"\n".join(_titles)
         self.tags_cache = _cache
 
     @classmethod
@@ -97,3 +101,6 @@ class LinkEditForm(forms.ModelForm):
     class Meta:
         model = Link
         fields = ( "href", "title", "description", )
+        widgets = {
+                "title": forms.TextInput
+            }

@@ -1,18 +1,19 @@
 {% extends "index.html" %}
 
-{% load i18n webdesign pagination_tags gravatar %}
+{% load i18n helpers_tags webdesign pagination_tags gravatar %}
 
 {% block title %}{% trans "Your links in bank!" %}{% endblock %}
 
 {% block head-extra %}
 <script type="text/javascript" src="{{ MEDIA_URL }}js/placeholder.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/bookmarks.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/navigation.js"></script>
 <script type="text/javascript">
 $(function () {
     $("#id_href").placeholder({ initial:"{{ form.href.field.initial|escapejs }}" });
     $("#id_q").placeholder({ initial:"Поиск" });
-    $(".edit_bookmark").bookmarks({ dialog_opts: { width: 450 } });
-    $(".del_bookmark").bookmarks({ dialog_opts: { width: 450 } });
+    $(".edit_bookmark").bookmarks({ dialog_opts: { width: 430 } });
+    $(".del_bookmark").bookmarks({ dialog_opts: { width: 430 } });
 });
 </script>
 {% endblock %}
@@ -58,39 +59,7 @@ $(function () {
   </div>
 
   <div id="main_container">
-
-    <div class="breadcrumbs">
-      <ul>
-        <li><a title="{% trans "All links" %}" href="/">{% trans "Links" %}</a></li>
-        <li><span>Теги: &laquo;Тег1&raquo;, &laquo;тег2&raquo;, &laquo;тег3&raquo;</span></li>
-      </ul>
-    </div>
-
-    {% autopaginate links %}
-    <div class="link_wrapper mini">
-      <ul>
-      {% for l in links %}
-          <li>
-            <div class="abs_wrapper"><div class="rel_wrapper fav_wrapper">
-              <img class="favicons" src="http://favicon.yandex.ru/favicon/{{ l.domain }}">
-            </div></div>
-            {% with l.title|default:l.href as href_title %}
-              <a href="{{ l.href }}" title="{{ l.href }}" id="bookmark_{{ l.pk }}">
-              {{ href_title|slice:":45" }}{% if href_title|length > 45 %}...{% endif %}
-              </a>
-              <div class="abs_wrapper"><div class="rel_wrapper work_link_wrapper">
-                <a title="{% trans "Edit this bookmark" %}" class="edit_bookmark" href="{% url bank.views.link_edit l.pk %}"
-                   id="edit_bookmark_{{ l.pk }}"><img src="{{ MEDIA_URL }}img/link_edit.png" /></a>
-                <a title="{% trans "Delete this link" %}" class="del_bookmark" href="{% url bank.views.link_delete l.pk %}"
-                   rel="{% trans "Really delete " %} &laquo;{{ href_title }}&raquo;?"
-                   id="del_bookmark_{{ l.pk }}"><img src="{{ MEDIA_URL }}img/link_delete.png" /></a>
-            </div></div>
-            {% endwith %}
-          </li>
-      {% endfor %}
-      </ul>
-    </div>
-    {% paginate %}
+    {% include "bank/_list_ajax.html" %}
   </div>
 </div>
 {% endblock %}
@@ -99,11 +68,13 @@ $(function () {
   <div class="sidebar_username">
     <a href="#" title="{% trans "Profile, settings, password change & etc" %}">{{ user.username }}</a>
   </div>
+  {% comment %}
   <img class="sidebar_gravatar" title="{% trans "Your gravatar" %}" src="{% gravatar_for_user user 90 %}" />
+  {% endcomment %}
   <h4 class="sidebar_tags_title">{% trans "Tags" %}</h4>
   <ul class="sidebar_tags">
     {% for t in user.tag_set.all %}
-      <li>{{ t.title }}</li>
+      <li>{{ t.title }} #{{ t.pk }}</li>
     {% empty %}
       <li>{% trans "You don't add any tags" %}</li>
     {% endfor %}

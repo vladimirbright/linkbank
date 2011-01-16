@@ -1,0 +1,45 @@
+{# link list snippet #}
+{% load i18n pagination_tags bank_tags %}
+<div class="breadcrumbs">
+  <ul>
+    <li><a title="{% trans "All links" %}" href="/">{% trans "Links" %}</a></li>
+    <li><span>Теги: &laquo;Тег1&raquo;, &laquo;тег2&raquo;, &laquo;тег3&raquo;</span></li>
+  </ul>
+</div>
+{% if paginate_fake %}
+    {% autopaginate fake_qs PER_PAGE %}
+{% else %}
+    {% autopaginate links PER_PAGE %}
+{% endif %}
+<div class="link_wrapper">
+  <ul>
+  {% for l in links %}
+      <li>
+        <div class="abs_wrapper"><div class="rel_wrapper fav_wrapper">
+          <img class="favicons" src="http://favicon.yandex.ru/favicon/{{ l.domain }}">
+        </div></div>
+        {% with l.title|default:l.href as href_title %}
+          <a class="bookmarks" href="{{ l.href }}" title="{{ l.href }}" id="bookmark_{{ l.pk }}">
+          {{ href_title|slice:":75" }}{% if href_title|length > 75 %}...{% endif %}
+          </a>
+          <div class="description">
+            <span class="added">{{ l.added|date:"d.m.Y" }}</span>
+            {{ l.description|linebreaksbr }}
+          </div>
+          <div class="tags">
+            {% tags l %}
+          </div>
+            <span class="work_links">
+                <a title="{% trans "Edit this bookmark" %}"
+                   class="work_link edit_bookmark" href="{% url bank.views.link_edit l.pk %}"
+                   id="edit_bookmark_{{ l.pk }}">{% trans "edit" %}</a>
+                <a title="{% trans "Delete this link" %}"
+                   class="work_link del_bookmark" href="{% url bank.views.link_delete l.pk %}"
+                   id="del_bookmark_{{ l.pk }}">{% trans "delete" %}</a>
+            </span>
+        {% endwith %}
+      </li>
+  {% endfor %}
+  </ul>
+</div>
+{% paginate %}

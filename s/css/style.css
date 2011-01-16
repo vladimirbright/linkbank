@@ -145,7 +145,7 @@ input {
     .form_submit_wrapper_inner {
       position: relative;
     }
-  #id_href {
+  .add_form_wrapper #id_href {
     width: 100%;
   }
   #id_href_submit_wrapper {
@@ -205,29 +205,53 @@ input {
   .link_wrapper {
     margin-bottom: 15px;
   }
-  /* Отображение mini */
-  .link_wrapper.mini {
-  }
-    .link_wrapper.mini ul {
+    .link_wrapper ul {
     }
-      .link_wrapper.mini li {
-        margin: 10px 0;
+      .link_wrapper li {
+        margin: 15px 0;
       }
-        .link_wrapper.mini .fav_wrapper {
-          right: 20px;
-          top: 1px;
+        .link_wrapper .fav_wrapper {
+          right: 16px;
+          top: 0;
         }
-        .link_wrapper.mini a {
-        }
-        .link_wrapper.mini .work_link_wrapper {
-          right: -320px;
-          top: -18px;
-        }
-        .link_wrapper.mini .work_link_wrapper {
-          display: none;
-        }
-        .link_wrapper.mini li:hover .work_link_wrapper {
+        .link_wrapper .bookmarks {
           display: block;
+          margin-left: 14px;
+          font-size: 14px;
+          text-decoration: underline;
+        }
+        .link_wrapper .bookmarks:hover {
+          color: #CC0000;
+        }
+        .link_wrapper .description {
+          margin-left: 14px;
+          color: #000000;
+          line-height: 1.3em;
+          font-size: 12.8px;
+        }
+          .link_wrapper .description .added {
+            color: #666666;
+          }
+        .link_wrapper .tags {
+          float: left;
+          margin-left: 14px;
+        }
+          .link_wrapper .tags a {
+            margin-right: 5px;
+            text-decoration: none;
+          }
+          .link_wrapper .tags a:hover {
+            color: #CC0000;
+            text-decoration: underline;
+          }
+        .link_wrapper .work_link {
+          margin-left: 15px;
+          color: #666666;
+          text-decoration: underline;
+        }
+        .link_wrapper .work_link:hover {
+          color: #CC0000;
+          text-decoration: none;
         }
 
 /* Sidebar Left
@@ -244,7 +268,7 @@ input {
   .sidebar_username {
     font-weight: bold;
     font-size: 15px;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
   }
   .sidebar_gravatar {
     margin-bottom: 20px;
