@@ -10,6 +10,9 @@ register = template.Library()
 def tags(bookmark):
     if not bookmark.tags_cache:
         return {}
-    tags = [ { "pk": i.split("Q")[1], "title": i.split("Q")[0] }\
+    try:
+        tags = [ { "pk": i.split("Q")[1], "title": i.split("Q")[0] }\
                                      for i in bookmark.tags_cache.split("\n") ]
+    except IndexError:
+        return {}
     return { "tags": tags }
