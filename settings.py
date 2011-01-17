@@ -4,8 +4,8 @@ import os.path
 
 SELF_DIR = os.path.abspath(os.path.dirname(__file__))
 
-def self_dir(name=''):
-    return os.path.join(SELF_DIR, name)
+def self_dir(*args):
+    return os.path.join(SELF_DIR, *args)
 
 
 DEBUG = True
@@ -33,9 +33,6 @@ LANGUAGE_CODE = 'ru-RU'
 SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
-MEDIA_ROOT = self_dir('s')
-MEDIA_URL = '/s/'
-ADMIN_MEDIA_PREFIX = '/media/'
 
 SECRET_KEY = '8_#0m81g!r@+dz@kqxl))4(w36bigo+jae#qqlh(w=n@znl0-a'
 
@@ -46,6 +43,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'mediagenerator.middleware.MediaMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -69,8 +67,10 @@ if DEBUG:
 
 THUMBNAIL_MEDIA_ROOT = self_dir('s/thumbs')
 THUMBNAIL_MEDIA_URL = '/s/thumbs/'
+MEDIA_ROOT = self_dir('s')
+MEDIA_URL = '/s/'
+ADMIN_MEDIA_PREFIX = '/media/'
 
-ROOT_URLCONF = 'urls'
 
 LOGIN_URL = '/signin/'
 
@@ -78,9 +78,45 @@ TEMPLATE_DIRS = (
     self_dir('templates'),
 )
 
+DEV_MEDIA_URL = '/devs/'
+PRODUCTION_MEDIA_URL = '/st/'
+ROOT_MEDIA_FILTERS = {
+    #'css': 'mediagenerator.filters.yuicompressor.YUICompressor',
+    'js': 'mediagenerator.filters.closure.Closure',
+}
+CLOSURE_COMPILER_PATH = self_dir("compiler.jar")
+#CLOSURE_COMPILATION_LEVEL = 'WHITESPACE_ONLY'
+YUICOMPRESSOR_PATH = self_dir("yuicompressor-2.4.2",
+                              "build",
+                              "yuicompressor-2.4.2.jar")
+#--disable-optimizations   Disable all micro optimizations
+GLOBAL_MEDIA_DIRS = (self_dir('s'),)
+
+MEDIA_BUNDLES = (
+    ('main.css',
+        'css/style.css',
+        'css/messages.css',
+        'css/forms.css',
+        'jquery-ui-1.8.7.custom/css/custom-theme/jquery-ui-1.8.7.custom.css',
+    ),
+    ('main.js',
+        'jquery-ui-1.8.7.custom/js/jquery-1.4.4.min.js',
+        'jquery-ui-1.8.7.custom/js/jquery-ui-1.8.7.custom.min.js',
+        'js/jquery.router.js',
+    ),
+    ('my.js',
+        'js/placeholder.js',
+        'js/bookmarks.js',
+        'js/navigation.js',
+    ),
+)
+
+
 LOCALE_DIRS = (
     self_dir('locale'),
 )
+
+ROOT_URLCONF = 'urls'
 
 SOUTH_TESTS_MIGRATE = False
 
@@ -105,6 +141,7 @@ INSTALLED_APPS = (
     'django.contrib.webdesign',
     'gravatar',
     'helpers',
+    'mediagenerator',
     'pagination',
     'south',
     'tags',
@@ -115,4 +152,6 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
+MEDIA_DEV_MODE = DEBUG
 

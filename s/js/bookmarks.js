@@ -102,7 +102,7 @@
     };
 
     defaults = {
-        loader: $("<div></div>", { class: "ajax_bar_div" }),
+        loader: $("<div></div>", { "class": "ajax_bar_div" }),
         load_ajax_params: {
             type: "GET",
             cache: false

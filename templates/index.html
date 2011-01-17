@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    {% load webdesign i18n %}
+    {% load webdesign i18n media %}
 	<meta charset="utf-8" />
 	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<title>{% block title %}{% trans "Put link to bank!" %}{% endblock %}</title>
 	<meta name="title" content="" />
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
-	<link rel="stylesheet" href="{{ MEDIA_URL }}css/style.css" type="text/css" media="screen, projection" />
-	<link rel="stylesheet" href="{{ MEDIA_URL }}css/messages.css" type="text/css" media="screen, projection" />
-	<link rel="stylesheet" href="{{ MEDIA_URL }}css/forms.css" type="text/css" media="screen, projection" />
-	<link rel="stylesheet" href="{{ MEDIA_URL }}jquery-ui-1.8.7.custom/css/custom-theme/jquery-ui-1.8.7.custom.css" type="text/css" media="screen, projection" />
-    <script type="text/javascript" src="{{ MEDIA_URL }}jquery-ui-1.8.7.custom/js/jquery-1.4.4.min.js"></script>
-    <script type="text/javascript" src="{{ MEDIA_URL }}jquery-ui-1.8.7.custom/js/jquery-ui-1.8.7.custom.min.js"></script>
-    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.router.js"></script>
+    {% include_media "main.css" %}
+    {% include_media "main.js" %}
     {% block head-extra %}{% endblock %}
 </head>
 

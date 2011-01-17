@@ -1,13 +1,11 @@
 {% extends "index.html" %}
 
-{% load i18n helpers_tags webdesign pagination_tags gravatar %}
+{% load media i18n helpers_tags webdesign pagination_tags gravatar %}
 
 {% block title %}{% trans "Your links in bank!" %}{% endblock %}
 
 {% block head-extra %}
-<script type="text/javascript" src="{{ MEDIA_URL }}js/placeholder.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}js/bookmarks.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}js/navigation.js"></script>
+{% include_media "my.js" %}
 <script type="text/javascript">
 $(function () {
     $("#id_href").placeholder({ initial:"{{ form.href.field.initial|escapejs }}" });
