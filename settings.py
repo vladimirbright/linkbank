@@ -93,9 +93,9 @@ GLOBAL_MEDIA_DIRS = (self_dir('s'),)
 
 MEDIA_BUNDLES = (
     ('main.css',
-        'css/style.css',
-        'css/messages.css',
-        'css/forms.css',
+        'css/style.sass',
+        'css/messages.sass',
+        'css/forms.sass',
         'jquery-ui-1.8.7.custom/css/custom-theme/jquery-ui-1.8.7.custom.css',
     ),
     ('main.js',
