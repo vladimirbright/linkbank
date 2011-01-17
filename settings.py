@@ -81,15 +81,14 @@ TEMPLATE_DIRS = (
 DEV_MEDIA_URL = '/devs/'
 PRODUCTION_MEDIA_URL = '/st/'
 ROOT_MEDIA_FILTERS = {
-    #'css': 'mediagenerator.filters.yuicompressor.YUICompressor',
+    'css': 'mediagenerator.filters.yuicompressor.YUICompressor',
+    #'js': 'mediagenerator.filters.yuicompressor.YUICompressor',
     'js': 'mediagenerator.filters.closure.Closure',
 }
 CLOSURE_COMPILER_PATH = self_dir("compiler.jar")
 #CLOSURE_COMPILATION_LEVEL = 'WHITESPACE_ONLY'
-YUICOMPRESSOR_PATH = self_dir("yuicompressor-2.4.2",
-                              "build",
-                              "yuicompressor-2.4.2.jar")
-#--disable-optimizations   Disable all micro optimizations
+YUICOMPRESSOR_PATH = self_dir("yuicompressor-2.4.2.jar")
+
 GLOBAL_MEDIA_DIRS = (self_dir('s'),)
 
 MEDIA_BUNDLES = (
