@@ -12,6 +12,9 @@ $(function () {
     $("#id_q").placeholder({ initial:"Поиск" });
     $(".edit_bookmark").bookmarks({ dialog_opts: { width: 430 } });
     $(".del_bookmark").bookmarks({ dialog_opts: { width: 430 } });
+    $("#search_this").click(function () {
+        // console.log($().parse_hash()); 
+    });
 });
 </script>
 {% endblock %}
@@ -20,7 +23,6 @@ $(function () {
   <div class="logout_div">
     <a title="{% trans "Sign out from site" %}" href="{% url logout %}">выйти</a>
   </div>
-
 {% endblock %}
 
 {% block content %}
@@ -51,7 +53,7 @@ $(function () {
 
     <div class="form_submit_wrapper">
       <div class="form_submit_wrapper_inner" id="id_href_submit_wrapper">
-        <input value="Search this!" type="submit">
+        <input value="Search this!" type="button" id="search_this">
       </div>
     </div>
   </div>

@@ -1,37 +1,40 @@
+$first-color: #666
+$second-color: #CC0000
+
 label
   font-size: 15px
-  color: #666
+  color: $first-color
   &:hover
-    color: #CC0000
+    color: $second-color
 
 input
   &[type="text"], &[type="password"]
-    border: 1px solid #eaeaea
+    border: 1px solid lighten($first-color, 40%)
     width: 400px
     height: 1.6em
     font-size: 16px
   &[type="text"]:focus, &[type="password"]:focus
-    border: 1px solid #cc0000
+    border: 1px solid $second-color
 
 textarea
-  border: 1px solid #eaeaea
+  border: 1px solid lighten($first-color, 40%)
   width: 400px
   height: 60px
   &:focus
-    border: 1px solid #cc0000
+    border: 1px solid $second-color
 
 span
   &.helptext
-    color: #7c7c7c
+    color: lighten($first-color, 10%)
     font-size: 11px
   &.required
-    color: #FF0000
+    color: $second-color
     font-size: 1.4em
     padding-left: 5px
 
 .errorlist
   width: 400px
-  background-color: #FF0000
+  background-color: lighten($second-color, 10%)
   color: white
   font-size: 13px
   font-weight: bold

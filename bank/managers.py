@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from collections import Iterable
 from sphinxapi import SphinxClient
 
 from django.conf import settings
@@ -39,7 +38,6 @@ class SearchManager(Manager):
         return self._total_found
 
     def query(self, query):
-        query = self._client.EscapeString(query)
         _r = self._client.Query(query, self._index)
         if not _r or \
            not "matches" in _r or \

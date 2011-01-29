@@ -3,7 +3,13 @@
 <div class="breadcrumbs">
   <ul>
     <li><a title="{% trans "All links" %}" href="/">{% trans "Links" %}</a></li>
-    <li><span>Теги: &laquo;Тег1&raquo;, &laquo;тег2&raquo;, &laquo;тег3&raquo;</span></li>
+    {% if tags %}
+    <li><span>Теги: 
+        {% for t in tags %}
+        &laquo;{{ t.title }}&raquo;{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+        </span></li>
+    {% endif %}
   </ul>
 </div>
 {% if paginate_fake %}

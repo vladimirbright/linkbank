@@ -4,18 +4,15 @@ import sphinxapi
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
-from bank.models import LinkAddForm, Link, UserCreationFormWithCaptcha, LinkEditForm
-from bank.models import LinkEditForm
 from bank.forms import SearchForm
+from bank.models import LinkAddForm, Link, UserCreationFormWithCaptcha, LinkEditForm
 from tags.models import Tag
 
 
@@ -60,14 +57,18 @@ def link_list(request):
 def link_search(request):
     f = SearchForm(request.GET or None, user=request.user)
     f.is_valid()
-    q = f.cleaned_data.get("q", "")
-    s = f.cleaned_data.get("s", None)
-    tags = f.cleaned_data.get("tags", None)
+    _cleaned_data =  getattr(f, "cleaned_data", {})
+    q = _cleaned_data.get("q", "")
+    s = _cleaned_data.get("s", None)
+    tags = _cleaned_data.get("tags", None)
     _s = Link.search.sphinx
     _s.SetFilter("owner_id", [ request.user.pk, ])
     _s.SetMatchMode(sphinxapi.SPH_MATCH_EXTENDED2)
     if s:
-        _s.SetSortMode(sphinxapi.SPH_SORT_ATTR_DESC, s)
+        _sort = "%s DESC" % s
+        _s.SetSortMode(sphinxapi.SPH_SORT_EXTENDED, _sort.encode("utf8") )
+    else:
+        _s.SetSortMode(sphinxapi.SPH_SORT_EXTENDED, "@id DESC")
     _tag_titles = []
     if tags:
         _tag_titles = [ u"%sQ%s" %(_s.EscapeString(i.title), i.pk) \
@@ -85,15 +86,15 @@ def link_search(request):
     # Take care about search query
     query = u""
     if q.strip() != "":
-        query = u"@(href, title, description) %s*" % _s.EscapeString(q.strip())
+        query = u"@(href,title,description) %s*" % _s.EscapeString(q.strip())
     if _tag_titles:
-        query += u"@tags_cache %s" % u" | ".join(_tag_titles)
-    #print query
+        query += u" @tags_cache %s" % u" ".join(_tag_titles)
     c = {}
     c["PER_PAGE"] = PER_PAGE
     c["links"] = Link.search.query(query)
     c["fake_qs"] = range(Link.search.total_found)
     c["paginate_fake"] = True
+    c["tags"] = tags
     return render_to_response("bank/_list_ajax.html", c,
                               context_instance=RequestContext(request))
 

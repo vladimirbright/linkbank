@@ -3,9 +3,8 @@
 import sphinxapi
 
 from django import forms
-from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext_lazy as _
-from django.forms.util import flatatt, ErrorDict, ErrorList
+from django.forms.util import ErrorDict
 
 
 from tags.models import Tag
