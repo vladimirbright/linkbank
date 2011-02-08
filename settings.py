@@ -99,7 +99,7 @@ MEDIA_BUNDLES = (
         'jquery-ui-1.8.7.custom/css/custom-theme/jquery-ui-1.8.7.custom.css',
     ),
     ('main.js',
-        'jquery-ui-1.8.7.custom/js/jquery-1.4.4.min.js',
+        'js/jquery.1.5.0.min.js',
         'jquery-ui-1.8.7.custom/js/jquery-ui-1.8.7.custom.min.js',
         'js/jquery.router.js',
     ),

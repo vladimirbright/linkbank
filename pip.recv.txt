@@ -8,3 +8,4 @@ http://django-simple-captcha.googlecode.com/files/django-simple-captcha-0.2.0.ta
 svn+http://django-gravatar.googlecode.com/svn/trunk/
 flup
 django-mediagenerator
+fabric
