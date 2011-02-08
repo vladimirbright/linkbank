@@ -10,11 +10,9 @@
 $(function () {
     $("#id_href").placeholder({ initial:"{{ form.href.field.initial|escapejs }}" });
     $("#id_q").placeholder({ initial:"Поиск" });
-    $(".edit_bookmark").bookmarks({ dialog_opts: { width: 430 } });
-    $(".del_bookmark").bookmarks({ dialog_opts: { width: 430 } });
-    $("#search_this").click(function () {
-        // console.log($().parse_hash()); 
-    });
+    $().bookmarks(".edit_bookmark", { dialog_opts: { width: 430 } });
+    $().bookmarks(".del_bookmark", { dialog_opts: { width: 430 } });
+    $("#search_this").navigation({ url: "{% url bank.views.link_search %}", container_id: 'main_container' }); 
 });
 </script>
 {% endblock %}

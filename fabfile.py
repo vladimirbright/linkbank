@@ -18,6 +18,12 @@ def prestart():
         run('kill -HUP `cat django.pid`')
 
 
+@hosts('knbase.info@knbase.info')
+def killall():
+    run('killall python')
+
+
+@hosts('knbase.info@knbase.info')
 def update():
     ppull()
-    prestart()
+    killall()

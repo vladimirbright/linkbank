@@ -15,7 +15,7 @@
     Применять так
         $('.edit').bookmarks();
 */
-    var defaults, load_form, send_form, process_error;
+    var defaults, load_form, send_form, process_error, opts;
 
     process_error = function (d, xhr, status, err) {
         // Функция для обработки ошибок загрузки формы
@@ -23,7 +23,7 @@
         d.dialog("option", "position", "center");
     };
 
-    send_form = function (_url, d, opts) {
+    send_form = function (ajax_url, d) {
         // Функция отсылки формы.
         var _aopts;
         // Показываем гиф загрузки
@@ -31,7 +31,7 @@
         _aopts = $.extend({
             type: "POST",
             cache: false,
-            url: _url,
+            url: ajax_url,
             data: $(d).find("form").first().serialize(),
             beforeSend: function (XMLHttpRequest, settings) {
                 d.html(opts.loader);
@@ -43,7 +43,10 @@
                 if (data.toLowerCase().indexOf("<form") === -1) {
                     // Форма пришла без ошибок. Заменяем кнопки на Close
                     d.dialog("option", "buttons", {
-                        "Close": function () { d.dialog("close"); }
+                        "Close": function () { 
+                            $("#" + opts.container_id).trigger("reload");
+                            d.dialog("close");
+                        }
                     }); 
                 } 
                 d.dialog("option", "position", "center");
@@ -56,11 +59,11 @@
     };
 
 
-    load_form = function (el, opts) {
+    load_form = function (el) {
         // Функция загрузки формы
-        var _url, d;
-        _url = el.attr("href") || el.attr("rel");
-        if (_url === null || _url == "") {
+        var ajax_url, d;
+        ajax_url = el.attr("href") || el.attr("rel");
+        if (ajax_url === null || ajax_url == "") {
             return false;
         }
         d = $('<div></div>', { title: el.attr("title") || "" });
@@ -74,7 +77,7 @@
                 // 2. Опции для ajah запроса
                 _aopts = $.extend({
                     type: "GET",
-                    url: _url,
+                    url: ajax_url,
                     cache: false,
                     success: function (data, status, xhr) {
                             // Получение данных с сервера с формой
@@ -92,7 +95,7 @@
             },
             buttons: {
                 "Ok": function () {
-                    send_form(_url, d, opts);
+                    send_form(ajax_url, d);
                 },
                 "Cancel": function () {
                     $(this).dialog("close");
@@ -111,19 +114,17 @@
             type: "POST",
             cache: false
         },
-        dialog_opts: {}
+        dialog_opts: {},
+        container_id: 'main_container'
     };
 
+    opts = {};
 
-    $.fn.bookmarks = function(options) {
+    $.fn.bookmarks = function(selector, options) {
       opts = $.extend({}, defaults, options);
-      return this.each(function() {
-        var $this;
-        $this = $(this);
-        $this.click(function () { 
-            load_form($this, opts);
-            return false;
-        });
+      $("#" + opts.container_id).delegate(selector, "click", function(){
+        load_form($(this));
+        return false;
       });
     };
 

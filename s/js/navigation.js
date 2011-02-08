@@ -20,7 +20,9 @@
 
 
 */
-    var defaults, parse_hash, load, reload, split_chunk, is_two;
+    var defaults, parse_hash, set_hash, reload, split_chunk, is_two, opts, get_search, last_timeout;
+
+    opts = {};
 
     split_chunk = function (chunk) {
         return [ chunk.split("=") ];
@@ -30,14 +32,12 @@
         return $(this).length == 2;
     };
 
-    parse_hash = function(opts) {
+    parse_hash = function() {
         /*
             Ждем query string такого вида
             #q=&m=2&s=1&tag=34&tag=30&tag=1&page=5
         */
         var hash, hash_dict, placeholders, arrays;
-        placeholders = [ "q", "s", "tags", "page" ];
-        arrays = [ "tags" ];
         hash = location.hash;
         hash = hash.replace(/^#/, '');
         hash = $($.map(hash.split("&"), split_chunk)).filter(is_two);
@@ -46,17 +46,17 @@
             var k, v; 
             k = el[0];
             v = el[1];
-            if (placeholders.indexOf(k) === -1) {
+            if (opts.placeholders.indexOf(k) === -1) {
                 return;
             }
             if (k in hash_dict) {
-                if (arrays.indexOf(k) !== -1) {
+                if (opts.arrays.indexOf(k) !== -1) {
                     hash_dict[k].push(v);
                     return;
                 } 
                 return;
             }
-            if (arrays.indexOf(k) !== -1) {
+            if (opts.arrays.indexOf(k) !== -1) {
                 hash_dict[k] = [];
                 hash_dict[k].push(v);
                 return;
@@ -66,19 +66,57 @@
         return hash_dict;
     };
 
-    load = function (data) {
-    
+    set_hash = function (hash_dict) {
+        var hash; 
+        hash = "#";
+        $(opts.placeholders).each(function (i, el) {
+            var is_array; 
+            if (el in hash_dict === false) {
+                return;
+            }
+            is_array = opts.arrays.indexOf(el) !== -1;
+            if (is_array === false) {
+                hash = hash + el + '=' + hash_dict[el] + '&';
+                return;
+            }
+            $(hash_dict[el]).each(function (k, ar) {
+                hash = hash + k + '=' + ar + '&';
+            });
+        });
+        location.hash = hash;
     };
 
+    get_search = function () {
+        var q, h;
+        q = $(opts.search_selector).val();
+        h = parse_hash();
+        h[opts.placeholders[0]] = q;
+        set_hash(h);
+    };
+
+    last_timeout = false;
+
     reload = function () {
-    
+        var ajax_url, h;
+        h = location.hash.replace(/^#/, '');
+        ajax_url = opts.url + '?' + h;
+        if (last_timeout !== false) {
+            clearTimeout(last_timeout);
+        }
+        last_timeout = setTimeout(function () {
+            $('#' + opts.container_id).load(ajax_url);
+        }, opts.timeout);
     };
 
     defaults = {
         url: false,
         container_id: 'main_container',
         placeholders: [ "q", "s", "tags", "page" ],
-        arrays: [ "tags" ]
+        arrays: [ "tags" ],
+        timeout: 1000,
+        tag_selector: ".tag_sel",  // links to set or remove tag
+        sort_selector: ".sort",    // links to set sort mode
+        search_selector: "#id_q"   // input for keyup reload
     };
 
     $.fn.navigation = function(options) {
@@ -86,10 +124,20 @@
       if (opts.url === false) {
         return false;
       }
-
-      return this.each(function() {
-        var $this;
-        $this = $(this);
+      // Бинды
+      $('#' + opts.container_id).bind("reload", function () {
+        get_search();
+        reload();
+        return false;
+      });
+      $(this).click(function () {
+        $('#' + opts.container_id).trigger("reload");
+        return false;
+      });
+      $(opts.search_selector).keyup(function () {
+        get_search();
+        $('#' + opts.container_id).trigger("reload");
+        return false;
       });
     };
 

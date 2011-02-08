@@ -44,6 +44,8 @@
             </span>
         {% endwith %}
       </li>
+  {% empty %}
+    <h4>{% trans "Empty result" %}</h4>
   {% endfor %}
   </ul>
 </div>
