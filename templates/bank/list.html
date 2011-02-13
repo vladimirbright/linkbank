@@ -7,12 +7,11 @@
 {% block head-extra %}
 {% include_media "my.js" %}
 <script type="text/javascript">
-$(function () {
-    $("#id_href").placeholder({ initial:"{{ form.href.field.initial|escapejs }}" });
-    $("#id_q").placeholder({ initial:"Поиск" });
-    $().bookmarks(".edit_bookmark", { dialog_opts: { width: 430 } });
-    $().bookmarks(".del_bookmark", { dialog_opts: { width: 430 } });
-    $("#search_this").navigation({ url: "{% url bank.views.link_search %}", container_id: 'main_container' }); 
+window.addEvent("domready", function () {
+    var search_placeholder = new Placeholder("id_q", "Поиск");
+    var add_link_placeholder = new Placeholder("id_href", "{{ form.href.field.initial|escapejs }}");
+    var edit_links = new BookmarkActiveLink(".edit_bookmark", { containerId: "main_container" });
+    var del_links = new BookmarkActiveLink(".del_bookmark", { containerId: "main_container" });
 });
 </script>
 {% endblock %}

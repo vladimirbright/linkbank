@@ -82,31 +82,29 @@ DEV_MEDIA_URL = '/devs/'
 PRODUCTION_MEDIA_URL = '/st/'
 ROOT_MEDIA_FILTERS = {
     'css': 'mediagenerator.filters.yuicompressor.YUICompressor',
-    #'js': 'mediagenerator.filters.yuicompressor.YUICompressor',
     'js': 'mediagenerator.filters.closure.Closure',
 }
 CLOSURE_COMPILER_PATH = self_dir("compiler.jar")
-#CLOSURE_COMPILATION_LEVEL = 'WHITESPACE_ONLY'
 YUICOMPRESSOR_PATH = self_dir("yuicompressor-2.4.2.jar")
 
-GLOBAL_MEDIA_DIRS = (self_dir('s'),)
+GLOBAL_MEDIA_DIRS = (
+    self_dir('s'),
+)
 
 MEDIA_BUNDLES = (
     ('main.css',
         'css/style.sass',
         'css/messages.sass',
         'css/forms.sass',
-        'jquery-ui-1.8.7.custom/css/custom-theme/jquery-ui-1.8.7.custom.css',
     ),
     ('main.js',
-        'js/jquery.1.5.0.min.js',
-        'jquery-ui-1.8.7.custom/js/jquery-ui-1.8.7.custom.min.js',
-        'js/jquery.router.js',
+        'js/mootools-core-1.3-full-nocompat.js',
+        'js/mootools-more.js',
     ),
     ('my.js',
-        'js/placeholder.js',
-        'js/bookmarks.js',
-        'js/navigation.js',
+        'js/placeholder.moo.js',
+        'js/bookmarks.moo.js',
+        'js/navigation.moo.js',
     ),
 )
 
