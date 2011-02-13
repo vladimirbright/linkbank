@@ -1,4 +1,5 @@
-{# Snippet with ok confirmation #}
-{% if request.is_ajax %}{% load i18n %}
-<h4 class="ok">{% trans "All done, dude!" %}</h4>
-{% else %}{% endif %}
+{% extends "popup.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "All done!" %}{% endblock %}

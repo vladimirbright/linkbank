@@ -1,4 +1,13 @@
-{% load helpers_tags %}
-<form>
-{% render_form form %}
+{% extends "popup.html" %}
+
+{% load helpers_tags i18n %}
+
+{% block title %}{% trans "Edit" %} &laquo;{{ link.title|default:link.href }}&raquo;{% endblock %}
+
+{% block body %}
+<form action="{% url bank.views.link_edit link.pk  %}" method="POST">
+    {% csrf_token %}
+    {% render_form form %}
+    <input type="submit" value="{% trans "Save" %}" />
 </form>
+{% endblock %}

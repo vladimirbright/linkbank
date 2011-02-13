@@ -110,7 +110,7 @@ def link_delete(request, l_id):
     if request.method == "POST" and \
        u"%s" % request.POST.get("vaaa", 0) == u"%s" % link.pk :
         link.delete()
-        return HttpResponse(_("Bookmark deleted").format())
+        return render_to_response("ok.html")
     c = { "link": link }
     return render_to_response("bank/delete.html", c,
                               context_instance=RequestContext(request))
@@ -138,7 +138,7 @@ def link_edit(request, l_id):
                 tag, c = Tag.objects.get_or_create(owner=request.user, title=t)
                 _link.tags.add(tag)
         _link.save()
-        return HttpResponse(_("Changes saved").format())
+        return render_to_response("ok.html")
     c = {}
     c["link"] = link
     c["form"] = form

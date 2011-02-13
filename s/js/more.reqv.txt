@@ -1,3 +1,9 @@
+/* Mootools.More */
 Form.Request
 Element.Delegation
 URI
+/* Clientside */
+StickyWin
+StickyWin.Ajax
+StickyWin.Modla
+FiXPng

@@ -1,0 +1,7 @@
+{% load i18n %}
+<div class="popup">
+    <h4 class="popup_title">{% block title %}{% endblock %}</h4>
+    {% block body %}{% endblock %}
+    <br>
+    <a href="#" class="closeSticky" title="{% trans "Close this window" %}">{% trans "Close" %}</a>
+</div>
