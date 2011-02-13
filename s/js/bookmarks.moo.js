@@ -24,20 +24,14 @@ var BookmarkActiveLink = new Class({
         }
     },
     /* some properties */
-    selector: false,
-    csrfToken: false,
     currentLink: false,
     currentStickyWin: false,
     currentForm: false,
 
     initialize: function(selector, options) {
-        this.selector = selector;
-        /* bind methods to defaults */
-        this.options.onFormSuccess = this.onFormSuccess.bind(this);
-        this.options.onFormError = this.onFormError.bind(this);
         this.setOptions(options);
         /* links may be loaded via ajax */
-        $(this.options.containerId).addEvent("click:relay(" + this.selector + ')', this.loadFormFromLink.bind(this));
+        $(this.options.containerId).addEvent("click:relay(" + selector + ')', this.loadFormFromLink.bind(this));
     },
 
     loadFormFromLink: function (e, clicked) {
