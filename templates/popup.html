@@ -3,5 +3,5 @@
     <h4 class="popup_title">{% block title %}{% endblock %}</h4>
     {% block body %}{% endblock %}
     <br>
-    <a href="#" class="closeSticky" title="{% trans "Close this window" %}">{% trans "Close" %}</a>
+    <a href="javascript:function () {return false;}" class="closeSticky" title="{% trans "Close this window" %}">{% trans "Close" %}</a>
 </div>
