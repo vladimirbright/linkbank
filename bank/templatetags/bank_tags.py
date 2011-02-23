@@ -16,3 +16,10 @@ def tags(bookmark):
     except IndexError:
         return {}
     return { "tags": tags }
+
+
+@register.inclusion_tag("bank/_tags_bar.html", takes_context=True)
+def tags_bar(context):
+    return {
+        "user": context.get("user")
+    }

@@ -2,13 +2,16 @@
 {% load i18n pagination_tags bank_tags helpers_tags %}
 <div class="breadcrumbs">
   <ul>
-    <li><a title="{% trans "All links" %}" href="/">{% trans "Links" %}</a></li>
+    <li><a title="{% trans "All links" %}" href="#">{% trans "Links" %}</a></li>
     {% if tags %}
-    <li><span>Теги: 
-        {% for t in tags %}
-        &laquo;{{ t.title }}&raquo;{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-        </span></li>
+    <li>
+    {% for t in tags %}
+        <a rel="{{ t.pk }}" class="tag tag_{{ t.pk }}" href="#">&laquo;{{ t.title }}&raquo;</a>{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    </li>
+    {% endif %}
+    {% if query %}
+    <li><span>&laquo;{{ query }}&raquo;</span></li>
     {% endif %}
   </ul>
 </div>
@@ -22,14 +25,17 @@
         background: url(http://favicon.yandex.ru/favicon/{% for l in links %}{{ l.domain }}/{% endfor %}) 0 0 no-repeat;
     }
     {% for l in links %}
+    {% if l.href %}
     .fav_{{ forloop.counter }} {
         background-position: 0 -{{ forloop.counter|multiple:16 }}px;
     }
+    {% endif %}
     {% endfor %}
 </style>
 <div class="link_wrapper">
   <ul>
   {% for l in links %}
+  {% if l.href %}
       <li>
         <div class="abs_wrapper"><div class="rel_wrapper fav_wrapper faviconed fav_{{ forloop.counter }}">&nbsp;</div></div>
         {% with l.title|default:l.href as href_title %}
@@ -52,6 +58,7 @@
             </span>
         {% endwith %}
       </li>
+  {% endif %}
   {% empty %}
     <h4>{% trans "Empty result" %}</h4>
   {% endfor %}

@@ -5,6 +5,7 @@ var BookmarkActiveLink = new Class({
     options: {
         onFormSuccess: function () {},
         onFormError: function () {},
+        onClose: function () {},
         loadPlaceholder: new Element("div.ajax_bar_div"),
         containerId: "main_container",
         stickyOpts: {
@@ -55,6 +56,9 @@ var BookmarkActiveLink = new Class({
             }.bind(this), 30);
         }.bind(this)
         this.currentStickyWin = new StickyWin.Ajax(opts);
+        this.currentStickyWin.addEvent("close", function () {
+            this.fireEvent("close");
+        }.bind(this));
     },
 
     bindForm: function () {

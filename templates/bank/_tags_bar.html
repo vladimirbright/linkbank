@@ -1,0 +1,9 @@
+{% load i18n %}
+<ul class="sidebar_tags">
+{% for t in user.tag_set.all %}
+  <li><a rel="{{ t.pk }}" href="#" class="tag tag_{{ t.pk }}">{{ t.title }}</a></li>
+{% empty %}
+  <li>{% trans "You don't add any tags" %}</li>
+{% endfor %}
+</ul>
+{# <li class="ui-selected">Selected tag</li> #}

@@ -5,7 +5,7 @@ import sphinxapi
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -92,9 +92,10 @@ def link_search(request):
     c = {}
     c["PER_PAGE"] = PER_PAGE
     c["links"] = Link.search.query(query)
-    c["fake_qs"] = range(Link.search.total_found)
+    c["fake_qs"] = range(Link.search.total_found) if Link.search.total_found > 1 else range(2)
     c["paginate_fake"] = True
     c["tags"] = tags
+    c["query"] = q
     return render_to_response("bank/_list_ajax.html", c,
                               context_instance=RequestContext(request))
 

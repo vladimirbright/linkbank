@@ -1,17 +1,22 @@
 {% extends "index.html" %}
-
-{% load media i18n helpers_tags webdesign pagination_tags gravatar %}
-
+{% load bank_tags media i18n helpers_tags pagination_tags %}
 {% block title %}{% trans "Your links in bank!" %}{% endblock %}
-
 {% block head-extra %}
 {% include_media "my.js" %}
 <script type="text/javascript">
 window.addEvent("domready", function () {
-    var search_placeholder = new Placeholder("id_q", "Поиск");
-    var add_link_placeholder = new Placeholder("id_href", "{{ form.href.field.initial|escapejs }}");
-    var edit_links = new BookmarkActiveLink(".edit_bookmark", { containerId: "main_container" });
-    var del_links = new BookmarkActiveLink(".del_bookmark", { containerId: "main_container" });
+    var searchPlaceholder = new Placeholder("id_q", "Поиск");
+    var addLinkPlaceholder = new Placeholder("id_href", "{{ form.href.field.initial|escapejs }}");
+    var editLinks = new BookmarkActiveLink(".edit_bookmark", { containerId: "main_container" });
+    var delLinks = new BookmarkActiveLink(".del_bookmark", { containerId: "main_container" });
+    {% url bank.views.link_search as search_url %}
+    var navObj = new SiteNavigation("{{ search_url|escapejs }}", "id_q");
+    /* reload on form success */
+    editLinks.addEvent("formSuccess", function () { navObj.fireEvent("reload"); }.bind(this));
+    delLinks.addEvent("formSuccess", function () { navObj.fireEvent("reload"); }.bind(this));
+    setTimeout(function () {
+        navObj.fireEvent("reload");
+    }.bind(this), 100);
 });
 </script>
 {% endblock %}
@@ -65,18 +70,8 @@ window.addEvent("domready", function () {
   <div class="sidebar_username">
     <a href="#" title="{% trans "Profile, settings, password change & etc" %}">{{ user.username }}</a>
   </div>
-  {% comment %}
-  <img class="sidebar_gravatar" title="{% trans "Your gravatar" %}" src="{% gravatar_for_user user 90 %}" />
-  {% endcomment %}
   <h4 class="sidebar_tags_title">{% trans "Tags" %}</h4>
-  <ul class="sidebar_tags">
-    {% for t in user.tag_set.all %}
-      <li>{{ t.title }} #{{ t.pk }}</li>
-    {% empty %}
-      <li>{% trans "You don't add any tags" %}</li>
-    {% endfor %}
-  </ul>
-      {# <li class="ui-selected">Selected tag</li> #}
+  {% tags_bar %}
 
   <h4 class="sidebar_bookmarklets_title">{% trans "Bookmarklets" %}</h4>
   <ul class="sidebar_bookmarklets">
@@ -101,4 +96,3 @@ window.addEvent("domready", function () {
       </li>
   </ul>
 {% endblock %}
-
