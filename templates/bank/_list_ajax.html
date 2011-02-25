@@ -27,7 +27,7 @@
     {% for l in links %}
     {% if l.href %}
     .fav_{{ forloop.counter }} {
-        background-position: 0 -{{ forloop.counter|multiple:16 }}px;
+        background-position: 0 -{{ forloop.counter0|multiple:16 }}px;
     }
     {% endif %}
     {% endfor %}
