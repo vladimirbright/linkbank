@@ -37,9 +37,10 @@ USE_L10N = True
 SECRET_KEY = '8_#0m81g!r@+dz@kqxl))4(w36bigo+jae#qqlh(w=n@znl0-a'
 
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
 )
 
 MIDDLEWARE_CLASSES = (
