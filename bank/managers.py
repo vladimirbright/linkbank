@@ -35,10 +35,10 @@ class SearchManager(Manager):
 
     @property
     def total_found(self):
-        return self._total_found
+        return self._total_found or 0
 
     def query(self, query):
-        _r = self._client.Query(query, self._index)
+        _r = self._client.Query(query.strip(), self._index)
         if not _r or \
            not "matches" in _r or \
            not _r["matches"]:

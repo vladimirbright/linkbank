@@ -7,6 +7,7 @@ var SiteNavigation = new Class({
         sortChunk: "s",
         tagsChunk: "tags",
         pageChunk: "page",
+        pageSelector: ".page",
         tagsSelector: ".tag",
         selectedTagClass: "ui-selected",
         selectedTagPrefix: ".tag_",
@@ -18,7 +19,8 @@ var SiteNavigation = new Class({
             noCache: true,
             chain: "cancel"
         },
-        onReload: function () {}
+        onReload: function () {},
+        onPageReset: function () {}
     },
     /* some properties */
     currentTags: [],
@@ -33,6 +35,7 @@ var SiteNavigation = new Class({
         this.searchInput = $(searchInputId);
         /* Bind methods to events */
         this.options.onReload = this.onReload;
+        this.options.onPageReset = this.onPageReset;
         this.setOptions(options);
         /* Set AJAH URL  */
         this.loadOpts = this.options.requestOpts;
@@ -59,15 +62,34 @@ var SiteNavigation = new Class({
     bindEvens: function () {
         /* Bind on keyup search input set hash chunk and this.fireEvent("reload") */
         this.searchInput.addEvent("keyup", function () {
+            this.fireEvent("pageReset");
             this.setHashSearchValue();
         }.bind(this));
         /* bind click on tag links to add|remove tag from #tags */
         $(window).addEvent("click:relay(" + this.options.tagsSelector + ')', this.addTag.bind(this));
+        $(this.options.containerId).addEvent("click:relay(" + this.options.pageSelector + ")", this.addPage.bind(this));
+    },
+
+    addPage: function (e) {
+        var page, uri;
+        e.preventDefault();
+        page = e.target.get("rel");
+        if (page === null) {
+            return false;
+        }
+        uri = this.getURI();
+        uri.setData(this.options.pageChunk, page); 
+        this.setHash(uri);
+    },
+
+    onPageReset: function () {
+        //this.setHash(this.getURI().setData(this.options.pageChunk, 1));
     },
 
     addTag: function (e) {
         var tag, uri, tagsString;
         e.preventDefault();
+        this.fireEvent("pageReset");
         tag = e.target.get("rel");
         if (tag === null) {
             return false;
@@ -81,14 +103,18 @@ var SiteNavigation = new Class({
             return false;
         }
         /* tag allready selected */
-        if (this.currentTags.indexOf(tag) !== -1) {
-            /* remove from */
-            this.currentTags = Array.filter(this.currentTags, function(el, i) {
-                return el !== tag;
-            }.bind(this));
+        if (Type.isArray(this.currentTags) === true) {
+            if (this.currentTags.indexOf(tag) !== -1) {
+                /* remove from */
+                this.currentTags = Array.filter(this.currentTags, function(el, i) {
+                    return el !== tag;
+                }.bind(this));
+            } else {
+                /* add to */
+                this.currentTags.push(tag);
+            }
         } else {
-            /* add to */
-            this.currentTags.push(tag);
+            this.currentTags = [];
         }
         /* serialize this.currentTags to tags=1&tags=3&tags=4 */ 
         tagsString = this.options.tagsChunk + "=" + this.currentTags.join("&" + this.options.tagsChunk + "=");
@@ -108,7 +134,7 @@ var SiteNavigation = new Class({
     mapTags: function () {
         /* Map selected tags */
         $$(this.options.tagsSelector).removeClass(this.options.selectedTagClass);
-        if (this.currentTags === null) {
+        if (Type.isArray(this.currentTags) === false) {
             return false;
         }
         this.currentTags.each(function (el, i) {
