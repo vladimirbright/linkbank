@@ -20,10 +20,10 @@ var SiteNavigation = new Class({
             chain: "cancel"
         },
         onReload: function () {},
-        onPageReset: function () {}
+        onPageReset: function () {},
+        onHashSet: function () {}
     },
     /* some properties */
-    currentTags: [],
     lastLoadTimeout: false,
     loadOpts: {},
     loadUrl: false,
@@ -36,10 +36,10 @@ var SiteNavigation = new Class({
         /* Bind methods to events */
         this.options.onReload = this.onReload;
         this.options.onPageReset = this.onPageReset;
+        this.options.onHashSet = this.onHashSet;
         this.setOptions(options);
         /* Set AJAH URL  */
         this.loadOpts = this.options.requestOpts;
-        this.loadOpts["url"] = this.loadUrl;
         this.loadOpts["update"] = this.options.containerId;
         this.bindEvens();
         this.checkHash();
@@ -59,125 +59,114 @@ var SiteNavigation = new Class({
         }.bind(this), this.options.hashTimeout);
     },
 
+    onHashSet: function () {
+        /* Get this.navigation and serilize in hash  */
+        var t, hash;
+        hash = "";
+        // Search
+        if (this.options.searchChunk in this.navigation) {
+            hash = hash + this.options.searchChunk + "=" + this.navigation[this.options.searchChunk];
+        }
+        // Pagination
+        if (this.options.pageChunk in this.navigation) {
+            if (this.navigation[this.options.pageChunk] > 1) {
+                hash = hash + "&" + this.options.pageChunk + "=" + this.navigation[this.options.pageChunk];
+            }
+        }
+        // Tags
+        if (this.options.tagsChunk in this.navigation) {
+            t = this.navigation[this.options.tagsChunk];
+            if (Type.isArray(t) && t.length > 0) {
+                hash = hash + "&" + this.options.tagsChunk + "=" + t.join("&" + this.options.tagsChunk + "=");
+            } else {
+                this.navigation[this.options.tagsChunk] = [];
+            }
+        }
+        // Set hash
+        window.location.hash = hash.replace(/^&/, "");
+    },
+
     bindEvens: function () {
         /* Bind on keyup search input set hash chunk and this.fireEvent("reload") */
-        this.searchInput.addEvent("keyup", function () {
-            this.fireEvent("pageReset");
-            this.setHashSearchValue();
-        }.bind(this));
+        this.searchInput.addEvent("keyup", this.addSearch.bind(this));
         /* bind click on tag links to add|remove tag from #tags */
         $(window).addEvent("click:relay(" + this.options.tagsSelector + ')', this.addTag.bind(this));
         $(this.options.containerId).addEvent("click:relay(" + this.options.pageSelector + ")", this.addPage.bind(this));
     },
 
-    addPage: function (e) {
-        var page, uri;
-        e.preventDefault();
-        page = e.target.get("rel");
-        if (page === null) {
-            return false;
-        }
-        uri = this.getURI();
-        uri.setData(this.options.pageChunk, page); 
-        this.setHash(uri);
+    onPageReset: function () {
+        this.navigation[this.options.pageChunk] = 1;
     },
 
-    onPageReset: function () {
-        //this.setHash(this.getURI().setData(this.options.pageChunk, 1));
+    addSearch: function (e) {
+        this.fireEvent("pageReset");
+        this.navigation[this.options.searchChunk] = this.searchInput.get("value");
+        this.fireEvent("hashSet");
+    },
+
+    addPage: function (e) {
+        e.preventDefault();
+        this.navigation[this.options.pageChunk] = e.target.get("rel") || 1;
+        this.fireEvent("hashSet");
     },
 
     addTag: function (e) {
-        var tag, uri, tagsString;
+        var tag, c;
         e.preventDefault();
         this.fireEvent("pageReset");
         tag = e.target.get("rel");
         if (tag === null) {
             return false;
         }
-        uri = this.getURI();
-        this.checkCurrentTags();
-        if (this.currentTags === null || this.currentTags.length == 0) {
-            uri.setData(this.options.tagsChunk, tag); 
-            this.setHash(uri);
-            this.currentTags = [tag];
+        c = [];
+        if (this.options.tagsChunk in this.navigation) {
+            c = this.navigation[this.options.tagsChunk];
+        }
+        if (c === null || c.length == 0) {
+            this.navigation[this.options.tagsChunk] = [tag];
+            this.fireEvent("hashSet");
             return false;
         }
         /* tag allready selected */
-        if (Type.isArray(this.currentTags) === true) {
-            if (this.currentTags.indexOf(tag) !== -1) {
+        if (Type.isArray(c)) {
+            if (c.indexOf(tag) !== -1) {
                 /* remove from */
-                this.currentTags = Array.filter(this.currentTags, function(el, i) {
+                c = Array.filter(c, function(el, i) {
                     return el !== tag;
                 }.bind(this));
             } else {
                 /* add to */
-                this.currentTags.push(tag);
+                c.push(tag);
             }
         } else {
-            this.currentTags = [];
+            c = [];
         }
-        /* serialize this.currentTags to tags=1&tags=3&tags=4 */ 
-        tagsString = this.options.tagsChunk + "=" + this.currentTags.join("&" + this.options.tagsChunk + "=");
-        /* remove tagsChunk from uri */
-        uri.setData(this.options.tagsChunk);
-        this.setHash(uri, tagsString);
-    },
-
-    checkCurrentTags: function () {
-        uri = this.getURI();
-        this.currentTags = uri.getData(this.options.tagsChunk) || null;
-        if (typeOf(this.currentTags) === "string") {
-            this.currentTags = [this.currentTags];
-        }
+        this.navigation[this.options.tagsChunk] = c;
+        this.fireEvent("hashSet");
     },
 
     mapTags: function () {
         /* Map selected tags */
+        var c;
         $$(this.options.tagsSelector).removeClass(this.options.selectedTagClass);
-        if (Type.isArray(this.currentTags) === false) {
+        c = this.navigation[this.options.tagsChunk];
+        if (Type.isArray(c) === false || c.length == 0) {
             return false;
         }
-        this.currentTags.each(function (el, i) {
+        c.each(function (el, i) {
             $$(this.options.selectedTagPrefix + el).addClass(this.options.selectedTagClass); 
         }.bind(this));
     },
 
-    getURI: function () {
-        return new URI(this.loadUrl + '?' + window.location.hash.replace(/^#/, '')); 
-    },
-
-    getSearchValue: function () {
-        return this.searchInput.get("value");
-    },
-
-    setHashSearchValue: function () {
-        var uri;
-        uri = this.getURI();
-        uri.setData(this.options.searchChunk, this.getSearchValue());
-        this.setHash(uri);
-    },
-
-    setHash: function (uri, appendix) {
-        var query;
-        query = uri.get("query");
-        if (appendix) {
-            if (query.trim().length > 0) {
-                query = query + "&" + appendix;
-            } else {
-                query = appendix;
-            }
-        }
-        window.location.hash = query;
-    },
-
     onReload: function () {
+        var ajaxUrl;
         if (this.lastLoadTimeout !== false) {
             clearTimeout(this.lastLoadTimeout);
         }
-        this.loadOpts["url"] = this.getURI().toString();
+        ajaxUrl = this.loadUrl + "?" + window.location.hash.replace(/^#/, "");
+        this.loadOpts["url"] = ajaxUrl;
         this.loadOpts["onComplete"] = function () {
             setTimeout(function () {
-                this.checkCurrentTags();
                 this.mapTags();
             }.bind(this), 20);
         }.bind(this);

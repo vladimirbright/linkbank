@@ -39,6 +39,8 @@ class SearchManager(Manager):
 
     def query(self, query):
         _r = self._client.Query(query.strip(), self._index)
+        #print self._client.GetLastError()
+        #print self._client.GetLastWarning()
         if not _r or \
            not "matches" in _r or \
            not _r["matches"]:
