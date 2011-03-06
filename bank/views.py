@@ -52,7 +52,6 @@ def link_list(request):
                               context_instance=RequestContext(request))
 
 
-
 @login_required
 def link_search(request):
     f = SearchForm(request.GET or None, user=request.user)

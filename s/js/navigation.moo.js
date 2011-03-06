@@ -7,6 +7,8 @@ var SiteNavigation = new Class({
         sortChunk: "s",
         tagsChunk: "tags",
         pageChunk: "page",
+        sortedClass: "sorted",
+        sortSelector: ".sorting",
         pageSelector: ".page",
         tagsSelector: ".tag",
         selectedTagClass: "ui-selected",
@@ -66,11 +68,19 @@ var SiteNavigation = new Class({
         // Search
         if (this.options.searchChunk in this.navigation) {
             hash = hash + this.options.searchChunk + "=" + this.navigation[this.options.searchChunk];
+        } else {
+            this.navigation[this.options.searchChunk] = "";
+        }
+        // Sort
+        if (this.options.sortChunk in this.navigation) {
+            hash = hash + "&" + this.options.sortChunk + "=" + this.navigation[this.options.sortChunk];
         }
         // Pagination
         if (this.options.pageChunk in this.navigation) {
             if (this.navigation[this.options.pageChunk] > 1) {
                 hash = hash + "&" + this.options.pageChunk + "=" + this.navigation[this.options.pageChunk];
+            } else {
+                this.navigation[this.options.pageChunk] = 1;
             }
         }
         // Tags
@@ -87,10 +97,9 @@ var SiteNavigation = new Class({
     },
 
     bindEvens: function () {
-        /* Bind on keyup search input set hash chunk and this.fireEvent("reload") */
         this.searchInput.addEvent("keyup", this.addSearch.bind(this));
-        /* bind click on tag links to add|remove tag from #tags */
         $(window).addEvent("click:relay(" + this.options.tagsSelector + ')', this.addTag.bind(this));
+        $(window).addEvent("click:relay(" + this.options.sortSelector + ')', this.addSort.bind(this));
         $(this.options.containerId).addEvent("click:relay(" + this.options.pageSelector + ")", this.addPage.bind(this));
     },
 
@@ -107,6 +116,14 @@ var SiteNavigation = new Class({
     addPage: function (e) {
         e.preventDefault();
         this.navigation[this.options.pageChunk] = e.target.get("rel") || 1;
+        this.fireEvent("hashSet");
+    },
+
+    addSort: function (e) {
+        e.preventDefault();
+        this.navigation[this.options.sortChunk] = e.target.get("rel") || "added";
+        $$(this.options.sortSelector).removeClass(this.options.sortedClass);
+        e.target.addClass(this.options.sortedClass);
         this.fireEvent("hashSet");
     },
 
