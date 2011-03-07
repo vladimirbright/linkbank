@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-10 22:57+0300\n"
+"POT-Creation-Date: 2011-03-07 23:42+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,79 +19,93 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: bank/models.py:18
+#: bank/forms.py:18
 msgid "Email"
 msgstr "Электронная почта"
 
-#: bank/models.py:20
+#: bank/forms.py:20
 msgid "Wrong symbols"
 msgstr "Неверные символы"
 
-#: bank/models.py:22
+#: bank/forms.py:22
 msgid "Type simbols"
 msgstr "Напечатайте символы с изображения"
 
-#: bank/models.py:30
+#: bank/forms.py:30
 msgid "User with this email already exist"
 msgstr "Пользователь с таким email уже зарегитрирован"
 
-#: bank/models.py:37
-msgid "Url"
-msgstr "Ссылка"
+#: bank/forms.py:35
+msgid "Match all"
+msgstr ""
 
-#: bank/models.py:38 tags/models.py:11
-msgid "Owner"
-msgstr "Добавивший"
+#: bank/forms.py:36
+msgid "Match any"
+msgstr ""
 
-#: bank/models.py:39 tags/models.py:12
+#: bank/forms.py:37
+msgid "Match phrase"
+msgstr ""
+
+#: bank/forms.py:40 bank/models.py:20 tags/models.py:12
+#: templates/bank/list.html:72
 msgid "Added"
 msgstr "Добавлено"
 
-#: bank/models.py:40
+#: bank/forms.py:41 templates/bank/list.html:74
+msgid "Relevance"
+msgstr ""
+
+#: bank/models.py:18
+msgid "Url"
+msgstr "Ссылка"
+
+#: bank/models.py:19 tags/models.py:11
+msgid "Owner"
+msgstr "Добавивший"
+
+#: bank/models.py:21
 msgid "Title"
 msgstr "Заголовок"
 
-#: bank/models.py:41 tags/models.py:10
+#: bank/models.py:22 tags/models.py:10
 msgid "Description"
 msgstr "Описание"
 
-#: bank/models.py:42
+#: bank/models.py:23
 msgid "Tags cache"
 msgstr "Кеш тегов"
 
-#: bank/models.py:44 bank/models.py:89 templates/bank/list.html:103
+#: bank/models.py:25 bank/models.py:73 templates/bank/list.html:88
 msgid "Tags"
 msgstr "Теги"
 
-#: bank/models.py:62
+#: bank/models.py:46
 msgid "Tag instance required"
 msgstr "Объект Tag необходим"
 
-#: bank/models.py:81 templates/index.html:29
+#: bank/models.py:65 templates/index.html:24
 msgid "Add link"
 msgstr "Положить ссылку"
 
-#: bank/views.py:59
+#: bank/views.py:39
+#, python-format
+msgid "Registration is done. You may login as user %(username)s"
+msgstr ""
+
+#: bank/views.py:104
 msgid "Deleting bookmarks by permalinks is disabled"
 msgstr "Удаление закладок по прямой ссылке запрещено"
 
-#: bank/views.py:65
-msgid "Bookmark deleted"
-msgstr "Закладка удалена"
-
-#: bank/views.py:75
+#: bank/views.py:120
 msgid "Only via ajax"
 msgstr "Только через ajax"
 
-#: bank/views.py:80
+#: bank/views.py:125
 msgid "Bookmark doesn't exist or not yours"
 msgstr "Закладка не существует или она не ваша"
 
-#: bank/views.py:93
-msgid "Changes saved"
-msgstr "Изменения сохранены"
-
-#: bank/views.py:115
+#: bank/views.py:160
 msgid "FUUUUUUUU, insert correct url with http://"
 msgstr "FUUUUUUUU, введите корректный url с http://"
 
@@ -103,105 +117,187 @@ msgstr "Тег"
 msgid "Put link to bank!"
 msgstr "Положить ссылку в банк!"
 
-#: templates/index.html:65
+#: templates/index.html:60
 msgid "Your links"
 msgstr "Ваши ссылки"
 
-#: templates/index.html:66 templates/bank/list.html:113
+#: templates/index.html:61 templates/bank/list.html:91
 msgid "Bookmarklets"
 msgstr "Букмарклеты"
 
-#: templates/index.html:67
+#: templates/index.html:62
 msgid "About"
 msgstr "О сайте"
 
-#: templates/ok.html:3
-msgid "All done, dude!"
+#: templates/login_or_register.html:6 templates/login_or_register.html.py:9
+msgid "Bookmarks Bank"
+msgstr "Банк для закладок"
+
+#: templates/login_or_register.html:30
+msgid "Sign in"
+msgstr "Войти"
+
+#: templates/login_or_register.html:39
+msgid "Sign up"
+msgstr "Зарегистрироваться"
+
+#: templates/ok.html:5
+msgid "All done!"
 msgstr "Все сделано, приятель!"
 
-#: templates/bank/delete.html:3
-msgid "Really delete"
-msgstr "Правда удалить"
+#: templates/popup.html:6
+msgid "Close this window"
+msgstr "Закрыть это окно"
 
-#: templates/bank/list.html:5
-msgid "Your links in bank!"
-msgstr "Ваши ссылки в банке"
+#: templates/popup.html:6
+msgid "Close"
+msgstr "Закрыть"
 
-#: templates/bank/list.html:22
-msgid "Sign out from site"
-msgstr "Выйти"
-
-#: templates/bank/list.html:42
-msgid "View mode:"
-msgstr "Отображение:"
-
-#: templates/bank/list.html:44
-msgid "minimum"
-msgstr "минимальное"
-
-#: templates/bank/list.html:45
-msgid "normal"
-msgstr "нормальное"
-
-#: templates/bank/list.html:46
-msgid "maxmimum"
-msgstr "максимальное"
-
-#: templates/bank/list.html:64
+#: templates/bank/_list_ajax.html:5
 msgid "All links"
 msgstr "Все ссылки"
 
-#: templates/bank/list.html:64
+#: templates/bank/_list_ajax.html:5
 msgid "Links"
 msgstr "Ссылки"
 
-#: templates/bank/list.html:82
+#: templates/bank/_list_ajax.html:52
 msgid "Edit this bookmark"
 msgstr "Редактировать закладку"
 
-#: templates/bank/list.html:84
+#: templates/bank/_list_ajax.html:54
+msgid "edit"
+msgstr "редактировать"
+
+#: templates/bank/_list_ajax.html:55
 msgid "Delete this link"
 msgstr "Удалить эту закладку"
 
-#: templates/bank/list.html:85
-msgid "Really delete "
-msgstr "Правда удалить "
+#: templates/bank/_list_ajax.html:57
+msgid "delete"
+msgstr "удалить"
 
-#: templates/bank/list.html:100
-msgid "Profile, settings, password change & etc"
-msgstr "Профиль, настройки, смена пароля и т.д."
+#: templates/bank/_list_ajax.html:63
+msgid "Empty result"
+msgstr "Нет результатов"
 
-#: templates/bank/list.html:102
-msgid "Your gravatar"
-msgstr "Ваш граватар"
-
-#: templates/bank/list.html:108
+#: templates/bank/_tags_bar.html:6
 msgid "You don't add any tags"
 msgstr "Нет тегов"
 
-#: templates/bank/list.html:116
+#: templates/bank/delete.html:5
+msgid "Really delete"
+msgstr "Правда удалить"
+
+#: templates/bank/delete.html:11
+msgid "Yes, erase it!"
+msgstr "Да, удалите это!"
+
+#: templates/bank/link_edit.html:5
+msgid "Edit"
+msgstr "Редактировать"
+
+#: templates/bank/link_edit.html:11
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/bank/list.html:3
+msgid "Your links in bank!"
+msgstr "Ваши ссылки в банке"
+
+#: templates/bank/list.html:36
+msgid "Sign out from site"
+msgstr "Выйти"
+
+#: templates/bank/list.html:55
+msgid "View mode:"
+msgstr "Отображение:"
+
+#: templates/bank/list.html:57
+msgid "minimum"
+msgstr "минимальное"
+
+#: templates/bank/list.html:58
+msgid "normal"
+msgstr "нормальное"
+
+#: templates/bank/list.html:59
+msgid "maxmimum"
+msgstr "максимальное"
+
+#: templates/bank/list.html:86
+msgid "Profile, settings, password change & etc"
+msgstr "Профиль, настройки, смена пароля и т.д."
+
+#: templates/bank/list.html:94
 msgid "Only href"
 msgstr "Только ссылка"
 
-#: templates/bank/list.html:117 templates/bank/list.html.py:124
+#: templates/bank/list.html:95 templates/bank/list.html.py:102
 msgid "Drag this to your browser toolbar"
 msgstr "Перетащите эту ссылку на панель закладок своего браузера"
 
-#: templates/bank/list.html:119 templates/bank/list.html.py:126
+#: templates/bank/list.html:97 templates/bank/list.html.py:104
 msgid "To bank"
 msgstr "В банк"
 
-#: templates/bank/list.html:123
+#: templates/bank/list.html:101
 msgid "Href & title"
 msgstr "Ссылка и title"
 
-#: templates/bank/list.html:130 templates/bank/list.html.py:131
+#: templates/bank/list.html:108 templates/bank/list.html.py:109
 msgid "About bookmarklets"
 msgstr "О букмарклетах"
 
-#: templates/registration/form.html:5 templates/registration/login.html:5
+#: templates/pagination/pagination.html:5
+#: templates/pagination/pagination.html:7
+msgid "previous"
+msgstr "пред."
+
+#: templates/pagination/pagination.html:21
+#: templates/pagination/pagination.html:23
+msgid "next"
+msgstr "след."
+
+#: templates/registration/form.html:3
+msgid "Hello, new dear!"
+msgstr "Привет, новый пользователь!"
+
+#: templates/registration/form.html:14 templates/registration/login.html:14
+msgid "Back to"
+msgstr "Вернуться на"
+
+#: templates/registration/form.html:14 templates/registration/login.html:14
+msgid "main"
+msgstr "главную"
+
+#: templates/registration/form.html:14 templates/registration/login.html:14
+msgid "or maybe"
+msgstr "или может быть"
+
+#: templates/registration/form.html:14
+msgid "sign in"
+msgstr "войти"
+
+#: templates/registration/login.html:3
 msgid "Hello, dear!"
 msgstr "Привет, дорогуша!"
+
+#: templates/registration/login.html:14
+msgid "resiter"
+msgstr "зарегистрироваться"
+
+#~ msgid "Bookmark deleted"
+#~ msgstr "Закладка удалена"
+
+#~ msgid "Changes saved"
+#~ msgstr "Изменения сохранены"
+
+#~ msgid "Really delete "
+#~ msgstr "Правда удалить "
+
+#~ msgid "Your gravatar"
+#~ msgstr "Ваш граватар"
 
 #~ msgid "Tag title content"
 #~ msgstr "Содержание тега title"
