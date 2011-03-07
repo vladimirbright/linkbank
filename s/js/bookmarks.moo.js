@@ -80,11 +80,9 @@ var BookmarkActiveLink = new Class({
         this.currentStickyWin.setContent(text);
         this.currentStickyWin.position();
         if (text.toLowerCase().indexOf("<form") === -1) {
-            // Backend don't send form "all ok"
-            this.fireEvent("formSuccess");
+            this.fireEvent("formSuccess", this.currentStickyWin);
         } else {
-            // Backend send form to us. Validation errors occurs
-            this.fireEvent("formError");
+            this.fireEvent("formError", this.currentStickyWin, this.currentForm);
         }
     }
 });

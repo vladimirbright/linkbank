@@ -12,8 +12,18 @@ window.addEvent("domready", function () {
     {% url bank.views.link_search as search_url %}
     var navObj = new SiteNavigation("{{ search_url|escapejs }}", "id_q");
     /* reload on form success */
-    editLinks.addEvent("formSuccess", function () { navObj.fireEvent("reload"); }.bind(this));
-    delLinks.addEvent("formSuccess", function () { navObj.fireEvent("reload"); }.bind(this));
+    editLinks.addEvent("formSuccess", function (win) {
+        navObj.fireEvent("reload");
+        setTimeout(function () {
+            win.destroy()
+        }.bind(this), 1500);
+    }.bind(this));
+    delLinks.addEvent("formSuccess", function (win) {
+        navObj.fireEvent("reload");
+        setTimeout(function () {
+            win.destroy()
+        }.bind(this), 1500);
+    }.bind(this));
     setTimeout(function () {
         navObj.fireEvent("reload");
     }.bind(this), 100);

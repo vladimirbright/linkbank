@@ -11,8 +11,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
-from bank.forms import SearchForm
-from bank.models import LinkAddForm, Link, UserCreationFormWithCaptcha, LinkEditForm
+from bank.forms import SearchForm, UserCreationFormWithCaptcha
+from bank.models import LinkAddForm, Link, LinkEditForm
 from tags.models import Tag
 
 
@@ -60,38 +60,24 @@ def link_search(request):
     q = _cleaned_data.get("q", "")
     s = _cleaned_data.get("s", None)
     tags = _cleaned_data.get("tags", None)
-    _s = Link.search.sphinx
-    _s.SetFilter("owner_id", [ request.user.pk, ])
-    _s.SetMatchMode(sphinxapi.SPH_MATCH_EXTENDED2)
+    search = Link.search.get_search_object()
+    search.filter("owner_id", [ request.user.pk, ])
     if s:
-        _sort = "%s DESC" % s
-        _s.SetSortMode(sphinxapi.SPH_SORT_EXTENDED, _sort.encode("utf8") )
-    else:
-        _s.SetSortMode(sphinxapi.SPH_SORT_EXTENDED, "@id DESC")
+        search.order_by(s)
     _tag_titles = []
     if tags:
-        _tag_titles = [ u"%sQ%s" %(_s.EscapeString(i.title), i.pk) \
-                                                                for i in tags ]
-    # Take care about pagination
-    try:
-        _page = int(request.GET.get("page", 0))
-    except ValueError:
-        _page = 1
-    if _page <= 0:
-        _page = 1
-    _offset = (_page - 1) * PER_PAGE
-    _limit = _page * PER_PAGE
-    _s.SetLimits(_offset, _limit, _offset + 100)
+        _tag_titles = [ u"%sQ%s" %(search.escape(i.title), i.pk) for i in tags ]
+    search.paginate(request)
     # Take care about search query
     query = u""
     if q.strip() != "":
-        query = u"@(href,title,description) %s*" % _s.EscapeString(q.strip())
+        query = u"@(href,title,description) %s*" % search.escape(q)
     if _tag_titles:
         query += u" @tags_cache %s" % u" ".join(_tag_titles)
     c = {}
     c["PER_PAGE"] = PER_PAGE
-    c["links"] = Link.search.query(query)
-    c["fake_qs"] = range(Link.search.total_found) if Link.search.total_found > 1 else range(2)
+    c["links"] = search.query(query)
+    c["fake_qs"] = range(search.total_found) if search.total_found > 1 else [1,2,3]
     c["paginate_fake"] = True
     c["tags"] = tags
     c["query"] = q
