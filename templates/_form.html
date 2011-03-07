@@ -1,9 +1,6 @@
 {# snippet for generic form #}
-
 {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
-
 {{ form.non_field_errors }}
-
 {% for field in form.visible_fields %}
     <div class="field_wrapper">
         <div class="label_wrapper">

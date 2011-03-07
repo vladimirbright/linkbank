@@ -8,13 +8,13 @@
 	<meta name="title" content="" />
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
-    {% include_media "main.css" %}
-    {% include_media "main.js" %}
+    {% block head-css %} {% include_media "main.css" %} {% endblock %}
+    {% block head-js %} {% include_media "main.js" %} {% endblock %}
     {% block head-extra %}{% endblock %}
 </head>
 
 <body>
-
+{% block body %}
 <div id="wrapper">
 
 	<header id="header">
@@ -63,6 +63,6 @@
     </ul>
 {% endblock %}
 </footer><!-- #footer -->
-
+{% endblock %}
 </body>
 </html>

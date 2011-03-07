@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import sphinxapi
-
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -16,6 +15,15 @@ from bank.models import LinkAddForm, Link, LinkEditForm
 from tags.models import Tag
 
 
+def login_or_register(request):
+    c = {
+        "registration_form" : UserCreationFormWithCaptcha(),
+        "login_form" : AuthenticationForm(),
+    }
+    return render_to_response("login_or_register.html", c,
+                              context_instance=RequestContext(request))
+
+
 def user_create(request):
     """ Registration handler """
     if request.user.is_anonymous() is False:
@@ -26,6 +34,12 @@ def user_create(request):
         user.email = form.cleaned_data["email"]
         user.is_active = True
         user.save()
+        messages.success(
+            request,
+            _("Registration is done. You may login as user %(username)s") % {
+                "username": user.username
+            }
+        )
         # TODO send email to user about registration
         return HttpResponseRedirect('/')
     c = {}
@@ -39,10 +53,7 @@ PER_PAGE = getattr(settings, "LINKS_PER_PAGE", 20)
 
 def link_list(request):
     if request.user.is_anonymous():
-        c = {}
-        c["registration_form"] = UserCreationFormWithCaptcha()
-        return render_to_response("registration/form.html", c,
-                                  context_instance=RequestContext(request))
+        return login_or_register(request)
     links = Link.objects.filter(owner=request.user).order_by('-pk')
     c = {}
     c["PER_PAGE"] = PER_PAGE

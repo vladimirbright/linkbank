@@ -1,0 +1,46 @@
+{% extends "index.html" %}
+{% load i18n media helpers_tags %}
+{% block head-css %}{% include_media "login_or_register.css" %}{% endblock %}
+{% block head-js %} {% endblock %}
+{% block head-extra %} {% endblock %}
+{% block title %}{% trans "Bookmarks Bank" %}{% endblock %}
+{% block body %}
+	<header>
+        <h1>{% trans "Bookmarks Bank" %}</h1>
+        {% block messages %}
+        {% if messages %}
+         <div class="messages_wrapper">
+            {% for message in messages %}
+            <span class="messages {{ message.tags }}">
+                {{ message }}
+            </span>{% if not forloop.last %}<br />{% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endblock %}
+    </header>
+	<section>
+        {% block content %}
+        <div class="login_form">
+        <div class="login_form_inner">
+            <form action="{% url login %}" method="POST">
+                {% csrf_token %}
+                {% render_form login_form %}
+                <input type="hidden" name="next" value="/" />
+                <button>{% trans "Sign in" %}</button>
+            </form>
+        </div>
+        </div>
+        <div class="register_form">
+        <div class="register_form_inner">
+            <form action="{% url signup %}" method="POST">
+                {% csrf_token %}
+                {% render_form registration_form %}
+                <button>{% trans "Sign up" %}</button>
+            </form>
+        </div>
+        </div>
+        {% endblock %}
+    </section>
+    <footer></footer>
+{% endblock %}

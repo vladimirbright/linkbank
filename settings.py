@@ -93,6 +93,11 @@ GLOBAL_MEDIA_DIRS = (
 )
 
 MEDIA_BUNDLES = (
+    ("login_or_register.css",
+        'css/login_or_register.sass',
+        'css/messages.sass',
+        'css/forms.sass',
+    ),
     ('main.css',
         'css/style.sass',
         'css/messages.sass',
