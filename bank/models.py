@@ -7,9 +7,7 @@ from django.db import models
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-
 from tags.models import Tag
-from bank.managers import SearchManager
 
 
 DOMAIN_PATTERN = re.compile(r'https?://([^/]+)')
@@ -27,8 +25,6 @@ class Link(models.Model):
                                   null=True,
                                   default=None)
 
-    objects = models.Manager()
-    search = SearchManager("links")
 
     def _check_tags_cache(self):
         if self.pk is None:

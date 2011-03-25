@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
+from collections import defaultdict
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
+from django.db import connections, transaction
 
 from bank.forms import SearchForm, UserCreationFormWithCaptcha
 from bank.models import LinkAddForm, Link, LinkEditForm
@@ -20,8 +20,7 @@ def login_or_register(request):
         "registration_form" : UserCreationFormWithCaptcha(),
         "login_form" : AuthenticationForm(),
     }
-    return render_to_response("login_or_register.html", c,
-                              context_instance=RequestContext(request))
+    return render(request, "login_or_register.html", c)
 
 
 def user_create(request):
@@ -44,8 +43,7 @@ def user_create(request):
         return HttpResponseRedirect('/')
     c = {}
     c["registration_form"] = form
-    return render_to_response("registration/form.html", c,
-                              context_instance=RequestContext(request))
+    return render(request, "registration/form.html", c)
 
 
 PER_PAGE = getattr(settings, "LINKS_PER_PAGE", 20)
@@ -59,41 +57,70 @@ def link_list(request):
     c["PER_PAGE"] = PER_PAGE
     c["form"] = LinkAddForm(request.GET or None)
     c["links"] = links
-    return render_to_response("bank/list.html", c,
-                              context_instance=RequestContext(request))
+    return render(request, "bank/list.html", c)
 
 
 @login_required
 def link_search(request):
     f = SearchForm(request.GET or None, user=request.user)
     f.is_valid()
-    _cleaned_data =  getattr(f, "cleaned_data", {})
+    _cleaned_data = getattr(f, "cleaned_data", {})
     q = _cleaned_data.get("q", "")
     s = _cleaned_data.get("s", None)
     tags = _cleaned_data.get("tags", None)
-    search = Link.search.get_search_object()
-    search.filter("owner_id", [ request.user.pk, ])
+    search_pattern = u"SELECT * FROM links WHERE %(where)s ORDER BY %(order)s LIMIT %(offset)s, %(limit)s"
+    search_params = defaultdict(lambda: [])
+    # Take care about Link owner
+    search_params["where"].append("owner_id=%s" % request.user.pk)
+    # Take care about order by
+    search_params["order"] = u"@id DESC"
     if s:
-        search.order_by(s)
-    _tag_titles = []
-    if tags:
-        _tag_titles = [ u"%sQ%s" %(search.escape(i.title), i.pk) for i in tags ]
-    search.paginate(request)
+        search_params["order"] = u"%s DESC" % s
+    # Take care about pagination
+    try:
+        page = int(request.GET.get("page", 0))
+    except ValueError:
+        page = 1
+    if page <= 0:
+        page = 1
+    search_params["offset"] = (page - 1) * PER_PAGE
+    search_params["limit"] = page * PER_PAGE
     # Take care about search query
     query = u""
     if q.strip() != "":
-        query = u"@(href,title,description) %s*" % search.escape(q)
-    if _tag_titles:
-        query += u" @tags_cache %s" % u" ".join(_tag_titles)
+        query = u"@(href,title,description) %s*" % q
+    # Take care about tags
+    if tags:
+        query += u" @tags_cache %s" % u" ".join([ u"%sQ%s" %(i.title, i.pk) for i in tags ])
+    query = query.strip()
+    margs = []
+    if query:
+        margs.append(query)
+        search_params["where"].append(u"MATCH(%s)")
+    search_params["where"] = u" AND ".join(search_params["where"])
+    search_query = search_pattern % search_params
+    with transaction.commit_manually():
+        sph = connections["sphinx"].cursor()
+        sph.execute(search_query, margs)
+        links = [ int(i[0]) for i in sph.fetchall() ]
+        sph.execute("SHOW META")
+        meta = dict([ (unicode(i[0]), unicode(i[1])) for i in sph.fetchall() ])
+        sph.close()
+    total_found = int(meta["total_found"])
+    _links = Link.objects.filter(pk__in=links)
+    for i in _links:
+        try:
+            links[links.index(i.pk)] = i
+        except IndexError:
+            continue
     c = {}
     c["PER_PAGE"] = PER_PAGE
-    c["links"] = search.query(query)
-    c["fake_qs"] = range(search.total_found) if search.total_found > 1 else [1,2,3]
+    c["links"] = links
+    c["fake_qs"] = range(total_found) if total_found > 1 else [1,2,3]
     c["paginate_fake"] = True
     c["tags"] = tags
     c["query"] = q
-    return render_to_response("bank/_list_ajax.html", c,
-                              context_instance=RequestContext(request))
+    return render(request, "bank/_list_ajax.html", c)
 
 
 @login_required
@@ -107,10 +134,9 @@ def link_delete(request, l_id):
     if request.method == "POST" and \
        u"%s" % request.POST.get("vaaa", 0) == u"%s" % link.pk :
         link.delete()
-        return render_to_response("ok.html")
+        return render(request, "ok.html")
     c = { "link": link }
-    return render_to_response("bank/delete.html", c,
-                              context_instance=RequestContext(request))
+    return render(request, "bank/delete.html", c)
 
 
 @login_required
@@ -135,12 +161,17 @@ def link_edit(request, l_id):
                 tag, c = Tag.objects.get_or_create(owner=request.user, title=t)
                 _link.tags.add(tag)
         _link.save()
-        return render_to_response("ok.html")
+        return render(request, "ok.html")
     c = {}
     c["link"] = link
     c["form"] = form
-    return render_to_response("bank/link_edit.html", c,
-                              context_instance=RequestContext(request))
+    return render(request, "bank/link_edit.html", c)
+
+
+@login_required
+def link_create_extended(request):
+    c = {}
+    return render(request, "bank/link_create_extended.html", c)
 
 
 @login_required
@@ -158,6 +189,5 @@ def link_create(request):
     if form.errors:
         messages.error(request,
                        _("FUUUUUUUU, insert correct url with http://"))
-    return render_to_response("bank/error.html", c,
-                              context_instance=RequestContext(request))
+    return render(request, "bank/error.html", c)
 

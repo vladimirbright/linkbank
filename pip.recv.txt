@@ -1,4 +1,4 @@
-svn+http://code.djangoproject.com/svn/django/trunk/
+Django
 django-pagination
 South
 PIL
@@ -9,3 +9,4 @@ svn+http://django-gravatar.googlecode.com/svn/trunk/
 flup
 django-mediagenerator
 fabric
+mysql-python
