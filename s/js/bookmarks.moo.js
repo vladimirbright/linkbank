@@ -83,6 +83,10 @@ var BookmarkActiveLink = new Class({
             this.fireEvent("formSuccess", this.currentStickyWin);
         } else {
             this.fireEvent("formError", this.currentStickyWin, this.currentForm);
+            setTimeout(function () {
+                this.currentStickyWin.position();
+                this.bindForm();
+            }.bind(this), 30);
         }
     }
 });

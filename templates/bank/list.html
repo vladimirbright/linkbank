@@ -6,9 +6,9 @@
 <script type="text/javascript">
 window.addEvent("domready", function () {
     var searchPlaceholder = new Placeholder("id_q", "Поиск");
-    var addLinkPlaceholder = new Placeholder("id_href", "{{ form.href.field.initial|escapejs }}");
     var editLinks = new BookmarkActiveLink(".edit_bookmark", { containerId: "main_container" });
     var delLinks = new BookmarkActiveLink(".del_bookmark", { containerId: "main_container" });
+    var addLink = new BookmarkActiveLink(".link_create_button", { containerId: "content_inner" });
     {% url bank.views.link_search as search_url %}
     var navObj = new SiteNavigation("{{ search_url|escapejs }}", "id_q");
     /* reload on form success */
@@ -38,45 +38,20 @@ window.addEvent("domready", function () {
 {% endblock %}
 
 {% block content %}
-<div class="content_inner">
-  <div class="add_form_wrapper">
-    <form action="{% url bank.views.link_create %}">
-      {{ form.href }}
-      <div class="form_submit_wrapper">
-        <div class="form_submit_wrapper_inner" id="id_href_submit_wrapper">
-          <input value="Add this!" type="submit">
-        </div>
-      </div>
-    </form>
-  </div>
+<div class="content_inner" id="content_inner">
+  <a class="link_create_button" href="{% url bank.views.link_create_extended %}">{% trans "Put link in bank" %}</a>
   <div class="search_form_wrapper">
-    <div class="form_submit_wrapper">
-      <div class="form_submit_wrapper_inner" id="view_mode_wrapper">
-      {% trans "View mode:" %} 
-      <select>
-        <option>{% trans "minimum" %}</option>
-        <option>{% trans "normal" %}</option>
-        <option>{% trans "maxmimum" %}</option>
-      </select>
-      </div>
-    </div>
 
     <input id="id_q" type="text" name="q" value="Поиск" />
 
-    <div class="form_submit_wrapper">
-      <div class="form_submit_wrapper_inner" id="id_href_submit_wrapper">
-        <input value="Search this!" type="button" id="search_this">
-      </div>
-    </div>
-    <div class="sort_links">
-        <a href="#" rel="added" class="sorting">{% trans "Added" %}</a>
-        <br>
-        <a href="#" rel="@weight" class="sorting">{% trans "Relevance" %}</a>
-    </div>
+    <a href="#" rel="added" class="sorting js_link">{% trans "Added" %}</a>,&nbsp;&nbsp;
+    <a href="#" rel="@weight" class="sorting js_link">{% trans "Relevance" %}</a>
   </div>
 
   <div id="main_container">
+  {% block main_container %}
     {% include "bank/_list_ajax.html" %}
+  {% endblock %}
   </div>
 </div>
 {% endblock %}
@@ -86,6 +61,7 @@ window.addEvent("domready", function () {
     <a href="#" title="{% trans "Profile, settings, password change & etc" %}">{{ user.username }}</a>
   </div>
   <h4 class="sidebar_tags_title">{% trans "Tags" %}</h4>
+  <a href="{% url tags.views.tags_management %}" class="work_link">{% trans "browse/edit" %}</a>
   {% tags_bar %}
 
   <h4 class="sidebar_bookmarklets_title">{% trans "Bookmarklets" %}</h4>

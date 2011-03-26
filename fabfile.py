@@ -6,7 +6,7 @@ from fabric.api import *
 
 
 env.project_dir = "/home/knbase.info/linkbank"
-env.home_dir = "/home/knbase.info/linkbank"
+env.home_dir = "/home/knbase.info"
 
 
 @hosts('knbase.info@knbase.info')

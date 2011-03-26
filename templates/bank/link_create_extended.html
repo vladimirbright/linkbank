@@ -1,0 +1,18 @@
+{% extends "popup.html" %}
+{% load helpers_tags i18n %}
+{% block title %}{% if not success %}{% trans "Put it here!" %}{% else %}{% trans "Putted!" %}{% endif %}{% endblock %}
+{% block body %}
+{% if not success %}
+<form action="{% url bank.views.link_create_extended %}" method="POST">
+    {% csrf_token %}
+    {% render_form form %}
+    <input type="submit" value="{% trans "Save" %}" />
+</form>
+{% else %}
+    {% if allready_in %}
+        <h4>{% trans "This link allready in your bank" %}</h4>
+    {% else %}
+        <h4>{% trans "All done! Link will be availible in 1 minute!" %}</h4>
+    {% endif %}
+{% endif %}
+{% endblock %}

@@ -57,6 +57,15 @@ img
 input
   vertical-align: middle
 
+.js_link
+  text-decoration: none
+  border-bottom: 1px dotted 
+  &:hover
+    text-decoration: none
+    border-bottom: 1px dotted #CC0000
+    color: #CC0000
+    
+
 #wrapper
   width: 960px
   margin: 0 auto
@@ -107,35 +116,28 @@ input
 .content_inner
   width: 600px
 
-/* Форма добавления ссылки
+/* Ссылка добавления 
+.content_inner a.link_create_button
+  display: block
+  font-size: 2em
+  text-align: center
+  padding: 10px
+  background: #000000
+  margin-bottom: 20px
+  color: white
+  &:hover
+    background: #EAEAEA
+    color: #7c7c7c
 
-.add_form_wrapper
-  margin-bottom: 30px
-
-.form_submit_wrapper
-  position: absolute
-
-.form_submit_wrapper_inner
-  position: relative
-
-.add_form_wrapper #id_href
-  width: 100%
-
-#id_href_submit_wrapper
-  top: -28px
-  left: 630px
 
 /* Форма поиска и выбор отображения
 
 .search_form_wrapper
   margin-bottom: 30px
-  text-align: right
-  input[name="q"]
-    width: 340px
-
-#view_mode_wrapper
-  top: 3px
-  font-size: 14px
+  text-align: left
+  input#id_q
+    width: 100%
+    display: block
 
 /* breadcrumbs
 
@@ -203,13 +205,15 @@ input
       &:hover
         color: #CC0000
         text-decoration: underline
-  .work_link
-    margin-left: 15px
+html body .work_link
+  margin-left: 15px
+  color: #666666
+  text-decoration: underline
+  &:hover
+    color: #CC0000
+    text-decoration: none
+  &:visited
     color: #666666
-    text-decoration: underline
-    &:hover
-      color: #CC0000
-      text-decoration: none
 
 /* Sidebar Left
  *-----------------------------------------------------------------------------

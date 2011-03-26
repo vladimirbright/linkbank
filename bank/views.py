@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.db import connections, transaction
 
-from bank.forms import SearchForm, UserCreationFormWithCaptcha
+from bank.forms import SearchForm, UserCreationFormWithCaptcha, LinkForm
 from bank.models import LinkAddForm, Link, LinkEditForm
 from tags.models import Tag
 
@@ -170,7 +170,23 @@ def link_edit(request, l_id):
 
 @login_required
 def link_create_extended(request):
-    c = {}
+    form = LinkForm(request.POST or None)
+    success = False
+    allready_in = False
+    if form.is_valid():
+        success = True
+        link = form.save(commit=False)
+        if not Link.objects.filter(owner=request.user,href=link.href).exists():
+            link.owner = request.user
+            link.save()
+            form.add_tags_to_link(request.user, clear=False)
+        else:
+            allready_in = True
+    c = {
+        "form": form,
+        "success": success,
+        "allready_in": allready_in,
+    }
     return render(request, "bank/link_create_extended.html", c)
 
 
