@@ -115,24 +115,15 @@ MEDIA_BUNDLES = (
         'js/navigation.moo.js',
     ),
 )
-
-
 LOCALE_DIRS = (
     self_dir('locale'),
 )
-
 ROOT_URLCONF = 'urls'
-
 SOUTH_TESTS_MIGRATE = False
-
 # Captcha
 CAPTCHA_FONT_SIZE = 30;
 CAPTCHA_FONT_PATH = self_dir('Ubuntu-R.ttf')
-# Sphinx
-SPHINXS = {
-    "default": ( "127.0.0.1", 9312 ),
-}
-
+DJAPIAN_DATABASE_PATH = self_dir('djapian_spaces')
 INSTALLED_APPS = (
     'bank',
     'captcha',
@@ -144,12 +135,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.webdesign',
+    'djapian',
     'gravatar',
     'helpers',
     'mediagenerator',
     'pagination',
     'south',
-    'tags',
 )
 
 

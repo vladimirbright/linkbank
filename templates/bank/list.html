@@ -33,7 +33,18 @@ window.addEvent("domready", function () {
 
 {% block header %}
   <div class="logout_div">
-    <a title="{% trans "Sign out from site" %}" href="{% url logout %}">выйти</a>
+    <a title="{% trans "Sign out from site" %}" href="{% url logout %}">выйти</a>,
+    <a href="#" title="{% trans "Profile, settings, password change & etc" %}">{{ user.username }}</a>,
+    <span>{% trans "Href & title" %}</span>
+    <a title="{% trans "Drag this to your browser toolbar" %}"
+       href="javascript:var l=location.href;location.href='http://{{ current_site.domain }}{% url bank.views.link_create %}?href='+l+'&title='+document.title">
+       {% trans "To bank" %}
+    </a>,
+    <span>{% trans "Only href" %}</span>
+    <a title="{% trans "Drag this to your browser toolbar" %}"
+       href="javascript:var l=location.href;location.href='http://{{ current_site.domain }}{% url bank.views.link_create %}?href='+l">
+       {% trans "To bank" %}
+    </a>
   </div>
 {% endblock %}
 
@@ -41,13 +52,8 @@ window.addEvent("domready", function () {
 <div class="content_inner" id="content_inner">
   <a class="link_create_button" href="{% url bank.views.link_create_extended %}">{% trans "Put link in bank" %}</a>
   <div class="search_form_wrapper">
-
     <input id="id_q" type="text" name="q" value="Поиск" />
-
-    <a href="#" rel="added" class="sorting js_link">{% trans "Added" %}</a>,&nbsp;&nbsp;
-    <a href="#" rel="@weight" class="sorting js_link">{% trans "Relevance" %}</a>
   </div>
-
   <div id="main_container">
   {% block main_container %}
     {% include "bank/_list_ajax.html" %}
@@ -56,34 +62,4 @@ window.addEvent("domready", function () {
 </div>
 {% endblock %}
 
-{% block sidebar %}
-  <div class="sidebar_username">
-    <a href="#" title="{% trans "Profile, settings, password change & etc" %}">{{ user.username }}</a>
-  </div>
-  <h4 class="sidebar_tags_title">{% trans "Tags" %}</h4>
-  <a href="{% url tags.views.tags_management %}" class="work_link">{% trans "browse/edit" %}</a>
-  {% tags_bar %}
-
-  <h4 class="sidebar_bookmarklets_title">{% trans "Bookmarklets" %}</h4>
-  <ul class="sidebar_bookmarklets">
-      <li>
-          <span>{% trans "Only href" %}</span>
-          <a title="{% trans "Drag this to your browser toolbar" %}"
-             href="javascript:var l=location.href;location.href='http://{{ current_site.domain }}{% url bank.views.link_create %}?href='+l">
-              {% trans "To bank" %}
-          </a>
-      </li>
-      <li>
-          <span>{% trans "Href & title" %}</span>
-          <a title="{% trans "Drag this to your browser toolbar" %}"
-             href="javascript:var l=location.href;location.href='http://{{ current_site.domain }}{% url bank.views.link_create %}?href='+l+'&title='+document.title">
-              {% trans "To bank" %}
-          </a>
-      </li>
-      <li>
-          <a title="{% trans "About bookmarklets" %}" href="/bookmarklets">
-            {% trans "About bookmarklets" %}
-          </a>
-      </li>
-  </ul>
-{% endblock %}
+{% block sidebar %} {% endblock %}

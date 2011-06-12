@@ -7,8 +7,6 @@ from django.db import models
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from tags.models import Tag
-
 
 DOMAIN_PATTERN = re.compile(r'https?://([^/]+)')
 
@@ -18,29 +16,6 @@ class Link(models.Model):
     added = models.DateTimeField(_("Added"), auto_now_add=True)
     title = models.TextField(_("Title"), blank=True, default="")
     description = models.TextField(_("Description"), blank=True, default="")
-    tags_cache = models.TextField(_("Tags cache"), blank=True, default="")
-    tags = models.ManyToManyField(Tag,
-                                  verbose_name=_("Tags"),
-                                  blank=True,
-                                  null=True,
-                                  default=None)
-
-
-    def _check_tags_cache(self):
-        if self.pk is None:
-            return
-        _cache = u""
-        _titles = [ u"%sQ%s" %(t.title, t.pk) \
-                                   for t in self.tags.all().order_by('title') ]
-        if _titles:
-            _cache = u"%s" % u"\n".join(_titles)
-        self.tags_cache = _cache
-
-    @classmethod
-    def get_tag_lookup_token(cls, tag):
-        if not isinstance(tag, Tag):
-            raise ValueError(u"%s" % _("Tag instance required"))
-        return u",%s:%s," %( tag.title, tag.pk )
 
     def domain(self):
         if not self.href:
@@ -50,9 +25,24 @@ class Link(models.Model):
             return u""
         return res.groups()[0]
 
-    def save(self, *args, **kwargs):
-        self._check_tags_cache()
-        return super(Link, self).save(*args, **kwargs)
+
+def djapian_update(sender, **kwargs):
+    Link.indexer.update()
+models.signals.post_save.connect(
+    djapian_update,
+    sender=Link,
+    dispatch_uid="link.djapian_update"
+)
+
+
+def djapian_delete(sender, instance, **kwargs):
+    Link.indexer.delete(instance)
+models.signals.pre_delete.connect(
+    djapian_delete,
+    sender=Link,
+    dispatch_uid="link.djapian_delete"
+)
+
 
 
 class LinkAddForm(forms.ModelForm):
@@ -66,17 +56,9 @@ class LinkAddForm(forms.ModelForm):
 
 
 class LinkEditForm(forms.ModelForm):
-    add_tags = forms.CharField(label=_("Tags"), required=False)
-
-    def __init__(self, *args, **kwargs):
-        super(LinkEditForm, self).__init__(*args, **kwargs)
-        if self.instance:
-            self.fields["add_tags"].initial = u", ".join([ t.title \
-                                           for t in self.instance.tags.all() ])
-
     class Meta:
         model = Link
         fields = ( "href", "title", "description", )
         widgets = {
-                "title": forms.TextInput
-            }
+            "title": forms.TextInput
+        }
