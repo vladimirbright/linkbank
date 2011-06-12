@@ -7,41 +7,51 @@ from fabric.api import *
 
 env.project_dir = "/home/knbase.info/linkbank"
 env.home_dir = "/home/knbase.info"
+env.manage = env.project_dir + "/manage.py"
+env.activate = env.home_dir + "/ve/bin/activate"
 
 
 @hosts('knbase.info@knbase.info')
-def git_pull():
+def pull():
     with cd(env.project_dir):
         run('git pull', pty=True)
 
 
 @hosts('knbase.info@knbase.info')
-def django_hup():
+def hup():
     run('kill -HUP `cat ' + env.home_dir + '/django.pid`', pty=True)
 
 
 @hosts('root@knbase.info')
-def django_stop():
+def stop():
     run('supervisorctl stop knbase.info', pty=True)
 
 
 @hosts('root@knbase.info')
-def django_start():
+def start():
     run('supervisorctl start knbase.info', pty=True)
 
 
 @hosts('root@knbase.info')
-def django_restart():
+def restart():
     run('supervisorctl restart knbase.info', pty=True)
 
 
 @hosts('root@knbase.info')
-def django_status():
+def status():
     run('supervisorctl status knbase.info', pty=True)
 
 
 @hosts('knbase.info@knbase.info')
+def manage(command=""):
+    if not command:
+        raise ValueError, "specify command"
+    with cd(env.project_dir):
+        run("source " + env.activate + " && python " + env.manage + " " + command , pty=True)
+
+
+@hosts('knbase.info@knbase.info')
 def update():
-    git_pull()
-    django_hup()
+    pull()
+    hup()
 
