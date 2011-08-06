@@ -29,7 +29,8 @@ DATABASES = {
 }
 
 TIME_ZONE = 'Europe/Moscow'
-LANGUAGE_CODE = 'ru-RU'
+# LANGUAGE_CODE = 'ru-RU'
+LANGUAGE_CODE = 'en-us'
 SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
@@ -93,6 +94,19 @@ GLOBAL_MEDIA_DIRS = (
 )
 
 MEDIA_BUNDLES = (
+    ("screen.bundle.css",
+        "css/screen.css",
+    ),
+    ("ie.bundle.css",
+        "css/ie.css",
+    ),
+    ("print.bundle.css",
+        "css/ie.css",
+    ),
+    ("site.js",
+        "js/Mootools.ClientSide.js",
+        "js/Custom.Classes.js",
+    ),
     ("login_or_register.css",
         'css/login_or_register.sass',
         'css/messages.sass',

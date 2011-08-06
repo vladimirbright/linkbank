@@ -1,0 +1,34 @@
+/* Стили для форм */
+
+.field_wrapper {
+  margin-bottom: 20px;
+  label {
+    color: #5A5050;
+    font-size: 14px;
+  }
+  .helptext {
+    font-size: 13px;
+    color: #D3D3D3;
+    &:hover {
+      color: #000;
+    }
+  }
+  .required {
+    color: red;
+    padding-left: 3px;
+  }
+  .text, .textarea {
+    padding: 3px;
+  }
+  .text {
+    font-size: 18px;
+  }
+  .textarea {
+    font-size: 12px;
+  }
+  .errorlist {
+    color: red;
+    font-size: 14px;
+    margin-left: 20px;
+  }
+}

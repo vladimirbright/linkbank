@@ -1,0 +1,13 @@
+{% extends "index2.html" %}
+{% load helpers_tags i18n %}
+{% block title %}{% if not success %}{% trans "Put it here!" %}{% else %}{% trans "Putted!" %}{% endif %}{% endblock %}
+{% block head-init-search %}{% endblock %}
+{% block search %}{% endblock %}
+{% block content %}
+<div class="extended_add_form_wrapper">
+    <form class="extended_add_form" action="{% url bank.views.link_create_extended %}" method="POST">{% csrf_token %}
+        {% render_form form %}
+        <input type="submit" value="{% trans "Save to base" %}" />
+    </form>
+</div>
+{% endblock %}

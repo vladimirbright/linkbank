@@ -8,6 +8,11 @@ register = template.Library()
 def multiple(a, b):
     return a * b
 
+@register.filter
+def sum(a, b):
+    return a + b
+
+
 @register.inclusion_tag("_form.html")
 def render_form(form):
     return { "form": form }

@@ -1,0 +1,24 @@
+{% load pagination_tags media i18n %}
+{% autopaginate links %}
+  {% for l in links %}
+    {% with l.instance|default:l as l %}
+      <article>
+        <aside class="qr"><img src="{% media_url "qr.jpg" %}" /></aside>
+        <header style="background:url(http://favicon.yandex.ru/favicon/{{ l.domain }}/) 0 2px no-repeat;">
+          <a href="{{ l.href }}">{{ l.title|default:l.href }} </a>
+        </header>
+        {{ l.description|linebreaks }}
+        <ul>
+          <li><a href="#">{% trans "edit" %}</a></li>
+          <li><a href="#">{% trans "delete" %}</a></li>
+        </ul>
+      </article>
+    {% endwith %}
+    {% if forloop.last %}
+      <section class="pagination">
+        {% paginate %}
+      </section>
+    {% endif %}
+  {% empty %}
+    <article><header>{% trans "Can't find any bookmarks" %}</header></article>
+  {% endfor %}

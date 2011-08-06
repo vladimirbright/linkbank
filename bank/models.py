@@ -15,7 +15,7 @@ class Link(models.Model):
     owner = models.ForeignKey(User, verbose_name=_("Owner"))
     added = models.DateTimeField(_("Added"), auto_now_add=True)
     title = models.TextField(_("Title"), blank=True, default="")
-    description = models.TextField(_("Description"), blank=True, default="")
+    description = models.TextField(_("Description"), blank=True, default="", help_text=_("Hash tag allowed"))
 
     def domain(self):
         if not self.href:

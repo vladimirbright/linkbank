@@ -4,3 +4,4 @@
 *.pyc
 djapian_spaces/
 local_settings.py
+.sass-cache/*

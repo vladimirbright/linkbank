@@ -1,19 +1,23 @@
 # -*- coding: utf-8 -*-
-import re
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
+from django.db import transaction
 
 from bank.forms import UserCreationFormWithCaptcha, LinkForm
 from bank.models import LinkAddForm, Link, LinkEditForm
 
 
 def login_or_register(request):
+    """
+        Index page
+    """
     c = {
         "registration_form" : UserCreationFormWithCaptcha(),
         "login_form" : AuthenticationForm(),
@@ -22,8 +26,10 @@ def login_or_register(request):
 
 
 def user_create(request):
-    """ Registration handler """
-    if request.user.is_anonymous() is False:
+    """
+        Registration page
+    """
+    if not request.user.is_anonymous():
         return HttpResponseRedirect('/')
     form = UserCreationFormWithCaptcha(request.POST or None)
     if form.is_valid():
@@ -48,40 +54,44 @@ PER_PAGE = getattr(settings, "LINKS_PER_PAGE", 20)
 
 
 def link_list(request):
+    """
+        List of bookmarks
+    """
     if request.user.is_anonymous():
         return login_or_register(request)
     links = Link.objects.filter(owner=request.user).order_by('-pk')
-    c = {}
-    c["PER_PAGE"] = PER_PAGE
-    c["form"] = LinkAddForm(request.GET or None)
-    c["links"] = links
-    return render(request, "bank/list.html", c)
+    c = {
+        "links": links,
+        "nav": {
+            "index": True,
+        }
+    }
+    return render(request, "index2.html", c)
 
-
-SEARCH_REPLACE_PATTERN = re.compile(r'[^\w\d#]', re.I + re.U)
 
 @login_required
 def link_search(request):
+    """
+        Ajax handler to load search
+    """
     q = request.GET.get("q", "").strip()
     if not q:
         links = Link.objects.filter(owner=request.user).order_by('-pk')
-        djapian_use = False
     else:
-        # Произошел поиск
-        djapian_use = True
+        # Search
         links = Link.indexer.search(q).filter(owner=request.user).flags(
                     Link.indexer.flags.PARTIAL
                 )
     c = {}
-    c["PER_PAGE"] = PER_PAGE
     c["links"] = links
-    c["query"] = q
-    c["djapian_use"] = djapian_use
-    return render(request, "bank/_list_ajax.html", c)
+    return render(request, "link_list.html", c)
 
 
 @login_required
 def link_delete(request, l_id):
+    """
+        Delete bookmark handler
+    """
     # TODO нормальную HTML форму для зашедших по ссылке
     if request.is_ajax() is False:
         messages.error(request,
@@ -99,7 +109,7 @@ def link_delete(request, l_id):
 @login_required
 def link_edit(request, l_id):
     # TODO нормальную HTML форму для зашедших по ссылке
-    if request.is_ajax() is False:
+    if not request.is_ajax():
         messages.error(request, _("Only via ajax"))
         return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
     try:
@@ -118,41 +128,44 @@ def link_edit(request, l_id):
 
 
 @login_required
+@transaction.commit_on_success
 def link_create_extended(request):
-    form = LinkForm(request.POST or None)
-    success = False
-    allready_in = False
+    """
+        Page to add bookmark
+    """
+    form = LinkForm(request.POST or None, user=request.user)
     if form.is_valid():
-        success = True
-        link = form.save(commit=False)
-        if not Link.objects.filter(owner=request.user,href=link.href).exists():
-            link.owner = request.user
-            link.save()
-            form.add_tags_to_link(request.user, clear=False)
-        else:
-            allready_in = True
+        link = form.save()
+        if form.cleaned_data.get("return_me_to_link", False):
+            return HttpResponseRedirect(link.href)
+        return HttpResponseRedirect(reverse("index"))
     c = {
         "form": form,
-        "success": success,
-        "allready_in": allready_in,
+        "nav": {
+            "add": True,
+        }
     }
-    return render(request, "bank/link_create_extended.html", c)
+    return render(request, "link_create_extended.html", c)
 
 
 @login_required
 def link_create(request):
-    form = LinkAddForm(request.GET or None)
+    """
+        Bookmarklet handler
+    """
+    _get = request.GET.copy()
+    _get["return_me_to_link"] = 1
+    form = LinkForm(_get, user=request.user)
     if form.is_valid():
         link = form.save(commit=False)
-        link.owner = request.user
-        if not Link.objects.filter(owner=request.user,
-                                   href=link.href).exists():
+        if not Link.objects.filter(owner=request.user, href=link.href).exists():
             link.save()
         return HttpResponseRedirect(link.href)
-    c = {}
-    c["form"] = form
-    if form.errors:
-        messages.error(request,
-                       _("FUUUUUUUU, insert correct url with http://"))
-    return render(request, "bank/error.html", c)
+    c = {
+        "form": form,
+        "nav": {
+            "add": True,
+        }
+    }
+    return render(request, "link_create_extended.html", c)
 

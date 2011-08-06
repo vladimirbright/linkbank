@@ -1,0 +1,49 @@
+<!doctype html>
+<html>{% load media i18n pagination_tags helpers_tags %}
+  <head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}{% trans "Your bookmarks here" %}{% endblock %}</title>
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <meta charset="utf-8" />
+    {% include_media "screen.bundle.css" media="all" %}
+    <!--[if lt IE 8]>{% include_media "ie.bundle.css" media="all" %}<![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    {% include_media "print.bundle.css" media="print" %}
+    <!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
+    {% include_media "site.js" %}
+    {% block head-init-search %}
+    <script>
+        window.addEvent("domready", function () {
+            new SiteNavigationObserver();
+            new SiteNavigationLoader("/search/");
+        });
+    </script>
+    {% endblock %}
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a class="{{ nav.index|yesno:"current," }}" href="{% url index %}">{% trans "Bookmarks" %}</a></li>
+        <li><a class="{{ nav.add|yesno:"current," }}" href="{% url new %}">{% trans "Add new one" %}</a></li>
+        <li><a class="{{ nav.settings|yesno:"current," }}" href="#">{% trans "Settings" %}</a></li>
+        <li><a class="{{ nav.bookmarklets|yesno:"current," }}" href="#">{% trans "Bookmarklets" %}</a></li>
+        <li class="last"><a href="{% url logout %}">{% trans "Logout" %}</a></li>
+      </ul>
+    </nav>
+    {% block messages %}
+      <section class="info_messages">
+        {% for message in messages %}<div class="{{ message.tags }}">{{ message }}</div>{% endfor %}
+      </section>
+    {% endblock %}
+    {% block search %}
+      <section class="search">
+        <input id="id_search" type="search" autocomplete="on" placeholder="{% trans "Start typing" %}" value="" />
+      </section>
+    {% endblock %}
+    {% block content %}
+      <section class="bookmarks" id="id_bookmarks">
+        {% include "link_list.html" %}
+      </section>
+    {% endblock %}
+  </body>
+</html>
