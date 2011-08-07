@@ -9,8 +9,8 @@
         </header>
         {{ l.description|linebreaks }}
         <ul>
-          <li><a href="#">{% trans "edit" %}</a></li>
-          <li><a href="#">{% trans "delete" %}</a></li>
+          <li><a href="{% url edit l.pk %}">{% trans "edit" %}</a></li>
+          <li><a href="{% url delete l.pk %}">{% trans "delete" %}</a></li>
         </ul>
       </article>
     {% endwith %}

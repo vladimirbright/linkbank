@@ -5,7 +5,7 @@
     <div class="field_wrapper">
         <div class="label_wrapper">
           {{ field.label_tag }}{% if field.field.required %}<span class="required">*</span>{% endif %}
-          {% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}
+          {% if field.help_text %}<span class="helptext">&laquo;{{ field.help_text }}&raquo;</span>{% endif %}
         </div>
         {{ field }}
         {{ field.errors }}

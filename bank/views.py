@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
 
 from bank.forms import UserCreationFormWithCaptcha, LinkForm
-from bank.models import LinkAddForm, Link, LinkEditForm
+from bank.models import Link
 
 
 def login_or_register(request):
@@ -107,6 +107,7 @@ def link_delete(request, l_id):
 
 
 @login_required
+@transaction.commit_on_success
 def link_edit(request, l_id):
     # TODO нормальную HTML форму для зашедших по ссылке
     if not request.is_ajax():
@@ -115,9 +116,10 @@ def link_edit(request, l_id):
     try:
         link = Link.objects.get(pk=l_id, owner=request.user)
     except Link.DoesNotExist:
-        messages.error(request, _("Bookmark doesn't exist or not yours"))
+        messages.error(request, _("Bookmark doesn't exist"))
         return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
-    form = LinkEditForm(request.POST or None, instance=link)
+    form = LinkForm(request.POST or None, instance=link, user=request.user)
+    form.fields.pop("return_me_to_link", None)
     if form.is_valid():
         form.save()
         return render(request, "ok.html")

@@ -335,6 +335,22 @@ section.pagination .prev:hover, section.pagination .next:hover {
   margin: 0 auto;
 }
 
+/* Попап */
+@charset "UTF-8";
+/* line 172, ../src/screen.scss */
+.popup {
+  -moz-box-shadow: #333333 1px 1px 5px 0;
+  -webkit-box-shadow: #333333 1px 1px 5px 0;
+  -o-box-shadow: #333333 1px 1px 5px 0;
+  box-shadow: #333333 1px 1px 5px 0;
+  background: white;
+  padding: 20px;
+}
+/* line 176, ../src/screen.scss */
+.popup .text, .popup .textarea {
+  width: 400px;
+}
+
 /*		Tablet Layout: 768px.
 		Gutters: 24px.
 		Outer margins: 28px.
@@ -343,21 +359,21 @@ section.pagination .prev:hover, section.pagination .next:hover {
 cols    1     2      3      4      5      6      7      8
 px      68    160    252    344    436    528    620    712    */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  /* line 181, ../src/screen.scss */
+  /* line 192, ../src/screen.scss */
   body {
     width: 712px;
     padding: 48px 28px 60px;
   }
 
-  /* line 187, ../src/screen.scss */
+  /* line 198, ../src/screen.scss */
   nav li {
     margin-right: 20px;
   }
-  /* line 190, ../src/screen.scss */
+  /* line 201, ../src/screen.scss */
   nav a {
     font-size: 20px;
   }
-  /* line 192, ../src/screen.scss */
+  /* line 203, ../src/screen.scss */
   nav a.current {
     font-size: 24px;
   }
@@ -371,15 +387,27 @@ px      68    160    252    344    436    528    620    712    */
 cols    1     2      3
 px      68    160    252    */
 @media only screen and (max-width: 767px) {
-  /* line 210, ../src/screen.scss */
+  /* line 221, ../src/screen.scss */
   body {
     width: 252px;
     padding: 48px 34px 60px;
   }
 
-  /* line 215, ../src/screen.scss */
+  /* line 226, ../src/screen.scss */
   article aside {
     display: none;
+  }
+
+  /* Страница добавления закладки */
+  /* line 232, ../src/screen.scss */
+  .extended_add_form .text, .extended_add_form .textarea {
+    width: 250px;
+  }
+
+  /* line 236, ../src/screen.scss */
+  .extended_add_form_wrapper {
+    width: 280px;
+    margin: 0 auto;
   }
 }
 
@@ -391,33 +419,45 @@ px      68    160    252    */
 cols    1     2      3      4      5
 px      68    160    252    344    436    */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
-  /* line 232, ../src/screen.scss */
+  /* line 253, ../src/screen.scss */
   body {
     width: 436px;
     padding: 36px 22px 48px;
   }
 
-  /* line 238, ../src/screen.scss */
+  /* line 259, ../src/screen.scss */
   nav li {
     float: none;
     margin-right: 20px;
     margin-bottom: 20px;
   }
-  /* line 242, ../src/screen.scss */
+  /* line 263, ../src/screen.scss */
   nav li.last {
     margin-bottom: 0;
   }
-  /* line 246, ../src/screen.scss */
+  /* line 267, ../src/screen.scss */
   nav a {
     font-size: 20px;
   }
-  /* line 248, ../src/screen.scss */
+  /* line 269, ../src/screen.scss */
   nav a.current {
     font-size: 24px;
   }
 
-  /* line 255, ../src/screen.scss */
+  /* line 276, ../src/screen.scss */
   article aside {
     display: none;
+  }
+
+  /* Страница добавления закладки */
+  /* line 283, ../src/screen.scss */
+  .extended_add_form .text, .extended_add_form .textarea {
+    width: 400px;
+  }
+
+  /* line 287, ../src/screen.scss */
+  .extended_add_form_wrapper {
+    width: 500px;
+    margin: 0 auto;
   }
 }

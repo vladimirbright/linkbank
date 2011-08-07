@@ -14,8 +14,16 @@
     {% block head-init-search %}
     <script>
         window.addEvent("domready", function () {
-            new SiteNavigationObserver();
-            new SiteNavigationLoader("/search/");
+            var observer, loader, formHandler;
+            observer = new SiteNavigationObserver();
+            loader = new SiteNavigationLoader("/search/");
+            formHandler = new ModalFomLinkBasedHandler("article ul a", { containerId: "id_bookmarks" });
+            formHandler.addEvent("formSuccess", function (win) {
+                loader.fireEvent("hashReload");
+                setTimeout(function () {
+                    win.destroy()
+                }.bind(this), 1500);
+            });
         });
     </script>
     {% endblock %}
