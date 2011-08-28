@@ -9,7 +9,16 @@ from django.utils.translation import ugettext_lazy as _
 
 from captcha.fields import CaptchaField
 
-from bank.models import Link
+from bank.models import Link, Profile
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = (
+            "show_qr",
+            "per_page"
+        )
 
 
 class LinkForm(forms.ModelForm):

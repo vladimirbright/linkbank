@@ -1,5 +1,8 @@
 /* Стили для форм */
-
+input[type="submit"], input[type="button"] {
+  padding: 5px;
+  font-size: 1.1em;
+}
 .field_wrapper {
   margin-bottom: 20px;
   label {
@@ -32,3 +35,4 @@
     margin-left: 20px;
   }
 }
+

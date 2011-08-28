@@ -14,6 +14,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', 'bank.views.link_list', name="index"),
     url(r'^search/$', 'bank.views.link_search'),
+    url(r'^settings/$', 'bank.views.profile_edit', name="settings"),
     url(r'^(\d+)/delete/$', 'bank.views.link_delete', name="delete"),
     url(r'^(\d+)/edit/$', 'bank.views.link_edit', name="edit"),
     url(r'^add/$', 'bank.views.link_create'),

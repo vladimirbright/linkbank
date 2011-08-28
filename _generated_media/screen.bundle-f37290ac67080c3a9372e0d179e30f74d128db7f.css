@@ -100,42 +100,48 @@ body {
 }
 
 /* Стили для форм */
-/* line 3, ../src/_forms.scss */
+/* line 2, ../src/_forms.scss */
+input[type="submit"], input[type="button"] {
+  padding: 5px;
+  font-size: 1.1em;
+}
+
+/* line 6, ../src/_forms.scss */
 .field_wrapper {
   margin-bottom: 20px;
 }
-/* line 5, ../src/_forms.scss */
+/* line 8, ../src/_forms.scss */
 .field_wrapper label {
   color: #5A5050;
   font-size: 14px;
 }
-/* line 9, ../src/_forms.scss */
+/* line 12, ../src/_forms.scss */
 .field_wrapper .helptext {
   font-size: 13px;
   color: #D3D3D3;
 }
-/* line 12, ../src/_forms.scss */
+/* line 15, ../src/_forms.scss */
 .field_wrapper .helptext:hover {
   color: #000;
 }
-/* line 16, ../src/_forms.scss */
+/* line 19, ../src/_forms.scss */
 .field_wrapper .required {
   color: red;
   padding-left: 3px;
 }
-/* line 20, ../src/_forms.scss */
+/* line 23, ../src/_forms.scss */
 .field_wrapper .text, .field_wrapper .textarea {
   padding: 3px;
 }
-/* line 23, ../src/_forms.scss */
+/* line 26, ../src/_forms.scss */
 .field_wrapper .text {
   font-size: 18px;
 }
-/* line 26, ../src/_forms.scss */
+/* line 29, ../src/_forms.scss */
 .field_wrapper .textarea {
   font-size: 12px;
 }
-/* line 29, ../src/_forms.scss */
+/* line 32, ../src/_forms.scss */
 .field_wrapper .errorlist {
   color: red;
   font-size: 14px;

@@ -10,8 +10,8 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
 
-from bank.forms import UserCreationFormWithCaptcha, LinkForm
-from bank.models import Link
+from bank.forms import UserCreationFormWithCaptcha, LinkForm, ProfileEditForm
+from bank.models import Link, Profile
 
 
 def login_or_register(request):
@@ -64,9 +64,33 @@ def link_list(request):
         "links": links,
         "nav": {
             "index": True,
-        }
+        },
+        "PER_PAGE": Profile.objects.get_or_create(user=request.user)[0].per_page
     }
     return render(request, "index2.html", c)
+
+
+@login_required
+def profile_edit(request):
+    """
+        "Settings" page
+    """
+    profile = Profile.objects.get_or_create(user=request.user)[0]
+    profile_form = ProfileEditForm(
+                       request.POST or None,
+                       instance=profile,
+                       prefix="profile"
+                   )
+    if profile_form.is_valid():
+        profile_form.save()
+        messages.success(request, _("Settings saved"))
+        return HttpResponseRedirect("/")
+    c = {
+        "profile": profile,
+        "profile_form": profile_form,
+        "nav": { "settings": True },
+    }
+    return render(request, "profile_edit.html", c)
 
 
 @login_required
@@ -84,6 +108,7 @@ def link_search(request):
                 )
     c = {}
     c["links"] = links
+    c["PER_PAGE"] = Profile.objects.get_or_create(user=request.user)[0].per_page
     return render(request, "link_list.html", c)
 
 

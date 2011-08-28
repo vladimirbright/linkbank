@@ -72,14 +72,11 @@ THUMBNAIL_MEDIA_URL = '/s/thumbs/'
 MEDIA_ROOT = self_dir('s')
 MEDIA_URL = '/s/'
 ADMIN_MEDIA_PREFIX = '/media/'
-
-
+AUTH_PROFILE_MODULE = 'bank.Profile'
 LOGIN_URL = '/signin/'
-
 TEMPLATE_DIRS = (
     self_dir('templates'),
 )
-
 DEV_MEDIA_URL = '/devs/'
 PRODUCTION_MEDIA_URL = '/st/'
 ROOT_MEDIA_FILTERS = {
