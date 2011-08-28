@@ -11,8 +11,18 @@ env.manage = env.project_dir + "/manage.py"
 env.activate = env.home_dir + "/ve/bin/activate"
 
 
+def cc(output_style="compressed"):
+    """
+        Local compile by compass
+    """
+    local("compass compile -s %s" %output_style)
+
+
 @hosts('knbase.info@knbase.info')
 def pull():
+    """
+        Go to knbase.info and git pull
+    """
     with cd(env.project_dir):
         run('git pull', pty=True)
 

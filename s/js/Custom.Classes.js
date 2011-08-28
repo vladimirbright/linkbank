@@ -14,11 +14,19 @@ var SiteNavigationObserver = new Class({
         pageChunk: "page",
         pageSelector: ".page",
         searchChunk: "q", 
-        searchId: "id_search"
+        searchId: "id_search",
+        scrollToId: "id_search",
+        scrollOpts: {
+            wait: false,
+            duration: 500,
+            offset: {'x': 0, 'y': -10},
+            transition: Fx.Transitions.Quad.easeInOut
+        }
     },
     /* some properties */
     searchTerm: "",
     searchInput: false,
+    scroll: false,
 
     initialize: function(options) {
         this.setOptions(options);
@@ -33,6 +41,7 @@ var SiteNavigationObserver = new Class({
                     this.setSearchChunk();
                 }.bind(this), 50);
         }.bind(this));
+        this.scroll = new Fx.Scroll(document.body, this.options.scrollOpts);
     },
 
     bindEvens: function () {
@@ -52,6 +61,8 @@ var SiteNavigationObserver = new Class({
                 window.location.hash = this.options.pageChunk + "=" + pageNumber;
             }
         }
+        // scroll
+        this.scroll.toElement(this.options.scrollToId);
     },
 
     setSearchChunk: function (cathedEvent) {
@@ -78,13 +89,6 @@ var SiteNavigationLoader = new Class({
             method: "get",
             noCache: true,
             chain: "cancel"
-        },
-        scrollToId: "id_search",
-        scrollOpts: {
-            wait: false,
-            duration: 500,
-            offset: {'x': 0, 'y': -10},
-            transition: Fx.Transitions.Quad.easeInOut
         }
     },
     /* some properties */
@@ -92,14 +96,12 @@ var SiteNavigationLoader = new Class({
     loadOpts: {},
     lastHash: false,
     lastTimeout: false,
-    scroll: false,
 
     initialize: function(loadUrl, options) {
         this.options.onHashReload = this.onHashSet;
         this.setOptions(options);
         this.loadUrl = loadUrl;
         this.loadOpts = this.options.requestOpts;
-        this.scroll = new Fx.Scroll(document.body, this.options.scrollOpts);
         this.checkHash();
         this.addEvent("hashReload", this.onHashReload.bind(this));
     },
@@ -118,9 +120,6 @@ var SiteNavigationLoader = new Class({
         fullLoadUrl = this.loadUrl + "?" + encodeURI(loadUriParams);
         fullRequestParams = this.loadOpts;
         fullRequestParams.url = fullLoadUrl;
-        //fullRequestParams.onComplete = function () {
-            //this.scroll.toElement(this.options.scrollToId);
-        //}.bind(this);
         if (this.lastTimeout !== false) {
             clearTimeout(this.lastTimeout);
         }
