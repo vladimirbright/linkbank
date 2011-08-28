@@ -65,3 +65,10 @@ def update():
     pull()
     hup()
 
+
+@hosts('knbase.info@knbase.info')
+def mupdate():
+    pull()
+    manage("migrate --all")
+    hup()
+
