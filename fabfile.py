@@ -15,7 +15,7 @@ def cc(output_style="compressed"):
     """
         Local compile by compass
     """
-    local("compass compile -s %s" %output_style)
+    local("compass compile -s %s --force" %output_style)
 
 
 @hosts('knbase.info@knbase.info')
