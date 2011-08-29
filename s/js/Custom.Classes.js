@@ -14,6 +14,7 @@ var SiteNavigationObserver = new Class({
         pageChunk: "page",
         pageSelector: ".page",
         searchChunk: "q", 
+        hashTagSelector: ".hash_tag",
         searchId: "id_search",
         scrollToId: "id_search",
         scrollOpts: {
@@ -47,6 +48,15 @@ var SiteNavigationObserver = new Class({
     bindEvens: function () {
         this.searchInput.addEvent("keyup", this.setSearchChunk.bind(this));
         document.id(this.options.containerId).addEvent("click:relay(" + this.options.pageSelector + ")", this.setPaginationChunk.bind(this));
+        document.id(this.options.containerId).addEvent("click:relay(" + this.options.hashTagSelector + ")", this.setHashTag.bind(this));
+    },
+
+    setHashTag: function (cathedEvent) {
+        var hash_tag;
+        hash_tag = cathedEvent.target.get("html").replace(/^#/, "");
+        this.searchInput.set("value", hash_tag);
+        // scroll
+        this.scroll.toElement(this.options.scrollToId);
     },
 
     setPaginationChunk: function (cathedEvent) {
@@ -129,6 +139,7 @@ var SiteNavigationLoader = new Class({
     }
 
 });
+
 
 /* Берем ссылку гризим форму в модальное окно */
 

@@ -8,7 +8,7 @@
         <header style="background:url(http://favicon.yandex.ru/favicon/{{ l.domain }}/) 0 2px no-repeat;">
           <a href="{{ l.href }}">{{ l.title|default:l.href }} </a>
         </header>
-        {{ l.description|linebreaks }}
+        {{ l.description|link_body }}
         <ul>
           <li><a href="{% url edit l.pk %}">{% trans "edit" %}</a></li>
           <li><a href="{% url delete l.pk %}">{% trans "delete" %}</a></li>

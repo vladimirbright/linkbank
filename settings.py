@@ -113,16 +113,6 @@ MEDIA_BUNDLES = (
         'css/forms.sass',
         'css/popup.sass',
     ),
-    ('main.js',
-        'js/mootools-core-1.3-full-compat.js',
-        'js/mootools-more.js',
-        'js/clientcide.2.2.0.js',
-    ),
-    ('my.js',
-        'js/placeholder.moo.js',
-        'js/bookmarks.moo.js',
-        'js/navigation.moo.js',
-    ),
 )
 LOCALE_DIRS = (
     self_dir('locale'),
