@@ -34,7 +34,7 @@
         <li><a class="{{ nav.index|yesno:"current," }}" href="{% url index %}">{% trans "Bookmarks" %}</a></li>
         <li><a class="{{ nav.add|yesno:"current," }}" href="{% url new %}">{% trans "Add new one" %}</a></li>
         <li><a class="{{ nav.settings|yesno:"current," }}" href="{% url settings %}">{% trans "Settings" %}</a></li>
-        <li><a class="{{ nav.bookmarklets|yesno:"current," }}" href="#">{% trans "Bookmarklets" %}</a></li>
+        <li><a class="{{ nav.bookmarklets|yesno:"current," }}" href="{% url bookmarklets %}">{% trans "Bookmarklets" %}</a></li>
         <li class="last"><a href="{% url logout %}">{% trans "Logout" %}</a></li>
       </ul>
     </nav>
@@ -45,7 +45,7 @@
     {% endblock %}
     {% block search %}
       <section class="search">
-        <input id="id_search" type="search" autocomplete="on" placeholder="{% trans "Start typing" %}" value="" />
+        <input id="id_search" type="search" placeholder="{% trans "Start typing" %}" value="" />
       </section>
     {% endblock %}
     {% block content %}

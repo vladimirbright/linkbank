@@ -4,14 +4,31 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
+from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
-from django.db import transaction
+from django.views.generic import TemplateView
 
 from bank.forms import UserCreationFormWithCaptcha, LinkForm, ProfileEditForm
 from bank.models import Link, Profile
+
+
+class BookmarkletsView(TemplateView):
+    """
+        Bookmarklets page
+    """
+    template_name = "bookmarklets.html"
+
+    def get_context_data(self):
+        return {
+            "nav": {
+                "bookmarklets": True,
+            },
+            "current_site": Site.objects.get_current()
+        }
 
 
 def login_or_register(request):
