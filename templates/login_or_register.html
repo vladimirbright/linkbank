@@ -2,7 +2,8 @@
 {% load i18n media helpers_tags %}
 {% block head-css %}{% include_media "login_or_register.css" %}{% endblock %}
 {% block head-js %} {% endblock %}
-{% block head-extra %} {% endblock %}
+{% block head-extra %}
+{% endblock %}
 {% block title %}{% trans "Bookmarks Bank" %}{% endblock %}
 {% block body %}
 	<header>
@@ -27,7 +28,7 @@
                 {% csrf_token %}
                 {% render_form login_form %}
                 <input type="hidden" name="next" value="/" />
-                <button>{% trans "Sign in" %}</button>
+                <input type="submit" value="{% trans "Sign in" %}" />
             </form>
         </div>
         </div>

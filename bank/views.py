@@ -114,16 +114,16 @@ def link_search(request):
         Ajax handler to load search
     """
     q = request.GET.get("q", "").strip()
-    if not q:
-        links = Link.objects.filter(owner=request.user).order_by('-pk')
-    else:
-        # Search
+    if q:
         links = Link.indexer.search(q).filter(owner=request.user).flags(
                     Link.indexer.flags.PARTIAL
                 )
-    c = {}
-    c["links"] = links
-    c["PER_PAGE"] = Profile.objects.get_or_create(user=request.user)[0].per_page
+    else:
+        links = Link.objects.filter(owner=request.user).order_by('-pk')
+    c = {
+        "links": links,
+        "PER_PAGE": Profile.objects.get_or_create(user=request.user)[0].per_page
+    }
     return render(request, "link_list.html", c)
 
 
@@ -133,9 +133,8 @@ def link_delete(request, l_id):
         Delete bookmark handler
     """
     # TODO нормальную HTML форму для зашедших по ссылке
-    if request.is_ajax() is False:
-        messages.error(request,
-                       _("Deleting bookmarks by permalinks is disabled"))
+    if not request.is_ajax():
+        messages.error(request, _("Deleting bookmarks by permalinks is disabled"))
         return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
     link = get_object_or_404(Link, pk=l_id, owner=request.user)
     if request.method == "POST" and \

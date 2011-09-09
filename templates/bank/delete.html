@@ -1,9 +1,6 @@
 {% extends "popup.html" %}
-
 {% load i18n %}
-
 {% block title %}{% trans "Really delete" %} &laquo;{{ link.href }}&raquo;?{% endblock %}
-
 {% block body %}
 <form action="{% url bank.views.link_delete link.pk  %}" method="POST">
     {% csrf_token %}
