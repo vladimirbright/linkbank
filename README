@@ -1,7 +1,9 @@
-It's small project about to replace delicious.com for me.
+It's small django based project about to replace http://delicious.com for me.
 
 Working website in you may see on http://knbase.info
 
 It's support manage your bookmarks, real time search (xapian/djapian based), hash tags.
 
 Use it with caution on your own risk.
+
+Work still in progress.

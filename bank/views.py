@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.http import HttpResponseRedirect
@@ -27,19 +26,21 @@ class BookmarkletsView(TemplateView):
             "nav": {
                 "bookmarklets": True,
             },
-            "current_site": Site.objects.get_current()
         }
 
 
-def login_or_register(request):
+class LoginOrRegisterPageView(TemplateView):
     """
-        Index page
+        Index page to anon
+        Login and register form
     """
-    c = {
-        "registration_form" : UserCreationFormWithCaptcha(),
-        "login_form" : AuthenticationForm(),
-    }
-    return render(request, "login_or_register.html", c)
+    template_name = "login_or_register.html"
+
+    def get_context_data(self):
+        return {
+            "registration_form" : UserCreationFormWithCaptcha(),
+            "login_form" : AuthenticationForm(),
+        }
 
 
 def user_create(request):
@@ -67,15 +68,12 @@ def user_create(request):
     return render(request, "registration/form.html", c)
 
 
-PER_PAGE = getattr(settings, "LINKS_PER_PAGE", 20)
-
-
 def link_list(request):
     """
         List of bookmarks
     """
     if request.user.is_anonymous():
-        return login_or_register(request)
+        return LoginOrRegisterPageView.as_view()(request)
     links = Link.objects.filter(owner=request.user).order_by('-pk')
     c = {
         "links": links,

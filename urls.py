@@ -24,7 +24,7 @@ urlpatterns = patterns('',
         name="bookmarklets"),
     url(r'^(\d+)/delete/$', 'bank.views.link_delete', name="delete"),
     url(r'^(\d+)/edit/$', 'bank.views.link_edit', name="edit"),
-    url(r'^add/$', 'bank.views.link_create'),
+    url(r'^add/$', 'bank.views.link_create'), # from bookmarklet
     url(r'^new/$', 'bank.views.link_create_extended', name="new"),
     url(r'^signup/$', 'bank.views.user_create', name="signup"),
     url(r'^signin/$', 'django.contrib.auth.views.login', name='login'),
