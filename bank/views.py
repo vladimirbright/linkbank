@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -13,6 +12,7 @@ from django.views.generic import TemplateView
 
 from bank.forms import UserCreationFormWithCaptcha, LinkForm, ProfileEditForm
 from bank.models import Link, Profile
+from helpers.decorators import anonymous_required
 
 
 class BookmarkletsView(TemplateView):
@@ -43,12 +43,11 @@ class LoginOrRegisterPageView(TemplateView):
         }
 
 
+@anonymous_required
 def user_create(request):
     """
         Registration page
     """
-    if not request.user.is_anonymous():
-        return HttpResponseRedirect('/')
     form = UserCreationFormWithCaptcha(request.POST or None)
     if form.is_valid():
         user = form.save(commit=False)

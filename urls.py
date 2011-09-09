@@ -7,11 +7,10 @@ from django.contrib.auth.decorators import login_required
 # from django.conf import settings
 import djapian
 
-
 from bank.views import BookmarkletsView
 
-djapian.load_indexes()
 
+djapian.load_indexes()
 
 admin.autodiscover()
 
@@ -19,9 +18,7 @@ urlpatterns = patterns('',
     url(r'^$', 'bank.views.link_list', name="index"),
     url(r'^search/$', 'bank.views.link_search'),
     url(r'^settings/$', 'bank.views.profile_edit', name="settings"),
-    url(r'^bookmarklets/$',
-        login_required(BookmarkletsView.as_view()),
-        name="bookmarklets"),
+    url(r'^bookmarklets/$', login_required(BookmarkletsView.as_view()), name="bookmarklets"),
     url(r'^(\d+)/delete/$', 'bank.views.link_delete', name="delete"),
     url(r'^(\d+)/edit/$', 'bank.views.link_edit', name="edit"),
     url(r'^add/$', 'bank.views.link_create'), # from bookmarklet
