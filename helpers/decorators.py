@@ -2,11 +2,9 @@
 
 from functools import wraps
 
-
+from django.core.cache import cache
 from django.http import Http404, HttpResponseRedirect
 from django.utils.decorators import available_attrs
-
-
 
 
 class BaseAuthDecorator(object):
@@ -60,4 +58,25 @@ class AnonymousRequiredDecorator(BaseAuthDecorator):
 
 
 anonymous_required = AnonymousRequiredDecorator()
+
+
+
+def cache_this(ttl=0, key_func=lambda: ""):
+    """
+        Decorator to cache methods in objects.
+        Keyword arguments:
+            ttl - time to live
+            key_func - function with args and kwargs same as method, must return cache key
+
+    """
+    def inner(func):
+        def _cache_controlled(*args, **kwargs):
+            _key = key_func(*args[1:], **kwargs)
+            result = cache.get(_key)
+            if not result:
+                result = func(*args, **kwargs)
+                cache.set(_key, result, ttl)
+            return result
+        return wraps(func, assigned=available_attrs(func))(_cache_controlled)
+    return inner
 
