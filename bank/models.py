@@ -2,12 +2,54 @@
 
 import re
 
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
+from helpers.validators import FileSizeValidator
+
+
+class ImportTask(models.Model):
+    """ Import bookmarks tasks
+    """
+    user = models.ForeignKey(User)
+    added = models.DateTimeField(_("Added"), auto_now_add=True)
+    from_source_choices = (
+        ("delicious", _("delicious.com")),
+        ("google", _("google.com")),
+        ("custom_html", _("Custom html")),
+    )
+    from_source = models.CharField(
+        _("Bookmarks source"),
+        max_length=50,
+        choices=from_source_choices
+    )
+    status_choices = (
+        (1, _("New")),
+        (2, _("In process")),
+        (3, _("Success")),
+        (4, _("Error")),
+    )
+    status = models.IntegerField(_("Status of task"), choices=status_choices, default=status_choices[0][0])
+    max_size = 10 * 1024 * 1024
+    file = models.FileField(_("File"), upload_to="upl/imp/%Y/%m/%d", validators=[
+        FileSizeValidator(max_size=max_size),
+    ])
+
+    def __unicode__(self):
+        return u"Import task bu user %s" % self.user_id
+
+    class Meta:
+        verbose_name = _("Import task")
+        verbose_name_plural = _("Import tasks")
+
+
 class Profile(models.Model):
+    """
+        User settings
+    """
     user = models.OneToOneField(User)
     show_qr = models.BooleanField(_("Show QR codes"), default=True)
     _per_page_choices = [ (i,i) for i in range(10,51,10) ]

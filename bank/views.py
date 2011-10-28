@@ -10,8 +10,8 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 
-from bank.forms import UserCreationFormWithCaptcha, LinkForm, ProfileEditForm
-from bank.models import Link, Profile
+from bank.forms import UserCreationFormWithCaptcha, LinkForm, ProfileEditForm, ImportBookmarksForm
+from bank.models import Link, Profile, ImportTask
 from helpers.decorators import anonymous_required
 
 
@@ -85,6 +85,7 @@ def link_list(request):
 
 
 @login_required
+@transaction.commit_on_success
 def profile_edit(request):
     """
         "Settings" page
@@ -95,13 +96,26 @@ def profile_edit(request):
                        instance=profile,
                        prefix="profile"
                    )
-    if profile_form.is_valid():
+    import_form = ImportBookmarksForm(
+        request.POST or None,
+        request.FILES or None,
+        prefix="import"
+    )
+    if "settings_form" in request.POST and profile_form.is_valid():
         profile_form.save()
         messages.success(request, _("Settings saved"))
         return HttpResponseRedirect("/")
+    if "import_form" in request.POST and import_form.is_valid():
+        task = import_form.save(commit=False)
+        task.user = request.user
+        task.save()
+        messages.success(request, _("Import task added. It will be processed shortly."))
+        return HttpResponseRedirect(reverse("settings"))
     c = {
         "profile": profile,
         "profile_form": profile_form,
+        "import_form": import_form,
+        "import_tasks": ImportTask.objects.filter(user=request.user),
         "nav": { "settings": True },
     }
     return render(request, "profile_edit.html", c)

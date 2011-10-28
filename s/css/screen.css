@@ -1,1 +1,485 @@
-html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,hr,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figure,figcaption,hgroup,menu,footer,header,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0}article,aside,canvas,figure,figure img,figcaption,hgroup,footer,header,nav,section,audio,video{display:block}a img{border:0}.gigantic{font-size:116px;line-height:120px;letter-spacing:-2px}.huge,h1{font-size:72px;line-height:72px;letter-spacing:-1px}.large,h2{font-size:44px;line-height:48px}.bigger,h3{font-size:28px;line-height:36px}.big,h4{font-size:24px;line-height:30px}body{font:17px/24px Palatino, Constantia, "Palatino Linotype", serif}.small,small{font-size:13px;line-height:18px}::selection{background:#ffff9e}::-moz-selection{background:#ffff9e}img::selection{background:transparent}img::-moz-selection{background:transparent}body{-webkit-tap-highlight-color:#ffff9e}input[type="submit"],input[type="button"]{padding:5px;font-size:1.1em}.field_wrapper{margin-bottom:20px}.field_wrapper label{color:#5A5050;font-size:14px}.field_wrapper .helptext{font-size:13px;color:#D3D3D3}.field_wrapper .helptext:hover{color:#000}.field_wrapper .required{color:red;padding-left:3px}.field_wrapper .text,.field_wrapper .textarea{padding:3px}.field_wrapper .text{font-size:18px}.field_wrapper .textarea{font-size:12px}.field_wrapper .errorlist{color:red;font-size:14px;margin-left:20px}body{width:896px;padding:32px 48px 84px;margin:0 auto;background:white;color:#3c3c3c;-webkit-text-size-adjust:100%}nav{margin:0 0 20px 0;padding:10px;overflow:auto;text-shadow:0 1px 1px rgba(0, 0, 0, 0.3);-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;-webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);-moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);color:#fef4e9;border:solid 1px #da7c0c;background:#f78d1d;background:-webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));background:-moz-linear-gradient(top, #faa51a, #f47a20);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20')}nav ul{list-style:none}nav li{float:left;margin-right:30px}nav li.last{float:right}nav a{color:#eaeaea;font-size:24px;text-decoration:none}nav a:hover{color:#fcd3a5;text-decoration:underline}nav a.current{color:white;font-size:28px;font-weight:bold;text-decoration:underline}section{margin:0 0 20px 0}section input{width:99%;font-size:24px}section.info_messages div{border-left:5px solid;font-size:30px;padding:3px 0 0 10px}section.info_messages .success{color:green}section.info_messages .warning{color:#FAA51A}section.info_messages .error{color:red}section.info_messages .info{color:blue}article{margin:0 0 40px 0}article header{font-size:20px;line-height:20px;padding-left:25px}article aside{float:right}article p{font-family:sans-serif;font-size:12px;line-height:1.5;margin:5px 10px 0 25px}article ul{list-style:none;overflow:auto;margin-left:25px}article ul li{margin-right:20px;float:left}article ul a,article ul a:visited{border-bottom:1px dotted;color:#666;font-size:14px;text-decoration:none}article ul a:hover{border-bottom:1px solid white;text-decoration:none}article .hash_tag{color:#ff9218;text-decoration:none;border-bottom:1px dotted}article .hash_tag:hover{border-bottom:1px solid white}article .hash_tag:visited{color:#ff9218}section.pagination{font-family:sans-serif;font-size:20px}section.pagination a{background:white;color:#000}section.pagination a,section.pagination span{padding:9px 15px;text-decoration:none}section.pagination span.current{background:#B2B2B2;color:white}section.pagination .prev,section.pagination .next{background:#000;color:white}section.pagination span.disabled{background:#B2B2B2}section.pagination .prev:hover,section.pagination .next:hover{background:#B2B2B2}.extended_add_form .text,.extended_add_form .textarea{width:450px}.extended_add_form_wrapper{width:550px;margin:0 auto}@charset "UTF-8";.popup{-moz-box-shadow:#333333 1px 1px 5px 0;-webkit-box-shadow:#333333 1px 1px 5px 0;-o-box-shadow:#333333 1px 1px 5px 0;box-shadow:#333333 1px 1px 5px 0;background:white;padding:20px}.popup .text,.popup .textarea{width:400px}@media only screen and (min-width: 768px) and (max-width: 991px){body{width:712px;padding:48px 28px 60px}nav li{margin-right:20px}nav a{font-size:20px}nav a.current{font-size:24px}}@media only screen and (max-width: 767px){body{width:252px;padding:48px 34px 60px}article aside{display:none}.extended_add_form .text,.extended_add_form .textarea{width:250px}.extended_add_form_wrapper{width:280px;margin:0 auto}}@media only screen and (min-width: 480px) and (max-width: 767px){body{width:436px;padding:36px 22px 48px}nav li{float:none;margin-right:20px;margin-bottom:20px}nav li.last{margin-bottom:0}nav a{font-size:20px}nav a.current{font-size:24px}article aside{display:none}.extended_add_form .text,.extended_add_form .textarea{width:400px}.extended_add_form_wrapper{width:500px;margin:0 auto}}
+/*	Less Framework 4
+	http://lessframework.com
+	by Joni Korpi
+	License: http://opensource.org/licenses/mit-license.php	*/
+/*	Resets
+	------	*/
+/* line 16, ../src/_base.scss */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, a, abbr, address, cite, code, del, dfn, em,
+img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, hr,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figure, figcaption, hgroup,
+menu, footer, header, nav, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* line 23, ../src/_base.scss */
+article, aside, canvas, figure, figure img, figcaption, hgroup,
+footer, header, nav, section, audio, video {
+  display: block;
+}
+
+/* line 27, ../src/_base.scss */
+a img {
+  border: 0;
+}
+
+/*	Typography presets
+	------------------	*/
+/* line 34, ../src/_base.scss */
+.gigantic {
+  font-size: 116px;
+  line-height: 120px;
+  letter-spacing: -2px;
+}
+
+/* line 40, ../src/_base.scss */
+.huge, h1 {
+  font-size: 72px;
+  line-height: 72px;
+  letter-spacing: -1px;
+}
+
+/* line 46, ../src/_base.scss */
+.large, h2 {
+  font-size: 44px;
+  line-height: 48px;
+}
+
+/* line 51, ../src/_base.scss */
+.bigger, h3 {
+  font-size: 28px;
+  line-height: 36px;
+}
+
+/* line 56, ../src/_base.scss */
+.big, h4 {
+  font-size: 24px;
+  line-height: 30px;
+}
+
+/* line 61, ../src/_base.scss */
+body {
+  font: 17px/24px Palatino, Constantia, "Palatino Linotype", serif;
+}
+
+/* line 65, ../src/_base.scss */
+.small, small {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* Selection colours (easy to forget) */
+/* line 72, ../src/_base.scss */
+::selection {
+  background: #ffff9e;
+}
+
+/* line 73, ../src/_base.scss */
+::-moz-selection {
+  background: #ffff9e;
+}
+
+/* line 74, ../src/_base.scss */
+img::selection {
+  background: transparent;
+}
+
+/* line 75, ../src/_base.scss */
+img::-moz-selection {
+  background: transparent;
+}
+
+/* line 76, ../src/_base.scss */
+body {
+  -webkit-tap-highlight-color: #ffff9e;
+}
+
+/* Стили для форм */
+/* line 2, ../src/_forms.scss */
+input[type="submit"], input[type="button"] {
+  padding: 5px;
+  font-size: 1.1em;
+}
+
+/* line 6, ../src/_forms.scss */
+.field_wrapper {
+  margin-bottom: 20px;
+}
+/* line 8, ../src/_forms.scss */
+.field_wrapper label {
+  color: #5A5050;
+  font-size: 14px;
+}
+/* line 12, ../src/_forms.scss */
+.field_wrapper .helptext {
+  font-size: 13px;
+  color: #D3D3D3;
+}
+/* line 15, ../src/_forms.scss */
+.field_wrapper .helptext:hover {
+  color: #000;
+}
+/* line 19, ../src/_forms.scss */
+.field_wrapper .required {
+  color: red;
+  padding-left: 3px;
+}
+/* line 23, ../src/_forms.scss */
+.field_wrapper .text, .field_wrapper .textarea {
+  padding: 3px;
+}
+/* line 26, ../src/_forms.scss */
+.field_wrapper .text {
+  font-size: 18px;
+}
+/* line 29, ../src/_forms.scss */
+.field_wrapper .textarea {
+  font-size: 12px;
+}
+/* line 32, ../src/_forms.scss */
+.field_wrapper .errorlist {
+  color: red;
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+/*		Default Layout: 992px. 
+		Gutters: 24px.
+		Outer margins: 48px.
+		Leftover space for scrollbars @1024px: 32px.
+-------------------------------------------------------------------------------
+cols    1     2      3      4      5      6      7      8      9      10
+px      68    160    252    344    436    528    620    712    804    896    */
+/* line 12, ../src/screen.scss */
+body {
+  width: 896px;
+  padding: 32px 48px 84px;
+  margin: 0 auto;
+  background: white;
+  color: #3c3c3c;
+  -webkit-text-size-adjust: 100%;
+  /* Stops Mobile Safari from auto-adjusting font-sizes */
+}
+
+/* line 21, ../src/screen.scss */
+nav {
+  margin: 0 0 20px 0;
+  padding: 10px;
+  overflow: auto;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: .5em;
+  -moz-border-radius: .5em;
+  border-radius: .5em;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  color: #fef4e9;
+  border: solid 1px #da7c0c;
+  background: #f78d1d;
+  background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+  background: -moz-linear-gradient(top, #faa51a, #f47a20);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+}
+/* line 38, ../src/screen.scss */
+nav ul {
+  list-style: none;
+}
+/* line 41, ../src/screen.scss */
+nav li {
+  float: left;
+  margin-right: 30px;
+}
+/* line 45, ../src/screen.scss */
+nav li.last {
+  float: right;
+}
+/* line 48, ../src/screen.scss */
+nav a {
+  color: #eaeaea;
+  font-size: 24px;
+  text-decoration: none;
+}
+/* line 52, ../src/screen.scss */
+nav a:hover {
+  color: #fcd3a5;
+  text-decoration: underline;
+}
+/* line 56, ../src/screen.scss */
+nav a.current {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* line 65, ../src/screen.scss */
+section {
+  margin: 0 0 20px 0;
+}
+/* line 67, ../src/screen.scss */
+section input {
+  width: 99%;
+  font-size: 24px;
+}
+
+/* line 74, ../src/screen.scss */
+section.info_messages div {
+  border-left: 5px solid;
+  font-size: 30px;
+  padding: 3px 0 0 10px;
+}
+/* line 79, ../src/screen.scss */
+section.info_messages .success {
+  color: green;
+}
+/* line 82, ../src/screen.scss */
+section.info_messages .warning {
+  color: #FAA51A;
+}
+/* line 85, ../src/screen.scss */
+section.info_messages .error {
+  color: red;
+}
+/* line 88, ../src/screen.scss */
+section.info_messages .info {
+  color: blue;
+}
+
+/* line 93, ../src/screen.scss */
+article {
+  margin: 0 0 40px 0;
+}
+/* line 95, ../src/screen.scss */
+article header {
+  font-size: 20px;
+  line-height: 20px;
+  padding-left: 25px;
+}
+/* line 100, ../src/screen.scss */
+article aside {
+  float: right;
+}
+/* line 103, ../src/screen.scss */
+article p {
+  font-family: sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 5px 10px 0 25px;
+}
+/* line 109, ../src/screen.scss */
+article ul {
+  list-style: none;
+  overflow: auto;
+  margin-left: 25px;
+}
+/* line 113, ../src/screen.scss */
+article ul li {
+  margin-right: 20px;
+  float: left;
+}
+/* line 117, ../src/screen.scss */
+article ul a, article ul a:visited {
+  border-bottom: 1px dotted;
+  color: #666;
+  font-size: 14px;
+  text-decoration: none;
+}
+/* line 123, ../src/screen.scss */
+article ul a:hover {
+  border-bottom: 1px solid white;
+  text-decoration: none;
+}
+/* line 128, ../src/screen.scss */
+article .hash_tag {
+  color: #ff9218;
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+/* line 132, ../src/screen.scss */
+article .hash_tag:hover {
+  border-bottom: 1px solid white;
+}
+/* line 135, ../src/screen.scss */
+article .hash_tag:visited {
+  color: #ff9218;
+}
+
+/* line 141, ../src/screen.scss */
+section.pagination {
+  font-family: sans-serif;
+  font-size: 20px;
+}
+/* line 144, ../src/screen.scss */
+section.pagination a {
+  background: white;
+  color: #000;
+}
+/* line 148, ../src/screen.scss */
+section.pagination a, section.pagination span {
+  padding: 9px 15px;
+  text-decoration: none;
+}
+/* line 152, ../src/screen.scss */
+section.pagination span.current {
+  background: #B2B2B2;
+  color: white;
+}
+/* line 156, ../src/screen.scss */
+section.pagination .prev, section.pagination .next {
+  background: #000;
+  color: white;
+}
+/* line 160, ../src/screen.scss */
+section.pagination span.disabled {
+  background: #B2B2B2;
+}
+/* line 163, ../src/screen.scss */
+section.pagination .prev:hover, section.pagination .next:hover {
+  background: #B2B2B2;
+}
+
+/* Страница добавления закладки */
+/* line 173, ../src/screen.scss */
+.extended_add_form .text, .extended_add_form .textarea {
+  width: 450px;
+}
+
+/* line 177, ../src/screen.scss */
+.extended_add_form_wrapper {
+  width: 550px;
+  margin: 0 auto;
+}
+
+/* Попап */
+/* line 183, ../src/screen.scss */
+.popup {
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  -o-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+  background: white;
+  padding: 20px;
+}
+/* line 187, ../src/screen.scss */
+.popup .text, .popup .textarea {
+  width: 400px;
+}
+
+/*		Tablet Layout: 768px.
+		Gutters: 24px.
+		Outer margins: 28px.
+		Inherits styles from: Default Layout.
+-----------------------------------------------------------------
+cols    1     2      3      4      5      6      7      8
+px      68    160    252    344    436    528    620    712    */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* line 203, ../src/screen.scss */
+  body {
+    width: 712px;
+    padding: 48px 28px 60px;
+  }
+
+  /* line 209, ../src/screen.scss */
+  nav li {
+    margin-right: 20px;
+  }
+  /* line 212, ../src/screen.scss */
+  nav a {
+    font-size: 20px;
+  }
+  /* line 214, ../src/screen.scss */
+  nav a.current {
+    font-size: 24px;
+  }
+}
+/*		Mobile Layout: 320px.
+		Gutters: 24px.
+		Outer margins: 34px.
+		Inherits styles from: Default Layout.
+---------------------------------------------
+cols    1     2      3
+px      68    160    252    */
+@media only screen and (max-width: 767px) {
+  /* line 232, ../src/screen.scss */
+  body {
+    width: 252px;
+    padding: 48px 34px 60px;
+  }
+
+  /* line 237, ../src/screen.scss */
+  article aside {
+    display: none;
+  }
+
+  /* Страница добавления закладки */
+  /* line 243, ../src/screen.scss */
+  .extended_add_form .text, .extended_add_form .textarea {
+    width: 250px;
+  }
+
+  /* line 247, ../src/screen.scss */
+  .extended_add_form_wrapper {
+    width: 280px;
+    margin: 0 auto;
+  }
+}
+/*		Wide Mobile Layout: 480px.
+		Gutters: 24px.
+		Outer margins: 22px.
+		Inherits styles from: Default Layout, Mobile Layout.
+------------------------------------------------------------
+cols    1     2      3      4      5
+px      68    160    252    344    436    */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  /* line 264, ../src/screen.scss */
+  body {
+    width: 436px;
+    padding: 36px 22px 48px;
+  }
+
+  /* line 270, ../src/screen.scss */
+  nav li {
+    float: none;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  /* line 274, ../src/screen.scss */
+  nav li.last {
+    margin-bottom: 0;
+  }
+  /* line 278, ../src/screen.scss */
+  nav a {
+    font-size: 20px;
+  }
+  /* line 280, ../src/screen.scss */
+  nav a.current {
+    font-size: 24px;
+  }
+
+  /* line 287, ../src/screen.scss */
+  article aside {
+    display: none;
+  }
+
+  /* Страница добавления закладки */
+  /* line 294, ../src/screen.scss */
+  .extended_add_form .text, .extended_add_form .textarea {
+    width: 400px;
+  }
+
+  /* line 298, ../src/screen.scss */
+  .extended_add_form_wrapper {
+    width: 500px;
+    margin: 0 auto;
+  }
+}
+/* Таблица тасков на импорт */
+/* line 307, ../src/screen.scss */
+.import_tasks_table td {
+  padding: 5px 10px;
+}

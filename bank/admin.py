@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 
-from bank.models import Link, Profile
+from bank.models import Link, Profile, ImportTask
 from helpers.decorators import cache_this
 
 
@@ -19,4 +19,5 @@ class LinkAdmin(admin.ModelAdmin):
 admin.site.register(Link, LinkAdmin)
 
 admin.site.register(Profile, admin.ModelAdmin)
+admin.site.register(ImportTask, admin.ModelAdmin)
 

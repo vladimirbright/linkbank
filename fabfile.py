@@ -5,10 +5,10 @@ from fabric.api import *
 # from fabric.utils import abort
 
 
-env.project_dir = "/home/knbase.info/linkbank"
 env.home_dir = "/home/knbase.info"
+env.project_dir = env.home_dir + "/www"
 env.manage = env.project_dir + "/manage.py"
-env.activate = env.home_dir + "/ve/bin/activate"
+env.activate = env.home_dir + "/Env/bin/activate"
 
 
 def cc(output_style="compressed"):

@@ -9,7 +9,22 @@ from django.utils.translation import ugettext_lazy as _
 
 from captcha.fields import CaptchaField
 
-from bank.models import Link, Profile
+from bank.models import Link, Profile, ImportTask
+
+
+class ImportBookmarksForm(forms.ModelForm):
+    """ Form to upload file with bookmarks
+    """
+
+    def clean(self):
+        return self.cleaned_data
+
+    class Meta:
+        model = ImportTask
+        fields = (
+            "from_source",
+            "file"
+        )
 
 
 class ProfileEditForm(forms.ModelForm):

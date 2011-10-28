@@ -11,3 +11,6 @@ django-mediagenerator
 fabric
 mysql-python
 svn+http://djapian.googlecode.com/svn/trunk/
+html5lib
+elementtree
+lxml
