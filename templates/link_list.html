@@ -16,6 +16,9 @@
       </article>
     {% endwith %}
     {% if forloop.last %}
+      <section class="batch_edit">
+        <a href="{% url delete_many %}">{% trans "batch delete" %}</a>
+      </section>
       <section class="pagination">
         {% paginate %}
       </section>

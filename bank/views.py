@@ -10,7 +10,8 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 
-from bank.forms import UserCreationFormWithCaptcha, LinkForm, ProfileEditForm, ImportBookmarksForm
+from bank.forms import UserCreationFormWithCaptcha, LinkForm, ProfileEditForm,\
+                        ImportBookmarksForm, LinkDeleteFormSet
 from bank.models import Link, Profile, ImportTask
 from helpers.decorators import anonymous_required
 
@@ -41,6 +42,46 @@ class LoginOrRegisterPageView(TemplateView):
             "registration_form" : UserCreationFormWithCaptcha(),
             "login_form" : AuthenticationForm(),
         }
+
+
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+@login_required
+@transaction.commit_on_success
+def link_delete_batch(request):
+    """ Batch delete """
+    PER_PAGE = Profile.objects.get_or_create(user=request.user)[0].per_page
+    qs = Link.objects.filter(owner=request.user)
+    paginator = Paginator(qs, PER_PAGE)
+    page_number = request.GET.get('page', 1)
+    try:
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        page = paginator.page(1)
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)
+    formset = LinkDeleteFormSet(
+                  request.POST or None,
+                  queryset=Link.objects.filter(
+                      pk__in=[ i.pk for i in page.object_list ],
+                      owner=request.user
+                  )
+              )
+    if formset.is_valid():
+        formset.save()
+        messages.success(request, _("Bookmarks deleted"))
+        return HttpResponseRedirect(reverse("delete_many"))
+    c = {
+        "formset" : formset,
+        "paginator": paginator,
+        "page": page,
+        "min_page": page.number - 3,
+        "max_page": page.number + 3,
+        "nav": {
+            "index": True,
+        },
+    }
+    return render(request, "link_delete_batch.html", c)
 
 
 @anonymous_required

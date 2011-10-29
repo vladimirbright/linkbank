@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
 
+from captcha.fields import CaptchaField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.forms.models import modelformset_factory
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from captcha.fields import CaptchaField
-
 from bank.models import Link, Profile, ImportTask
+
+
+LinkDeleteFormSet = modelformset_factory(Link, fields=[], can_delete=True, extra=0)
 
 
 class ImportBookmarksForm(forms.ModelForm):

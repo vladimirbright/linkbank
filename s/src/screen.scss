@@ -138,6 +138,16 @@ article {
   }
 }
 
+.batch_edit {
+  text-align: right;
+  a {
+    color: #ff0000; 
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 section.pagination {
   font-family: sans-serif;
   font-size: 20px;
@@ -309,3 +319,12 @@ px      68    160    252    344    436    */
   }
 }
 
+/* Таблица закладок на удаление */
+.batch_delete_form_table {
+  td {
+    padding: 5px;
+  }
+  .batch_delete_form_title_td {
+    width: 340px;
+  }
+}

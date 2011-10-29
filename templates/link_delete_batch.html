@@ -1,0 +1,67 @@
+{% extends "index2.html" %}
+{% load helpers_tags i18n %}
+{% block title %}{% trans "Select bookmarks to delete!" %}{% endblock %}
+{% block head-init-search %}{% endblock %}
+{% block search %}{% endblock %}
+{% block content %}
+<h2>{% trans "Select with caution!" %}</h2>
+<br/>
+<form class="extended_add_form" action="" method="POST">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <table class="batch_delete_form_table">
+        <tr>
+            <th><input type="checkbox" id="checkbox_master" /></th>
+            <th>{% trans "Href" %}</th>
+            <th>{% trans "Title" %}</th>
+            <th>{% trans "Added" %}</th>
+        </tr>
+        {% for form in formset.forms %}
+        <tr>
+            <td class="batch_delete_form_checkbox">{{ form.DELETE }}</td>
+            <td>
+                <a target="_blank" href="{{ form.instance.href }}">{{ form.instance.href|slice:":30" }}{% if form.instance.href|length > 30 %}...{% endif %}</a>
+            </td>
+            <td class="batch_delete_form_title_td">{{ form.instance.title }}</td>
+            <td>{{ form.instance.added }}{{ form.id }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br/>
+    <input type="submit" value="{% trans "Delete it forever" %}" />&nbsp;&nbsp;&nbsp;{% trans "or" %}&nbsp;&nbsp;&nbsp;<a href="/">{% trans "return to bookmarks list" %}</a>
+</form>
+<script>
+    $('checkbox_master').addEvent("change", function (event) {
+        $$('.batch_delete_form_checkbox input').set("checked", $(this).get("checked"));
+    });
+</script>
+{# paginaton #}
+<br/>
+<section class="pagination">
+    {% if page.has_previous %}
+        <a href="?page={{ page.previous_page_number }}" class="prev page">&lsaquo;&lsaquo; {% trans "PREVIOUS" %}</a>
+    {% endif %}
+
+    {% if min_page > 1 %}
+        <a href="?page=1" class="page">1</a>&nbsp;...&nbsp;
+    {% endif %}
+
+    {% for p in paginator.page_range %}
+        {% if p == page.number %}
+            <span class="current">{{ p }}</span>
+        {% else %}
+            {% if p >= min_page and p <= max_page %}
+                <a href="?page={{ p }}" class="page">{{ p }}</a>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if max_page < paginator.num_pages %}
+        &nbsp;...&nbsp;<a href="?page={{ paginator.num_pages }}" class="page">{{ paginator.num_pages }}</a>
+    {% endif %}
+
+    {% if page.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="next page">{% trans "NEXT" %} &rsaquo;&rsaquo;</a>
+    {% endif %}
+</section>
+{% endblock %}
