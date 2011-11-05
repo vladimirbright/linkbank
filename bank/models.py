@@ -46,6 +46,32 @@ class ImportTask(models.Model):
         verbose_name_plural = _("Import tasks")
 
 
+class ExportTask(models.Model):
+    """ Export bookmarks tasks
+    """
+    user = models.ForeignKey(User)
+    added = models.DateTimeField(_("Added"), auto_now_add=True)
+    status_choices = (
+        (1, _("New")),
+        (2, _("In process")),
+        (3, _("Success")),
+        (4, _("Error")),
+    )
+    status = models.IntegerField(_("Status of task"), choices=status_choices, default=status_choices[0][0])
+
+    def _upload_to(self, instance, filename):
+        return u"ex/%s/%s" %(instance.user_id, filename.lower())
+
+    file = models.FileField(_("File"), upload_to=_upload_to)
+
+    def __unicode__(self):
+        return u"Export task bu user %s" % self.user_id
+
+    class Meta:
+        verbose_name = _("Export task")
+        verbose_name_plural = _("Export tasks")
+
+
 class Profile(models.Model):
     """
         User settings
