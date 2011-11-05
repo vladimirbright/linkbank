@@ -19,7 +19,7 @@ from helpers.decorators import anonymous_required
 
 @login_required
 def download_exported_file(request, task_id):
-    task = get_object_or_404(ExportTask, user=request.user)
+    task = get_object_or_404(ExportTask, pk=task_id, user=request.user)
     if not task.file:
         raise Http404
     response = HttpResponse(task.file.read(), mimetype="application/octet-stream")

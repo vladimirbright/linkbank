@@ -25,7 +25,7 @@ class Command(BaseCommand):
 
     def process_bookmark(self, bookmark):
         tags = self.get_tags(bookmark.description)
-        out = u"""<DT><A HREF="%(href)s" ADD_DATE="%(added)s" %(tags)s>%(title)s</A>"""
+        out = u"""<DT><A HREF="%(href)s" ADD_DATE="%(added)s" %(tags)s>%(title)s</A>\n"""
         out = out % {
             "href": bookmark.href,
             "added": mktime(bookmark.added.timetuple()) if bookmark.added else "",
@@ -33,7 +33,7 @@ class Command(BaseCommand):
             "title": escape(bookmark.title),
         }
         if bookmark.description:
-            out += u"<DD>%s</DD>" % escape(bookmark.description)
+            out += u"<DD>%s</DD>\n" % escape(bookmark.description)
         return out
 
     def process_start_html(self):
@@ -45,7 +45,7 @@ class Command(BaseCommand):
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <Title>Bookmarks</Title>
     <H1>Bookmarks</H1>
-    <DL><p>"""
+    <DL><p>\n"""
 
     def process_end_html(self):
         return u"""</DL><p>"""
