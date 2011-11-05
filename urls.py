@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^add/$', 'bank.views.link_create'), # from bookmarklet
     url(r'^new/$', 'bank.views.link_create_extended', name="new"),
     url(r'^signup/$', 'bank.views.user_create', name="signup"),
+    url(r'^download/(?P<task_id>\d+)$', 'bank.views.download_exported_file', name="download_exported_file"),
     url(r'^signin/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^signout/$', 'django.contrib.auth.views.logout', { "next_page": "/" }, name='logout'),
     url(r'^ok$', TemplateView.as_view(template_name="ok.html"), name="ok"),

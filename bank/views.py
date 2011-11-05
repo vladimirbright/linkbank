@@ -6,15 +6,25 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.db import transaction
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 
 from bank.forms import UserCreationFormWithCaptcha, LinkForm, ProfileEditForm,\
-                        ImportBookmarksForm, LinkDeleteFormSet
-from bank.models import Link, Profile, ImportTask
+                        ImportBookmarksForm, LinkDeleteFormSet, ExportBookmarksForm
+from bank.models import Link, Profile, ImportTask, ExportTask
 from helpers.decorators import anonymous_required
+
+
+@login_required
+def download_exported_file(request, task_id):
+    task = get_object_or_404(ExportTask, user=request.user)
+    if not task.file:
+        raise Http404
+    response = HttpResponse(task.file.read(), mimetype="application/octet-stream")
+    response["Content-Disposition"] = 'attachment; filename="bookmarks.html"'
+    return response
 
 
 class BookmarkletsView(TemplateView):
@@ -143,21 +153,30 @@ def profile_edit(request):
         request.FILES or None,
         prefix="import"
     )
+    export_form = ExportBookmarksForm(request.POST or None, prefix="export")
     if "settings_form" in request.POST and profile_form.is_valid():
         profile_form.save()
         messages.success(request, _("Settings saved"))
-        return HttpResponseRedirect("/")
+        return redirect("/")
     if "import_form" in request.POST and import_form.is_valid():
         task = import_form.save(commit=False)
         task.user = request.user
         task.save()
         messages.success(request, _("Import task added. It will be processed shortly."))
-        return HttpResponseRedirect(reverse("settings"))
+        return redirect("settings")
+    if "export_form" in request.POST and export_form.is_valid():
+        task = export_form.save(commit=False)
+        task.user = request.user
+        task.save()
+        messages.success(request, _("Export task added. It will be processed shortly."))
+        return redirect("settings")
     c = {
         "profile": profile,
         "profile_form": profile_form,
         "import_form": import_form,
         "import_tasks": ImportTask.objects.filter(user=request.user, added__gt=datetime.now() - timedelta(days=7)),
+        "export_form": export_form,
+        "export_tasks": ExportTask.objects.filter(user=request.user, added__gt=datetime.now() - timedelta(days=7)),
         "nav": { "settings": True },
     }
     return render(request, "profile_edit.html", c)

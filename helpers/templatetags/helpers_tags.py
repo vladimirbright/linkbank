@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-import re
-
 from django import template
 from django.template.defaultfilters import linebreaks, escape, safe
 
+
+from bank.models import HASHTAG_PATTERN
+
+
 register = template.Library()
 
-HASHTAG_PATTERN = re.compile(r'#([\S]+)', re.U + re.I)
 
 @register.filter
 def link_body(body):

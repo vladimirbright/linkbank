@@ -11,6 +11,9 @@ from django.utils.translation import ugettext_lazy as _
 from helpers.validators import FileSizeValidator
 
 
+HASHTAG_PATTERN = re.compile(r'#([\S]+)', re.U + re.I)
+
+
 class ImportTask(models.Model):
     """ Import bookmarks tasks
     """
@@ -46,6 +49,10 @@ class ImportTask(models.Model):
         verbose_name_plural = _("Import tasks")
 
 
+def get_export_file_path(instance, filename):
+    return u"ex/%s/%s" %(instance.user_id, filename.lower())
+
+
 class ExportTask(models.Model):
     """ Export bookmarks tasks
     """
@@ -58,11 +65,11 @@ class ExportTask(models.Model):
         (4, _("Error")),
     )
     status = models.IntegerField(_("Status of task"), choices=status_choices, default=status_choices[0][0])
+    file = models.FileField(_("File"), upload_to=get_export_file_path, blank=True)
 
-    def _upload_to(self, instance, filename):
-        return u"ex/%s/%s" %(instance.user_id, filename.lower())
-
-    file = models.FileField(_("File"), upload_to=_upload_to)
+    @models.permalink
+    def get_absolute_url(self):
+        return ("download_exported_file", [ self.pk, ])
 
     def __unicode__(self):
         return u"Export task bu user %s" % self.user_id

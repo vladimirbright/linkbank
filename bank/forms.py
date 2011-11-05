@@ -9,19 +9,22 @@ from django.forms.models import modelformset_factory
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from bank.models import Link, Profile, ImportTask
+from bank.models import Link, Profile, ImportTask, ExportTask
 
 
 LinkDeleteFormSet = modelformset_factory(Link, fields=[], can_delete=True, extra=0)
 
 
+class ExportBookmarksForm(forms.ModelForm):
+    hid = forms.BooleanField(initial=True, widget=forms.HiddenInput)
+    class Meta:
+        model = ExportTask
+        fields = ()
+
+
 class ImportBookmarksForm(forms.ModelForm):
     """ Form to upload file with bookmarks
     """
-
-    def clean(self):
-        return self.cleaned_data
-
     class Meta:
         model = ImportTask
         fields = (
