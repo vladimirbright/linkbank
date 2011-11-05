@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime, timedelta
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
@@ -156,7 +157,7 @@ def profile_edit(request):
         "profile": profile,
         "profile_form": profile_form,
         "import_form": import_form,
-        "import_tasks": ImportTask.objects.filter(user=request.user),
+        "import_tasks": ImportTask.objects.filter(user=request.user, added__gt=datetime.now() - timedelta(days=7)),
         "nav": { "settings": True },
     }
     return render(request, "profile_edit.html", c)
