@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django import template
 from django.template.defaultfilters import linebreaks, escape, safe
 
@@ -7,6 +8,11 @@ from bank.models import HASHTAG_PATTERN
 
 
 register = template.Library()
+
+
+@register.inclusion_tag("yandex_metrika.html")
+def yandex_metrika():
+    return { "DEBUG": settings.DEBUG }
 
 
 @register.filter
