@@ -5,10 +5,11 @@
 {% include_media "my.js" %}
 <script type="text/javascript">
 window.addEvent("domready", function () {
-    var searchPlaceholder = new Placeholder("id_q", "Поиск");
-    var editLinks = new BookmarkActiveLink(".edit_bookmark", { containerId: "main_container" });
-    var delLinks = new BookmarkActiveLink(".del_bookmark", { containerId: "main_container" });
-    var addLink = new BookmarkActiveLink(".link_create_button", { containerId: "content_inner" });
+    var searchPlaceholder = new Placeholder("id_q", "Поиск")
+    , editLinks = new BookmarkActiveLink(".edit_bookmark", { containerId: "main_container" })
+    , delLinks = new BookmarkActiveLink(".del_bookmark", { containerId: "main_container" })
+    , addLink = new BookmarkActiveLink(".link_create_button", { containerId: "content_inner" })
+    ;
     {% url bank.views.link_search as search_url %}
     var navObj = new SiteNavigation("{{ search_url|escapejs }}", "id_q");
     /* reload on form success */

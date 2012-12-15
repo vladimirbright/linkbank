@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 import djapian
 
 from bank.views import BookmarkletsView
+from bank.views import QRCodeView
 
 
 djapian.load_indexes()
@@ -19,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^search/$', 'bank.views.link_search'),
     url(r'^settings/$', 'bank.views.profile_edit', name="settings"),
     url(r'^bookmarklets/$', login_required(BookmarkletsView.as_view()), name="bookmarklets"),
+    url(r'^give/me/qr/code/(?P<pk>\d+)$', login_required(QRCodeView.as_view()), name="give_me_qr_code"),
     url(r'^(\d+)/delete/$', 'bank.views.link_delete', name="delete"),
     url(r'^(\d+)/edit/$', 'bank.views.link_edit', name="edit"),
     url(r'^batch-delete/$', 'bank.views.link_delete_batch', name="delete_many"),

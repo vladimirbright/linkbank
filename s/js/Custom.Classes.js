@@ -230,7 +230,7 @@ var ModalFomLinkBasedHandler = new Class({
             setTimeout(function () {
                 this.currentStickyWin.position();
                 this.bindForm();
-            }.bind(this), 30);
+            }.bind(this), 100);
         }
     }
 });

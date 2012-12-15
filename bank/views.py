@@ -1,19 +1,39 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime, timedelta
+
+
+from datetime import datetime
+from datetime import timedelta
+
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
+from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
 from django.db import transaction
-from django.http import HttpResponseRedirect, Http404, HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.http import Http404
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
+from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
+from django.views.generic import DetailView
 from django.views.generic import TemplateView
 
-from bank.forms import UserCreationFormWithCaptcha, LinkForm, ProfileEditForm,\
-                        ImportBookmarksForm, LinkDeleteFormSet, ExportBookmarksForm
-from bank.models import Link, Profile, ImportTask, ExportTask
+
+from bank.forms import ExportBookmarksForm
+from bank.forms import ImportBookmarksForm
+from bank.forms import LinkDeleteFormSet
+from bank.forms import LinkForm
+from bank.forms import ProfileEditForm
+from bank.forms import UserCreationFormWithCaptcha
+from bank.models import ExportTask
+from bank.models import ImportTask
+from bank.models import Link
+from bank.models import Profile
 from helpers.decorators import anonymous_required
 
 
@@ -28,34 +48,34 @@ def download_exported_file(request, task_id):
 
 
 class BookmarkletsView(TemplateView):
-    """
-        Bookmarklets page
-    """
+    """ Bookmarklets page """
     template_name = "bookmarklets.html"
 
     def get_context_data(self):
-        return {
-            "nav": {
-                "bookmarklets": True,
-            },
-        }
+        return {"nav": {"bookmarklets": True}}
 
 
 class LoginOrRegisterPageView(TemplateView):
-    """
-        Index page to anon
+    """ Index page to anon
         Login and register form
     """
     template_name = "login_or_register.html"
 
     def get_context_data(self):
-        return {
-            "registration_form" : UserCreationFormWithCaptcha(),
-            "login_form" : AuthenticationForm(),
-        }
+        return {"registration_form" : UserCreationFormWithCaptcha(),
+                "login_form" : AuthenticationForm()}
 
 
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+class QRCodeView(DetailView):
+    model = Link
+    template_name = 'qr_code.html'
+
+    def get_object(self):
+        bookmark = super(QRCodeView, self).get_object()
+        if bookmark.owner_id != self.request.user.pk:
+            raise Http404
+        return bookmark
+
 
 @login_required
 @transaction.commit_on_success
@@ -82,24 +102,18 @@ def link_delete_batch(request):
         formset.save()
         messages.success(request, _("Bookmarks deleted"))
         return HttpResponseRedirect(reverse("delete_many"))
-    c = {
-        "formset" : formset,
-        "paginator": paginator,
-        "page": page,
-        "min_page": page.number - 3,
-        "max_page": page.number + 3,
-        "nav": {
-            "index": True,
-        },
-    }
+    c = {"formset" : formset,
+         "paginator": paginator,
+         "page": page,
+         "min_page": page.number - 3,
+         "max_page": page.number + 3,
+         "nav": {"index": True}}
     return render(request, "link_delete_batch.html", c)
 
 
 @anonymous_required
 def user_create(request):
-    """
-        Registration page
-    """
+    """ Registration page """
     form = UserCreationFormWithCaptcha(request.POST or None)
     if form.is_valid():
         user = form.save(commit=False)
@@ -126,33 +140,24 @@ def link_list(request):
     if request.user.is_anonymous():
         return LoginOrRegisterPageView.as_view()(request)
     links = Link.objects.filter(owner=request.user).order_by('-pk')
-    c = {
-        "links": links,
-        "nav": {
-            "index": True,
-        },
-        "PER_PAGE": Profile.objects.get_or_create(user=request.user)[0].per_page
-    }
+    per_page = Profile.objects.get_or_create(user=request.user)[0].per_page
+    c = {"links": links,
+         "nav": {"index": True},
+         "PER_PAGE": per_page}
     return render(request, "index2.html", c)
 
 
 @login_required
 @transaction.commit_on_success
 def profile_edit(request):
-    """
-        "Settings" page
-    """
+    """ "Settings" page """
     profile = Profile.objects.get_or_create(user=request.user)[0]
-    profile_form = ProfileEditForm(
-                       request.POST or None,
-                       instance=profile,
-                       prefix="profile"
-                   )
-    import_form = ImportBookmarksForm(
-        request.POST or None,
-        request.FILES or None,
-        prefix="import"
-    )
+    profile_form = ProfileEditForm(request.POST or None,
+                                   instance=profile,
+                                   prefix="profile")
+    import_form = ImportBookmarksForm(request.POST or None,
+                                      request.FILES or None,
+                                      prefix="import")
     export_form = ExportBookmarksForm(request.POST or None, prefix="export")
     if "settings_form" in request.POST and profile_form.is_valid():
         profile_form.save()

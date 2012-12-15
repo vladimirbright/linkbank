@@ -12,6 +12,9 @@
         <ul>
           <li><a href="{% url edit l.pk %}">{% trans "edit" %}</a></li>
           <li><a href="{% url delete l.pk %}">{% trans "delete" %}</a></li>
+          {% if profile.show_qr %}
+              <li><a href="{% url give_me_qr_code l.pk %}">{% trans "qr code" %}</a></li>
+          {% endif %}
         </ul>
       </article>
     {% endwith %}
