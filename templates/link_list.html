@@ -4,7 +4,6 @@
   {% for l in links %}
     {% with l.instance|default:l as l %}
       <article>
-        {% if profile.show_qr %}<aside class="qr"><img src="{{ l.href|qr:"64x64" }}" width="64" height="64" /></aside>{% endif %}
         <header style="background:url(http://favicon.yandex.ru/favicon/{{ l.domain }}/) 0 2px no-repeat;">
           <a href="{{ l.href }}">{{ l.title|default:l.href }} </a>
         </header>
