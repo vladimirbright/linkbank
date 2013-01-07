@@ -76,7 +76,7 @@ class UserCreationFormWithCaptcha(UserCreationForm):
     _errors = {
             "invalid": _("Wrong symbols"),
         }
-    captcha = CaptchaField(label=_("Type simbols"), error_messages=_errors)
+    captcha = CaptchaField(label=_("Type symbols"), error_messages=_errors)
 
     def clean_email(self):
         em = self.cleaned_data.get("email", "")
