@@ -1,23 +1,45 @@
-"""
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
+# -*- coding: utf-8 -*-
 
-Replace these with more appropriate tests for your application.
-"""
 
 from django.test import TestCase
+from django.test.client import RequestFactory
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.failUnlessEqual(1 + 1, 2)
 
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
+from bank.forms import LinkForm
 
->>> 1 + 1 == 2
-True
-"""}
 
+class LinkFormTestCase(TestCase):
+
+    def setUp(self):
+        super(LinkFormTestCase, self).setUp()
+        self.factory = RequestFactory()
+
+    def test_check_encoding_existing_encoding_from_get(self):
+        request = self.factory.get('/some/url/?encoding=cp1251')
+        assert request.encoding is None
+        request = LinkForm.check_encoding(request)
+        assert request.encoding == 'cp1251'
+
+    def test_check_encoding_existing_encoding_from_post(self):
+        request = self.factory.post('/some/url/', data={'encoding': 'cp1251'})
+        assert request.encoding is None
+        request = LinkForm.check_encoding(request)
+        assert request.encoding == 'cp1251'
+
+    def test_check_encoding_non_existing_encoding_from_get(self):
+        request = self.factory.get('/some/url/?encoding=cdddddddd')
+        assert request.encoding is None
+        request = LinkForm.check_encoding(request)
+        assert request.encoding == LinkForm.DEFAULT_LINK_ENCODING
+
+    def test_check_encoding_non_existing_encoding_from_post(self):
+        request = self.factory.get('/some/url/', data={'encoding': 'cdddddddd'})
+        assert request.encoding is None
+        request = LinkForm.check_encoding(request)
+        assert request.encoding == LinkForm.DEFAULT_LINK_ENCODING
+
+    def test_check_encoding_without_encoding_param(self):
+        request = self.factory.get('/some/url/')
+        assert request.encoding is None
+        request = LinkForm.check_encoding(request)
+        assert request.encoding == LinkForm.DEFAULT_LINK_ENCODING

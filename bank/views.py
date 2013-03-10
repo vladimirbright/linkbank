@@ -273,6 +273,7 @@ def link_create(request):
     """
         Bookmarklet handler
     """
+    request = LinkForm.check_encoding(request)
     _get = request.GET.copy()
     _get["return_me_to_link"] = 1
     form = LinkForm(_get, user=request.user)

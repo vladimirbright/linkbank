@@ -7,8 +7,20 @@
     <h1 class="large">{% trans "Bookmarklets" %}</h1>
     <article>{% blocktrans with domain=current_site.domain %}
        Use bookmarklets to fast add links to your bank.<br>
-       Just drug this to you bookmark toolbar.<br>
-       <a href="javascript:var l=location.href;location.href='http://{{ domain }}/add/?href='+l">Only link</a><br>
-       <a href="javascript:var l=location.href;location.href='http://{{ domain }}/add/?href='+l+'&title='+document.title">Link and title</a><br>
+       Just drug this <a href='javascript:(function(a,b){b.href="http://{{ domain }}/add/?href="+b.href+"&title="+a.title+"&encoding="+(a.inputEncoding||a.characterSet||a.charset||a.defaultCharset)})(document,location);'>save to knbase.info</a> to you bookmark toolbar.<br>
     {% endblocktrans %}</article>
+    {% comment %}
+       <pre>
+
+           (function (d, l) {
+               var enc = d.inputEncoding || d.characterSet || d.charset || d.defaultCharset,
+                   loc = l.href,
+                   tit = d.title;
+                   l.href = 'http://{{ domain }}/add/?' + 
+                            'href=' + loc + 
+                            '&title=' + document.title +
+                            '&encoding=' + enc;
+       })(document, location)
+       </pre>
+    {% endcomment %}
 {% endblock %}
