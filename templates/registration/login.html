@@ -4,14 +4,14 @@
 {% block head-extra %}{{ form.media }}{% endblock %}
 {% block content %}
 <div class="login_page">
-    <form action="{% url login %}" method="POST">
+    <form action="{% url 'login' %}" method="POST">
         {% csrf_token %}
         {% render_form form %}
         <input type="hidden" name="next" value="/" />
         <input type="submit" value="Go!" />
     </form>
     <div class="or_maybe">
-        {% trans "Back to" %} <a href="/">{% trans "main" %}</a> {% trans "or maybe" %} <a href="{% url signup %}">{% trans "resiter" %}</a>?
+        {% trans "Back to" %} <a href="/">{% trans "main" %}</a> {% trans "or maybe" %} <a href="{% url 'signup' %}">{% trans "resiter" %}</a>?
     </div>
 </div>
 {% endblock %}

@@ -20,7 +20,7 @@
 	<header id="header">
     {% block header %}
         {% if not user.is_anonymous %}
-            <form action="{% url bank.views.link_create %}">
+            <form action="{% url 'bank.views.link_create' %}">
                 <label>{% trans "Add link" %} {{ form.href }}</label><input type="submit" value="Add this!" />
             </form>
         {% endif %}

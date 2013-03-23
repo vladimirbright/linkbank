@@ -7,7 +7,7 @@
 
 <h2>{% trans "Change site settings" %}</h2>
 
-<form class="settings_form" action="{% url settings %}" method="POST">{% csrf_token %}
+<form class="settings_form" action="{% url 'settings' %}" method="POST">{% csrf_token %}
     {% render_form profile_form %}
     <input type="submit" name="settings_form" value="{% trans "Save settings" %}"> 
 </form>
@@ -35,7 +35,7 @@
 {% endif %}
 
 <h2>{% trans "Import bookmarks from other sources" %}</h2>
-<form class="settings_form" action="{% url settings %}" method="POST" enctype="multipart/form-data">
+<form class="settings_form" action="{% url 'settings' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% render_form import_form %}
     <input type="submit" name="import_form" value="{% trans "Upload" %}" /> 
@@ -67,7 +67,7 @@
 
 <br/>
 <h2>{% trans "Export your bookmarks" %}</h2>
-<form class="settings_form" action="{% url settings %}" method="POST" enctype="multipart/form-data">
+<form class="settings_form" action="{% url 'settings' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% render_form export_form %}
     <input type="submit" name="export_form" value="{% trans "Request export" %}" /> 

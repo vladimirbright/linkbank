@@ -3,7 +3,7 @@
 import re
 
 
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -17,7 +17,7 @@ HASHTAG_PATTERN = re.compile(r'#([\S]+)', re.U + re.I)
 class ImportTask(models.Model):
     """ Import bookmarks tasks
     """
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     added = models.DateTimeField(_("Added"), auto_now_add=True)
     from_source_choices = (
         ("delicious", _("delicious.com")),
@@ -56,7 +56,7 @@ def get_export_file_path(instance, filename):
 class ExportTask(models.Model):
     """ Export bookmarks tasks
     """
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     added = models.DateTimeField(_("Added"), auto_now_add=True)
     status_choices = (
         (1, _("New")),
@@ -83,7 +83,7 @@ class Profile(models.Model):
     """
         User settings
     """
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
     show_qr = models.BooleanField(_("Show QR codes"), default=True)
     _per_page_choices = [ (i,i) for i in range(10,51,10) ]
     per_page = models.IntegerField(_("Links per page"), choices=_per_page_choices, default=20)
@@ -104,7 +104,7 @@ def create_profile(sender, instance, created, **kwargs):
         Profile.objects.get_or_create(user=instance)
 models.signals.post_save.connect(
     create_profile,
-    sender=User,
+    sender=settings.AUTH_USER_MODEL,
     dispatch_uid="bank.create_profile"
 )
 
@@ -112,8 +112,8 @@ models.signals.post_save.connect(
 DOMAIN_PATTERN = re.compile(r'https?://([^/]+)')
 
 class Link(models.Model):
-    href = models.URLField(_("Url"), verify_exists=False, max_length=255, help_text=_("http:// or https:// required"))
-    owner = models.ForeignKey(User, verbose_name=_("Owner"))
+    href = models.URLField(_("Url"), max_length=255, help_text=_("http:// or https:// required"))
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Owner"))
     added = models.DateTimeField(_("Added"), auto_now_add=True)
     title = models.TextField(_("Title"), blank=True, default="")
     description = models.TextField(_("Description"), blank=True, default="", help_text=_("Hash tag allowed"))

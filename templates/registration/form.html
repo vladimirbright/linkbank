@@ -4,14 +4,14 @@
 {% block head-extra %}{{ registration_form.media }}{% endblock %}
 {% block content %}
 <div class="login_page">
-    <form action="{% url bank.views.user_create %}" method="POST">
+    <form action="{% url 'bank.views.user_create' %}" method="POST">
         {% csrf_token %}
         {% render_form registration_form %}
         <input type="hidden" name="next" value="/" />
         <input type="submit" value="Go!" />
     </form>
     <div class="or_maybe">
-        {% trans "Back to" %} <a href="/">{% trans "main" %}</a> {% trans "or maybe" %} <a href="{% url login %}">{% trans "sign in" %}</a>?
+        {% trans "Back to" %} <a href="/">{% trans "main" %}</a> {% trans "or maybe" %} <a href="{% url 'login' %}">{% trans "sign in" %}</a>?
     </div>
 </div>
 {% endblock %}

@@ -9,17 +9,17 @@
         </header>
         {{ l.description|link_body }}
         <ul>
-          <li><a href="{% url edit l.pk %}">{% trans "edit" %}</a></li>
-          <li><a href="{% url delete l.pk %}">{% trans "delete" %}</a></li>
+          <li><a href="{% url 'edit' l.pk %}">{% trans "edit" %}</a></li>
+          <li><a href="{% url 'delete' l.pk %}">{% trans "delete" %}</a></li>
           {% if profile.show_qr %}
-              <li><a href="{% url give_me_qr_code l.pk %}">{% trans "qr code" %}</a></li>
+              <li><a href="{% url 'give_me_qr_code' l.pk %}">{% trans "qr code" %}</a></li>
           {% endif %}
         </ul>
       </article>
     {% endwith %}
     {% if forloop.last %}
       <section class="batch_edit">
-        <a href="{% url delete_many %}">{% trans "batch delete" %}</a>
+        <a href="{% url 'delete_many' %}">{% trans "batch delete" %}</a>
       </section>
       <section class="pagination">
         {% paginate %}

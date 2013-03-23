@@ -1,4 +1,4 @@
-Django
+Django==1.5
 django-pagination
 South
 PIL

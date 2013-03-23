@@ -38,10 +38,10 @@
               </div>
               <span class="work_links">
                 <a title="{% trans "Edit this bookmark" %}"
-                   class="work_link edit_bookmark" href="{% url bank.views.link_edit l.instance.pk %}"
+                   class="work_link edit_bookmark" href="{% url 'bank.views.link_edit' l.instance.pk %}"
                    id="edit_bookmark_{{ l.pk }}">{% trans "edit" %}</a>
                 <a title="{% trans "Delete this link" %}"
-                   class="work_link del_bookmark" href="{% url bank.views.link_delete l.instance.pk %}"
+                   class="work_link del_bookmark" href="{% url 'bank.views.link_delete' l.instance.pk %}"
                    id="del_bookmark_{{ l.instance.pk }}">{% trans "delete" %}</a>
               </span>
             {% endwith %}
@@ -64,10 +64,10 @@
               </div>
               <span class="work_links">
                 <a title="{% trans "Edit this bookmark" %}"
-                   class="work_link edit_bookmark" href="{% url bank.views.link_edit l.pk %}"
+                   class="work_link edit_bookmark" href="{% url 'bank.views.link_edit' l.pk %}"
                    id="edit_bookmark_{{ l.pk }}">{% trans "edit" %}</a>
                 <a title="{% trans "Delete this link" %}"
-                   class="work_link del_bookmark" href="{% url bank.views.link_delete l.pk %}"
+                   class="work_link del_bookmark" href="{% url 'bank.views.link_delete' l.pk %}"
                    id="del_bookmark_{{ l.pk }}">{% trans "delete" %}</a>
               </span>
             {% endwith %}

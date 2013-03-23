@@ -2,7 +2,7 @@
 {% load i18n %}
 {% block title %}{% trans "Really delete" %} &laquo;{{ link.href }}&raquo;?{% endblock %}
 {% block body %}
-<form action="{% url bank.views.link_delete link.pk  %}" method="POST">
+<form action="{% url 'bank.views.link_delete' link.pk  %}" method="POST">
     {% csrf_token %}
     <input type="hidden" name="vaaa" value="{{ link.pk }}" />
     <input type="submit" value="{% trans "Yes, erase it!" %}" />

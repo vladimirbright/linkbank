@@ -3,7 +3,7 @@
 {% block title %}{% if not success %}{% trans "Put it here!" %}{% else %}{% trans "Putted!" %}{% endif %}{% endblock %}
 {% block body %}
 {% if not success %}
-<form action="{% url bank.views.link_create_extended %}" method="POST">
+<form action="{% url 'bank.views.link_create_extended' %}" method="POST">
     {% csrf_token %}
     {% render_form form %}
     <input type="submit" value="{% trans "Save" %}" />

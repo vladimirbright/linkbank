@@ -10,7 +10,7 @@ window.addEvent("domready", function () {
     , delLinks = new BookmarkActiveLink(".del_bookmark", { containerId: "main_container" })
     , addLink = new BookmarkActiveLink(".link_create_button", { containerId: "content_inner" })
     ;
-    {% url bank.views.link_search as search_url %}
+    {% url 'bank.views.link_search' as search_url %}
     var navObj = new SiteNavigation("{{ search_url|escapejs }}", "id_q");
     /* reload on form success */
     editLinks.addEvent("formSuccess", function (win) {
@@ -34,16 +34,16 @@ window.addEvent("domready", function () {
 
 {% block header %}
   <div class="logout_div">
-    <a title="{% trans "Sign out from site" %}" href="{% url logout %}">выйти</a>,
+    <a title="{% trans "Sign out from site" %}" href="{% url 'logout' %}">выйти</a>,
     <a href="#" title="{% trans "Profile, settings, password change & etc" %}">{{ user.username }}</a>,
     <span>{% trans "Href & title" %}</span>
     <a title="{% trans "Drag this to your browser toolbar" %}"
-       href="javascript:var l=location.href;location.href='http://{{ current_site.domain }}{% url bank.views.link_create %}?href='+l+'&title='+document.title">
+       href="javascript:var l=location.href;location.href='http://{{ current_site.domain }}{% url 'bank.views.link_create' %}?href='+l+'&title='+document.title">
        {% trans "To bank" %}
     </a>,
     <span>{% trans "Only href" %}</span>
     <a title="{% trans "Drag this to your browser toolbar" %}"
-       href="javascript:var l=location.href;location.href='http://{{ current_site.domain }}{% url bank.views.link_create %}?href='+l">
+       href="javascript:var l=location.href;location.href='http://{{ current_site.domain }}{% url 'bank.views.link_create' %}?href='+l">
        {% trans "To bank" %}
     </a>
   </div>
@@ -51,7 +51,7 @@ window.addEvent("domready", function () {
 
 {% block content %}
 <div class="content_inner" id="content_inner">
-  <a class="link_create_button" href="{% url bank.views.link_create_extended %}">{% trans "Put link in bank" %}</a>
+  <a class="link_create_button" href="{% url 'bank.views.link_create_extended' %}">{% trans "Put link in bank" %}</a>
   <div class="search_form_wrapper">
     <input id="id_q" type="text" name="q" value="Поиск" />
   </div>

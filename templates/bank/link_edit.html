@@ -5,7 +5,7 @@
 {% block title %}{% trans "Edit" %} &laquo;{{ link.title|default:link.href }}&raquo;{% endblock %}
 
 {% block body %}
-<form action="{% url bank.views.link_edit link.pk  %}" method="POST">
+<form action="{% url 'bank.views.link_edit' link.pk  %}" method="POST">
     {% csrf_token %}
     {% render_form form %}
     <input type="submit" value="{% trans "Save" %}" />
