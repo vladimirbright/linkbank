@@ -142,6 +142,8 @@ INSTALLED_APPS = (
     'south',
 )
 
+ALLOWED_HOSTS = ('knbase.info', 'linkbank.dev')
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
