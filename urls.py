@@ -5,13 +5,9 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 # from django.conf import settings
-import djapian
 
 from bank.views import BookmarkletsView
 from bank.views import QRCodeView
-
-
-djapian.load_indexes()
 
 admin.autodiscover()
 
