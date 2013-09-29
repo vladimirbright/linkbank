@@ -1,7 +1,7 @@
-Django==1.5
+Django>=1.5
 django-pagination
 South
-PIL
+Pillow
 psycopg2
 ipython
 http://django-simple-captcha.googlecode.com/files/django-simple-captcha-0.2.0.tar.gz
