@@ -2,7 +2,7 @@ It's small django based project about to replace http://delicious.com for me.
 
 Working website in you may see on http://knbase.info
 
-It's support manage your bookmarks, real time search (xapian/djapian based), hash tags.
+It's support manage your bookmarks, real time search and hash tags.
 
 Use it with caution on your own risk.
 
