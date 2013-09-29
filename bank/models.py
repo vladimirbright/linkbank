@@ -132,22 +132,3 @@ class Link(models.Model):
     class Meta:
         verbose_name = _("Bookmark")
         verbose_name_plural = _("Bookmarks")
-
-
-def djapian_update(sender, **kwargs):
-    Link.indexer.update()
-models.signals.post_save.connect(
-    djapian_update,
-    sender=Link,
-    dispatch_uid="link.djapian_update"
-)
-
-
-def djapian_delete(sender, instance, **kwargs):
-    Link.indexer.delete(instance)
-models.signals.pre_delete.connect(
-    djapian_delete,
-    sender=Link,
-    dispatch_uid="link.djapian_delete"
-)
-

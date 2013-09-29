@@ -9,7 +9,6 @@ svn+http://django-gravatar.googlecode.com/svn/trunk/
 flup
 django-mediagenerator
 fabric
-svn+http://djapian.googlecode.com/svn/trunk/
 html5lib
 elementtree
 lxml

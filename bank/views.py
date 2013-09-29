@@ -5,14 +5,15 @@ from datetime import datetime
 from datetime import timedelta
 
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib import messages
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
 from django.db import transaction
+from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -193,12 +194,13 @@ def link_search(request):
         Ajax handler to load search
     """
     q = request.GET.get("q", "").strip()
+    links = Link.objects.filter(owner=request.user)
     if q:
-        links = Link.indexer.search(q).filter(owner=request.user).flags(
-                    Link.indexer.flags.PARTIAL
-                )
+        links = links.filter(Q(href__icontains=q) | \
+                             Q(title__icontains=q) | \
+                             Q(description__icontains=q))
     else:
-        links = Link.objects.filter(owner=request.user).order_by('-pk')
+        links = links.order_by('-pk')
     c = {
         "links": links,
         "PER_PAGE": Profile.objects.get_or_create(user=request.user)[0].per_page
