@@ -71,7 +71,8 @@ THUMBNAIL_MEDIA_ROOT = self_dir('s/thumbs')
 THUMBNAIL_MEDIA_URL = '/s/thumbs/'
 MEDIA_ROOT = self_dir('s')
 MEDIA_URL = '/s/'
-ADMIN_MEDIA_PREFIX = '/media/'
+STATIC_ROOT = self_dir('static')
+STATIC_URL = '/static/'
 AUTH_PROFILE_MODULE = 'bank.Profile'
 LOGIN_URL = '/signin/'
 TEMPLATE_DIRS = (
@@ -133,6 +134,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.staticfiles',
     'django.contrib.webdesign',
     'gravatar',
     'helpers',
