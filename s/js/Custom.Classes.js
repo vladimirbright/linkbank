@@ -1,90 +1,90 @@
 // Мои классы для сайта
 
 
-// Класс отвечающий за поиск и пагинацию
-// Следит за поисковым инпутом и нажатиями на пагинирующие ссылки
-// и выставляет соответсвующий хеш
+//// Класс отвечающий за поиск и пагинацию
+//// Следит за поисковым инпутом и нажатиями на пагинирующие ссылки
+//// и выставляет соответсвующий хеш
 
-var SiteNavigationObserver = new Class({
+//var SiteNavigationObserver = new Class({
 
-    Implements: [ Options, Events ],
+    //Implements: [ Options, Events ],
 
-    options: {
-        containerId: "id_bookmarks",
-        pageChunk: "page",
-        pageSelector: ".page",
-        searchChunk: "q", 
-        hashTagSelector: ".hash_tag",
-        searchId: "id_search",
-        scrollToId: "id_search",
-        scrollOpts: {
-            wait: false,
-            duration: 500,
-            offset: {'x': 0, 'y': -10},
-            transition: Fx.Transitions.Quad.easeInOut
-        }
-    },
-    /* some properties */
-    searchTerm: "",
-    searchInput: false,
-    scroll: false,
+    //options: {
+        //containerId: "id_bookmarks",
+        //pageChunk: "page",
+        //pageSelector: ".page",
+        //searchChunk: "q", 
+        //hashTagSelector: ".hash_tag",
+        //searchId: "id_search",
+        //scrollToId: "id_search",
+        //scrollOpts: {
+            //wait: false,
+            //duration: 500,
+            //offset: {'x': 0, 'y': -10},
+            //transition: Fx.Transitions.Quad.easeInOut
+        //}
+    //},
+    //[> some properties <]
+    //searchTerm: "",
+    //searchInput: false,
+    //scroll: false,
 
-    initialize: function(options) {
-        this.setOptions(options);
-        try {
-            this.searchInput = $(this.options.searchId);
-        } catch (e) {
-            return false;
-        }
-        this.bindEvens();
-        window.addEvent("domready", function () {
-            setTimeout(function () {
-                    this.setSearchChunk();
-                }.bind(this), 50);
-        }.bind(this));
-        this.scroll = new Fx.Scroll(document.body, this.options.scrollOpts);
-    },
+    //initialize: function(options) {
+        //this.setOptions(options);
+        //try {
+            //this.searchInput = $(this.options.searchId);
+        //} catch (e) {
+            //return false;
+        //}
+        //this.bindEvens();
+        //window.addEvent("domready", function () {
+            //setTimeout(function () {
+                    //this.setSearchChunk();
+                //}.bind(this), 50);
+        //}.bind(this));
+        //this.scroll = new Fx.Scroll(document.body, this.options.scrollOpts);
+    //},
 
-    bindEvens: function () {
-        this.searchInput.addEvent("keyup", this.setSearchChunk.bind(this));
-        document.id(this.options.containerId).addEvent("click:relay(" + this.options.pageSelector + ")", this.setPaginationChunk.bind(this));
-        document.id(this.options.containerId).addEvent("click:relay(" + this.options.hashTagSelector + ")", this.setHashTag.bind(this));
-    },
+    //bindEvens: function () {
+        //this.searchInput.addEvent("keyup", this.setSearchChunk.bind(this));
+        //document.id(this.options.containerId).addEvent("click:relay(" + this.options.pageSelector + ")", this.setPaginationChunk.bind(this));
+        //document.id(this.options.containerId).addEvent("click:relay(" + this.options.hashTagSelector + ")", this.setHashTag.bind(this));
+    //},
 
-    setHashTag: function (cathedEvent) {
-        var hash_tag;
-        hash_tag = cathedEvent.target.get("html").replace(/^#/, "");
-        this.searchInput.set("value", hash_tag);
-        // scroll
-        this.scroll.toElement(this.options.scrollToId);
-    },
+    //setHashTag: function (cathedEvent) {
+        //var hash_tag;
+        //hash_tag = cathedEvent.target.get("html").replace(/^#/, "");
+        //this.searchInput.set("value", hash_tag);
+        //// scroll
+        //this.scroll.toElement(this.options.scrollToId);
+    //},
 
-    setPaginationChunk: function (cathedEvent) {
-        var clickedLink, pageNumber;
-        cathedEvent.preventDefault();
-        clickedLink = cathedEvent.target;
-        pageNumber = (clickedLink.get("rel") || "").replace(/[^\d]/, "");
-        if (pageNumber) {
-            if (this.searchTerm) {
-                window.location.hash = this.options.searchChunk + '=' + this.searchTerm + "&" + this.options.pageChunk + "=" + pageNumber;
-            } else {
-                window.location.hash = this.options.pageChunk + "=" + pageNumber;
-            }
-        }
-        // scroll
-        this.scroll.toElement(this.options.scrollToId);
-    },
+    //setPaginationChunk: function (cathedEvent) {
+        //var clickedLink, pageNumber;
+        //cathedEvent.preventDefault();
+        //clickedLink = cathedEvent.target;
+        //pageNumber = (clickedLink.get("rel") || "").replace(/[^\d]/, "");
+        //if (pageNumber) {
+            //if (this.searchTerm) {
+                //window.location.hash = this.options.searchChunk + '=' + encodeURI(this.searchTerm) + "&" + this.options.pageChunk + "=" + pageNumber;
+            //} else {
+                //window.location.hash = this.options.pageChunk + "=" + pageNumber;
+            //}
+        //}
+        //// scroll
+        //this.scroll.toElement(this.options.scrollToId);
+    //},
 
-    setSearchChunk: function (cathedEvent) {
-        this.searchTerm = this.searchInput.get("value");
-        if (this.searchTerm) {
-            window.location.hash = this.options.searchChunk + '=' + this.searchTerm;
-        } else {
-            window.location.hash = "";
-        }
-    }
+    //setSearchChunk: function (cathedEvent) {
+        //this.searchTerm = this.searchInput.get("value");
+        //if (this.searchTerm) {
+            //window.location.hash = this.options.searchChunk + '=' + encodeURI(this.searchTerm);
+        //} else {
+            //window.location.hash = "";
+        //}
+    //}
 
-});
+//});
 
 // Класс, который загружает результаты поиска, исохдя из location.hash
 var SiteNavigationLoader = new Class({
@@ -127,9 +127,12 @@ var SiteNavigationLoader = new Class({
     onHashReload: function () {
         var loadUriParams, fullLoadUrl, fullRequestParams;
         loadUriParams = window.location.hash.replace(/^#/, "");
-        fullLoadUrl = this.loadUrl + "?" + encodeURI(loadUriParams);
+        //fullLoadUrl = this.loadUrl + "?" + encodeURI(loadUriParams);
+        fullLoadUrl = this.loadUrl + "?" + loadUriParams;
         fullRequestParams = this.loadOpts;
         fullRequestParams.url = fullLoadUrl;
+        console.log(loadUriParams);
+        console.log(fullLoadUrl);
         if (this.lastTimeout !== false) {
             clearTimeout(this.lastTimeout);
         }

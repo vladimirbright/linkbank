@@ -1,5 +1,5 @@
 <!doctype html>
-<html>{% load media i18n pagination_tags helpers_tags %}
+<html>{% load media i18n pagination_tags helpers_tags staticfiles %}
   <head>
     <link rel="shortcut icon" href="{{ MEDIA_URL }}favicon.ico" />
     <meta charset="utf-8"/>
@@ -12,11 +12,13 @@
     {% include_media "print.bundle.css" media="print" %}
     <!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
     {% include_media "site.js" %}
+    <script src="{% static "bank/js/main.js" %}" ></script>
     {% block head-init-search %}
     <script>
         window.addEvent("domready", function () {
-            var observer, loader, formHandler;
-            observer = new SiteNavigationObserver();
+            var loader, formHandler;
+            //var observer, loader, formHandler;
+            //observer = new SiteNavigationObserver();
             loader = new SiteNavigationLoader("/search/");
             formHandler = new ModalFomLinkBasedHandler("article ul a", { containerId: "id_bookmarks" });
             formHandler.addEvent("formSuccess", function (win) {
