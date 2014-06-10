@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 
 from datetime import datetime
 from datetime import timedelta
+from json import dumps
 
 
 from django.contrib import messages
@@ -10,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
+from django.core.paginator import Paginator
 from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
 from django.db import transaction
@@ -36,6 +40,9 @@ from bank.models import ImportTask
 from bank.models import Link
 from bank.models import Profile
 from helpers.decorators import anonymous_required
+
+
+logger = logging.getLogger(__name__)
 
 
 @login_required
@@ -146,6 +153,55 @@ def link_list(request):
          "nav": {"index": True},
          "PER_PAGE": per_page}
     return render(request, "index2.html", c)
+
+
+@login_required
+def link_list_ajax(request):
+    """ List of bookmarks
+
+	{"links": [{"pk": self.pk,
+                "href": self.href,
+                "title": self.title,
+                "description": self.description,
+                "domain": self.domain(),
+                "added": self.added.isoformat()}],
+     "meta": {
+     }
+	}
+    """
+    page_number = request.GET.get("p", 1)
+    query = request.GET.get("q", "").strip()
+
+
+    links = Link.objects.filter(owner=request.user)
+    profile = Profile.objects.get_or_create(user=request.user)[0]
+
+    if query:
+        links = links.filter(Q(href__icontains=query) | \
+                             Q(title__icontains=query) | \
+                             Q(description__icontains=query))
+    else:
+        links = links.order_by('-pk')
+    all_count = links.count()
+    paginator = Paginator(links, profile.per_page)
+    try:
+        page = paginator.page(page_number)
+    except:
+        logger.exception("paginationg in link_list_ajax")
+        page = paginator.page(1)
+
+    links = [i.dict() for i in page.object_list]
+    meta = {"page": {"has_next": page.has_next(),
+                     "has_previous": page.has_previous(),
+                     "current_index": page.number,
+                     "per_page": paginator.per_page,
+                     "num_pages": paginator.num_pages,
+                     "page_range": paginator.page_range},
+            "count": all_count}
+    data = {"links": links, "meta": meta}
+    response = HttpResponse(dumps(data))
+    response['Content-Type'] = 'application/json'
+    return response
 
 
 @login_required

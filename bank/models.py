@@ -126,6 +126,14 @@ class Link(models.Model):
             return u""
         return res.groups()[0]
 
+    def dict(self):
+	return {"pk": self.pk,
+		"href": self.href,
+		"title": self.title,
+		"description": self.description,
+		"domain": self.domain(),
+		"added": self.added.isoformat()}
+
     def __unicode__(self):
         return u"%s for user # %s" %(self.href[:30], self.owner_id)
 

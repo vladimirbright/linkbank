@@ -14,6 +14,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', 'bank.views.link_list', name="index"),
     url(r'^search/$', 'bank.views.link_search'),
+    url(r'^search/ajax/$', 'bank.views.link_list_ajax'),
     url(r'^settings/$', 'bank.views.profile_edit', name="settings"),
     url(r'^bookmarklets/$', login_required(BookmarkletsView.as_view()), name="bookmarklets"),
     url(r'^give/me/qr/code/(?P<pk>\d+)$', login_required(QRCodeView.as_view()), name="give_me_qr_code"),

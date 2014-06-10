@@ -182,6 +182,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': False,
         },
+        'bank': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
     }
 }
 
