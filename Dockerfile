@@ -15,6 +15,11 @@ RUN apt-get install -qqy python2.7 python2.7-dev \
 # Pillow dependencies
 RUN apt-get install -qqy libjpeg-dev libpng12-dev libtiff5-dev libfreetype6-dev \
 				libwebp-dev liblcms2-dev
+
+# sass
+RUN apt-get install -qqy ruby
+RUN gem install compass
+
 # Python unverified dependencies
 RUN pip install --allow-external=elementtree --allow-unverified=elementtree elementtree
 
