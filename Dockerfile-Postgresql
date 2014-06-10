@@ -5,9 +5,6 @@ RUN apt-get -qq update
 RUN apt-get -qq upgrade
 RUN locale-gen ru_RU.UTF-8
 RUN locale-gen en_US.UTF-8
-#ENV LC_ALL ru_RU.UTF-8
-#ENV LANG ru_RU.UTF-8
-#RUN dpkg-reconfigure locales
 RUN update-locale LANG=ru_RU.UTF-8 LC_ALL=ru_RU.UTF-8
 RUN apt-get -qqy install postgresql
 RUN echo "listen_addresses = '*'" >> /etc/postgresql/9.3/main/postgresql.conf
