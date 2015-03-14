@@ -7,6 +7,7 @@ MAIN_IMAGE = $(DOCKER_IMAGE_PREFIX)main
 MAIN_NAME = $(DOCKER_IMAGE_PREFIX)main_run
 DB_PORT ?= 5433
 APP_PORT ?= 8000
+export DOCKER_HOST ?= localhost
 
 
 .PHONY:
@@ -36,5 +37,5 @@ db_init:
 
 db_run: db_init
 	docker run -p $(DB_PORT):5432 -d  --name=$(DB_NAME) $(DB_IMAGE) && sleep 2
-	createuser -h127.0.0.1 -p$(DB_PORT) -Upostgres bookmarks -S
-	createdb -h127.0.0.1 -p$(DB_PORT) -Upostgres bookmarks -O bookmarks
+	docker exec $(DB_NAME) createuser -h127.0.0.1 -p5432 -Upostgres bookmarks -S
+	docker exec $(DB_NAME) createdb -h127.0.0.1 -p5432 -Upostgres bookmarks -O bookmarks
