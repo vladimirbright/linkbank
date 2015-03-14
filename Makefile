@@ -39,3 +39,6 @@ db_run: db_init
 	docker run -p $(DB_PORT):5432 -d  --name=$(DB_NAME) $(DB_IMAGE) && sleep 2
 	docker exec $(DB_NAME) createuser -h127.0.0.1 -p5432 -Upostgres bookmarks -S
 	docker exec $(DB_NAME) createdb -h127.0.0.1 -p5432 -Upostgres bookmarks -O bookmarks
+
+psql:
+	docker exec -ti $(DB_NAME) psql -h 127.0.0.1 bookmarks bookmarks
