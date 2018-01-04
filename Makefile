@@ -13,7 +13,7 @@ export DOCKER_HOST ?= localhost
 .PHONY:
 
 
-runserver: syncdb
+runserver:
 	docker run -v $(CUR_DIR):/opt/src --link=$(DB_NAME):db -t -i --rm --name=$(MAIN_NAME) -p $(APP_PORT):8000 $(MAIN_IMAGE) runserver 0.0.0.0:8000
 
 

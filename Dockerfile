@@ -1,6 +1,7 @@
 FROM ubuntu:14.04
 MAINTAINER Vladimir Prokhoda <vladimirbright@gmail.com>
 USER root
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -qq update
 RUN apt-get -qq upgrade
 RUN locale-gen ru_RU.UTF-8
@@ -17,7 +18,7 @@ RUN apt-get install -qqy libjpeg-dev libpng12-dev libtiff5-dev libfreetype6-dev 
 				libwebp-dev liblcms2-dev
 
 # sass
-RUN apt-get install -qqy ruby
+RUN apt-get install -qqy ruby ruby-dev
 RUN gem install compass
 
 # Python unverified dependencies
